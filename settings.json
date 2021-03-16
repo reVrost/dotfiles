@@ -1,0 +1,88 @@
+{
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Horizon",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<Leader>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument",
+            ]
+        },
+        {
+            "before": [
+                "<Leader>",
+                "z"
+            ],
+            "commands": [
+                "workbench.action.toggleZenMode",
+            ]
+        },
+        {
+            "before": [
+                "<C-h>"
+            ],
+            "after": [
+                "<C-w>",
+                "h"
+            ]
+        },
+        {
+            "before": [
+                "<C-j>"
+            ],
+            "after": [
+                "<C-w>",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "<C-k>"
+            ],
+            "after": [
+                "<C-w>",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "<C-l>"
+            ],
+            "after": [
+                "<C-w>",
+                "l"
+            ]
+        }
+    ],
+    "zenMode.hideLineNumbers": false,
+    "editor.lineNumbers": "relative",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.leader": "<space>",
+    "vim.gdefault": true,
+    "vim.incsearch": true,
+    "vim.hlsearch": false,
+    "vsicons.dontShowNewVersionMessage": true,
+    "[proto3]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "editor.formatOnSave": true,
+    "opa.path": "/Users/kenley/opa",
+    "workbench.activityBar.visible": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "zenMode.hideStatusBar": false,
+}
