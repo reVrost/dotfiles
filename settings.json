@@ -12,6 +12,17 @@
             ]
         }
     ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<Leader>",
+                "t"
+            ],
+            "commands": [
+                "editor.emmet.action.wrapWithAbbreviation",
+            ],
+        },
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [
@@ -25,10 +36,35 @@
         {
             "before": [
                 "<Leader>",
+                "r"
+            ],
+            "commands": [
+                "editor.action.rename",
+            ]
+        },
+        {
+            "before": [
+                "<Leader>",
                 "z"
             ],
             "commands": [
                 "workbench.action.toggleZenMode",
+            ]
+        },
+        {
+            "before": [
+                "<Tab>",
+            ],
+            "commands": [
+                ":tabnext",
+            ]
+        },
+        {
+            "before": [
+                "<S-Tab>",
+            ],
+            "commands": [
+                ":tabprevious",
             ]
         },
         {
@@ -71,8 +107,8 @@
     "zenMode.hideLineNumbers": false,
     "editor.lineNumbers": "relative",
     "vim.easymotion": true,
-    "vim.sneak": true,
     "vim.leader": "<space>",
+    "vim.sneak": true,
     "vim.gdefault": true,
     "vim.incsearch": true,
     "vim.hlsearch": false,
@@ -85,4 +121,15 @@
     "workbench.activityBar.visible": false,
     "workbench.startupEditor": "newUntitledFile",
     "zenMode.hideStatusBar": false,
+    "go.toolsManagement.autoUpdate": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "vim.surround": true,
+    "html.autoClosingTags": false,
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontLigatures": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
 }
