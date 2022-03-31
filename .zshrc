@@ -119,3 +119,24 @@ alias vi="nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# Some python pyenve init stuff
+# # pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+#ZLIB
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
+
+#DIRENV
+eval "$(direnv hook zsh)"
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
