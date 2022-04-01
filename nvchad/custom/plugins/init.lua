@@ -20,4 +20,10 @@ return {
       run = "./install.sh",
       requires = "hrsh7th/nvim-cmp",
    },
+   {
+      "tpope/vim-surround",
+   },
+   {
+      "matze/vim-move",
+   },
 }

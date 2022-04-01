@@ -8,6 +8,10 @@ M.plugins = {
       lspconfig = {
          setup_lspconf = "custom.lspconfig",
       },
+      nvimtree = {
+         -- packerCompile required after changing lazy_load
+         lazy_load = false,
+      },
    },
 
    default_plugin_config_replace = {
@@ -36,11 +40,6 @@ M.plugins = {
             { name = "path" },
             { name = "cmp_tabnine" },
          },
-      },
-      nvim_tree = {
-         -- git = {
-         --    enable = true,
-         -- },
       },
       gitsigns = {
          current_line_blame = true,
