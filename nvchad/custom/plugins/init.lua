@@ -26,4 +26,10 @@ return {
    {
       "matze/vim-move",
    },
+   {
+      "simrat39/symbols-outline.nvim",
+   },
+   {
+      "fatih/vim-go",
+   },
 }

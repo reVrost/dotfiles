@@ -1,6 +1,53 @@
 local M = {}
-
+-- imports
+local map = require("core.utils").map
 local userPlugins = require "custom.plugins"
+local compare = require "cmp.config.compare"
+local types = require "cmp.types"
+local colors = require("core.utils").load_config().ui.colors
+
+-- CMP kind wih snippet deprioritized
+local kindCompare = function(entry1, entry2)
+   local kind1 = entry1:get_kind()
+   kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100 or kind1
+   local kind2 = entry2:get_kind()
+   kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100 or kind2
+   if kind1 ~= kind2 then
+      if kind1 == types.lsp.CompletionItemKind.Snippet then
+         return false
+      end
+      if kind2 == types.lsp.CompletionItemKind.Snippet then
+         return true
+      end
+      local diff = kind1 - kind2
+      if diff < 0 then
+         return true
+      elseif diff > 0 then
+         return false
+      end
+   end
+end
+
+-- Relative filename on feline
+local relative_filename = {
+   provider = function()
+      local filename = vim.fn.expand "%:~:."
+      local extension = vim.fn.expand "%:e"
+      local icon = require("nvim-web-devicons").get_icon(filename, extension)
+      if icon == nil then
+         icon = " "
+      end
+      return " " .. icon .. " " .. filename .. " "
+   end,
+   hl = {
+      fg = colors.white,
+      bg = colors.lightbg,
+   },
+   right_sep = {
+      str = " ",
+      hl = { fg = colors.lightbg, bg = colors.lightbg2 },
+   },
+}
 
 -- Plugins
 M.plugins = {
@@ -40,6 +87,42 @@ M.plugins = {
             { name = "path" },
             { name = "cmp_tabnine" },
          },
+         formatting = {
+            format = function(entry, vim_item)
+               local icons = require "plugins.configs.lspkind_icons"
+               vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+
+               vim_item.menu = ({
+                  nvim_lsp = "[LSP]",
+                  nvim_lua = "[Lua]",
+                  cmp_tabnine = "[Tabnine]",
+                  buffer = "[BUF]",
+               })[entry.source.name]
+
+               return vim_item
+            end,
+         },
+         experimental = {
+            ghost_text = true,
+         },
+         sorting = {
+            priority_weight = 2,
+            comparators = {
+               compare.offset,
+               compare.exact,
+               -- compare.scopes,
+               compare.score,
+               compare.locality,
+               kindCompare,
+               compare.recently_used,
+               compare.sort_text,
+               compare.length,
+               compare.order,
+            },
+         },
+      },
+      feline = {
+         file_name = relative_filename,
       },
       gitsigns = {
          current_line_blame = true,
@@ -64,11 +147,15 @@ M.mappings = {
       better_escape = { -- <ESC> will still work
          esc_insertmode = { "jj", "jk" }, -- multiple mappings allowed
       },
+      lspconfig = {
+         set_loclist = { "<nop>" },
+      },
    },
 }
 
 M.ui = {
    theme = "aquarium",
+   hl_override = "custom.highlights",
 }
 
 return M

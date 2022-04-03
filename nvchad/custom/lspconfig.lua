@@ -11,7 +11,7 @@ M.setup_lsp = function(attach, capabilities)
    }
 
    -- lspservers with default config
-   local servers = { "html", "cssls", "bashls", "clangd", "emmet_ls", "gopls" }
+   local servers = { "clangd", "pyright" }
 
    for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup {
@@ -24,18 +24,35 @@ M.setup_lsp = function(attach, capabilities)
    end
 
    vim.diagnostic.config {
-      underline = false,
+      underline = true,
       virtual_text = false,
-      -- virtual_text = {
-      --    spacing = 8,
-      -- },
    }
 
+   lspconfig.gopls.setup {
+      on_attach = attach,
+      capabilities = capabilities,
+      cmd = { "gopls", "serve" },
+      settings = {
+         gopls = {
+            analyses = {
+               unusedparams = true,
+            },
+            staticcheck = true,
+            linksInHover = false,
+            codelens = {
+               generate = true,
+               gc_details = true,
+               regenerate_cgo = true,
+               tidy = true,
+               upgrade_depdendency = true,
+               vendor = true,
+            },
+            usePlaceholders = true,
+         },
+      },
+   }
    -- lua lsp!
-   -- local sumneko_root_path = "/home/sid/test/sumneko_lua"
-   -- local sumneko_binary = "/usr/local/bin/lua-language-server"
    lspconfig.sumneko_lua.setup {
-      -- cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
       on_attach = attach,
       capabilities = capabilities,
       settings = {

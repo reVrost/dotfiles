@@ -25,10 +25,6 @@ local sources = {
       },
    },
 
-   -- Go
-   b.formatting.gofmt,
-   b.diagnostics.staticcheck.with { extra_args = { "--global vim" } },
-
    -- Protos
    b.diagnostics.buf.with { extra_args = { "--global vim" } },
 
