@@ -5,7 +5,7 @@ local sources = {
 
    -- webdev stuff
    b.formatting.deno_fmt,
-   b.formatting.prettierd.with {
+   b.formatting.prettier.with {
       filetypes = {
          "javascript",
          "javascriptreact",
@@ -18,7 +18,6 @@ local sources = {
          "html",
          "json",
          "jsonc",
-         "yaml",
          "markdown",
          "graphql",
          "handlebars",
