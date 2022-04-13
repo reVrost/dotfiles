@@ -116,6 +116,7 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Vim
 alias vim="nvim"
 alias vi="nvim"
+alias ovim="vim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"

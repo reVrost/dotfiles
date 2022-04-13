@@ -1,10 +1,11 @@
 local M = {}
 -- imports
-local map = require("core.utils").map
 local userPlugins = require "custom.plugins"
 local compare = require "cmp.config.compare"
 local types = require "cmp.types"
-local colors = require("core.utils").load_config().ui.colors
+
+local th = "aquarium"
+local colors = require("hl_themes." .. th)
 
 -- CMP kind wih snippet deprioritized
 local kindCompare = function(entry1, entry2)
@@ -45,12 +46,15 @@ local relative_filename = {
    },
    right_sep = {
       str = " ",
-      hl = { fg = colors.lightbg, bg = colors.lightbg2 },
+      hl = { fg = colors.white, bg = colors.lightbg2 },
    },
 }
 
 -- Plugins
 M.plugins = {
+   status = {
+      alpha = "true",
+   },
    options = {
       lspconfig = {
          setup_lspconf = "custom.lspconfig",
@@ -154,7 +158,7 @@ M.mappings = {
 }
 
 M.ui = {
-   theme = "aquarium",
+   theme = th,
    hl_override = "custom.highlights",
 }
 

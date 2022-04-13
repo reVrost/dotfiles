@@ -24,12 +24,14 @@ return {
       "tpope/vim-surround",
    },
    {
-      "matze/vim-move",
-   },
-   {
       "simrat39/symbols-outline.nvim",
+      opt = true,
+      cmd = { "SymbolsOutline" },
    },
    {
       "fatih/vim-go",
+   },
+   {
+      "mg979/vim-visual-multi",
    },
 }

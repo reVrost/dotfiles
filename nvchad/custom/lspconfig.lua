@@ -28,6 +28,15 @@ M.setup_lsp = function(attach, capabilities)
       virtual_text = false,
    }
 
+   lspconfig.terraformls.setup {
+      on_attach = attach,
+      capabilities = capabilities,
+      filetypes = { "terraform", "hcl" },
+      flags = {
+         debounce_text_changes = 150,
+      },
+   }
+
    lspconfig.gopls.setup {
       on_attach = attach,
       capabilities = capabilities,

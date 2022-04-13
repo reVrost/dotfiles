@@ -5,6 +5,7 @@ local sources = {
 
    -- webdev stuff
    b.formatting.deno_fmt,
+   b.formatting.terraform_fmt,
    b.formatting.prettier.with {
       filetypes = {
          "javascript",
