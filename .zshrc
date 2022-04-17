@@ -116,7 +116,10 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Vim
 alias vim="nvim"
 alias vi="nvim"
-alias ovim="vim"
+alias workc="git log --shortstat --author \"Kenley Bastari\" --since \"2 weeks ago\" --until \"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
+
+alias vic="nvim ~/.config/nvim/lua"
+alias vik="nvim ~/.config/kitty/kitty.conf"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
