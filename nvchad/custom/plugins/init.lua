@@ -34,4 +34,10 @@ return {
    {
       "mg979/vim-visual-multi",
    },
+   {
+      "luukvbaal/stabilize.nvim",
+      config = function()
+         require("stabilize").setup()
+      end,
+   },
 }

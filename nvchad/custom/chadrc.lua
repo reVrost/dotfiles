@@ -46,7 +46,7 @@ local relative_filename = {
    },
    right_sep = {
       str = " ",
-      hl = { fg = colors.white, bg = colors.lightbg2 },
+      hl = { fg = colors.lightbg, bg = colors.lightbg2 },
    },
 }
 
