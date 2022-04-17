@@ -46,3 +46,25 @@ vim.api.nvim_set_keymap("s", "<c-k>", "v:lua.snip_complete()", { expr = true, si
 vim.api.nvim_set_keymap("i", "<c-j>", "v:lua.r_snip_complete()", { expr = true, silent = true })
 vim.api.nvim_set_keymap("s", "<c-j>", "v:lua.r_snip_complete()", { expr = true, silent = true })
 vim.api.nvim_set_keymap("i", "<c-l>", "<Plug>luansip-next-choice", {})
+
+-- Harpoon
+vim.keymap.set({ "n" }, "<leader>a", function()
+   require("harpoon.mark").add_file()
+end, { silent = true })
+
+vim.keymap.set({ "n" }, "<leader>hh", function()
+   require("harpoon.ui").toggle_quick_menu()
+end, { silent = true })
+
+vim.keymap.set({ "n" }, "<leader>1", function()
+   require("harpoon.ui").nav_file(1)
+end, { silent = true })
+vim.keymap.set({ "n" }, "<leader>2", function()
+   require("harpoon.ui").nav_file(2)
+end, { silent = true })
+vim.keymap.set({ "n" }, "<leader>3", function()
+   require("harpoon.ui").nav_file(3)
+end, { silent = true })
+vim.keymap.set({ "n" }, "<leader>4", function()
+   require("harpoon.ui").nav_file(4)
+end, { silent = true })
