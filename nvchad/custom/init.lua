@@ -68,3 +68,8 @@ end, { silent = true })
 vim.keymap.set({ "n" }, "<leader>4", function()
    require("harpoon.ui").nav_file(4)
 end, { silent = true })
+
+-- Played
+vim.keymap.set({ "n" }, "<leader>tt", function()
+   require("played").get_played()
+end, { silent = true })

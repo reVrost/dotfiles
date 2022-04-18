@@ -25,7 +25,7 @@ M.setup_lsp = function(attach, capabilities)
 
    vim.diagnostic.config {
       underline = true,
-      virtual_text = false,
+      virtual_text = true,
    }
 
    lspconfig.terraformls.setup {
