@@ -19,9 +19,6 @@ return {
       "tpope/vim-surround",
    },
    {
-      "github/copilot.vim",
-   },
-   {
       "simrat39/symbols-outline.nvim",
       opt = true,
       cmd = { "SymbolsOutline" },

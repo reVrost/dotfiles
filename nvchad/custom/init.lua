@@ -1,11 +1,21 @@
 local map = require("core.utils").map
 local ls = require "luasnip"
+local opt = vim.opt
 require "custom.snippets.init"
+
+-- vim opts
+opt.belloff = "all"
+
+-- Set nohl after confirm search
+-- local group = vim.api.nvim_create_augroup("reVrost", { clear = false })
+-- vim.api.nvim_create_autocmd({""})
+
 -- Mappings
 
+-- map is the same as vim.api.nvim_setkeymap
+-- But it overrides the nvchad keymap table
 map("n", "<leader>s", ":HopWord <CR>")
 map("n", "<leader>z", ":SymbolsOutline <CR>")
-map("n", "<leader>w", ":w <CR>")
 map("n", "<leader>q", ":q <CR>")
 map("n", "<leader>qq", ":qa <CR>")
 
@@ -70,6 +80,18 @@ vim.keymap.set({ "n" }, "<leader>4", function()
 end, { silent = true })
 
 -- Played
-vim.keymap.set({ "n" }, "<leader>tt", function()
+vim.keymap.set("n", "<leader>tt", function()
    require("played").get_played()
 end, { silent = true })
+
+local tele = require "telescope.builtin"
+-- Telescope
+vim.keymap.set("n", "<leader>fq", function()
+   tele.quickfix {}
+end)
+vim.keymap.set("n", "<leader>fc", function()
+   tele.command_history {}
+end)
+vim.keymap.set("n", "<leader>fr", function()
+   tele.lsp_references {}
+end)

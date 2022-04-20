@@ -81,6 +81,15 @@ M.plugins = {
             "go",
             "bash",
          },
+         incremental_selection = {
+            enable = true,
+            keymaps = {
+               init_selection = "<C-a>",
+               node_incremental = "<C-a>",
+               scope_incremental = "grc",
+               node_decremental = "<C-x>",
+            },
+         },
       },
       nvim_cmp = {
          sources = {
