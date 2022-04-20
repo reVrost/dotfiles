@@ -84,8 +84,21 @@ vim.keymap.set("n", "<leader>tt", function()
    require("played").get_played()
 end, { silent = true })
 
-local tele = require "telescope.builtin"
 -- Telescope
+local tele = require "telescope.builtin"
+local edit_neovim = function()
+   require("telescope.builtin").find_files {
+      shorten_path = false,
+      cwd = "~/.config/nvim/lua/custom/",
+      prompt = "~ dotfiles ~",
+      hidden = true,
+
+      layout_strategy = "horizontal",
+      layout_config = {
+         preview_width = 0.55,
+      },
+   }
+end
 vim.keymap.set("n", "<leader>fq", function()
    tele.quickfix {}
 end)
@@ -95,3 +108,4 @@ end)
 vim.keymap.set("n", "<leader>fr", function()
    tele.lsp_references {}
 end)
+vim.keymap.set("n", "<leader>fn", edit_neovim)
