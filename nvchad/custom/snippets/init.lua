@@ -27,16 +27,25 @@ local rep = require("luasnip.extras").rep
 -- Go
 ls.add_snippets("go", {
    -- Print anything
-   s("pr", fmt('fmt.Printf("debug: {} is %+v\\n", {})', { i(1, "default"), rep(1) })),
+   s(
+      "pr",
+      fmt(
+         [[
+           p{}, _ := json.MarshalIndent({}, "", " ")
+           fmt.Printf("debug: {} is %+v\n", string(p{}))
+         ]],
+         { rep(1), i(1, "default"), rep(1), rep(1) }
+      )
+   ),
    -- If has key
    s(
       "ihk",
       fmt(
          [[
-        if val, ok := {}["{}"]; ok {{
-            {}
-        }}
-       ]],
+          if val, ok := {}["{}"]; ok {{
+              {}
+          }}
+         ]],
          { i(1, "dict"), i(2, "key"), i(3, "code") }
       )
    ),
@@ -48,7 +57,7 @@ ls.add_snippets("go", {
           if err != nil {{
               return {}err
           }}   
-        ]],
+         ]],
          { i(1, "val"), i(2, "fn()"), i(3, "nil, ") }
       )
    ),

@@ -113,14 +113,15 @@ zstyle :prompt:pure:git:stash show yes
 #source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Alias
+# Aliases
 alias mv="mv --no-clobber"
 alias vim="nvim"
 alias vi="nvim"
-alias workc="git log --shortstat --author \"Kenley Bastari\" --since \"2 weeks ago\" --until \"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
-
 alias vic="nvim ~/.config/nvim/lua"
 alias vik="nvim ~/.config/kitty/kitty.conf"
+
+alias ch="curl cht.sh/$1"
+alias workc="git log --shortstat --author \"Kenley Bastari\" --since \"2 weeks ago\" --until \"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
