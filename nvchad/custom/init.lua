@@ -8,7 +8,18 @@ opt.belloff = "all"
 
 -- Set nohl after confirm search
 -- local group = vim.api.nvim_create_augroup("reVrost", { clear = false })
--- vim.api.nvim_create_autocmd({""})
+-- vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+--    group = group,
+--    callback = function()
+--       if vim.v["hlsearch"] == 1 then
+--          vim.api.nvim_feedkeys(":nohl\n", "m", false)
+--          -- vim.api.nvim_set_var("hlsearch", 0)
+--          -- vim.cmd "nohl"
+--       else
+--          print "noop"
+--       end
+--    end,
+-- })
 
 -- Mappings
 
@@ -99,6 +110,20 @@ local edit_neovim = function()
       },
    }
 end
+-- for work
+local edit_platform = function()
+   require("telescope.builtin").find_files {
+      shorten_path = false,
+      cwd = "~/code/platform",
+      prompt = "~ Identitii platform ~",
+      hidden = true,
+
+      layout_strategy = "horizontal",
+      layout_config = {
+         preview_width = 0.55,
+      },
+   }
+end
 vim.keymap.set("n", "<leader>fq", function()
    tele.quickfix {}
 end)
@@ -109,3 +134,4 @@ vim.keymap.set("n", "<leader>fr", function()
    tele.lsp_references {}
 end)
 vim.keymap.set("n", "<leader>fn", edit_neovim)
+vim.keymap.set("n", "<leader>fi", edit_platform)

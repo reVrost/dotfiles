@@ -52,4 +52,42 @@ ls.add_snippets("go", {
          { i(1, "val"), i(2, "fn()"), i(3, "nil, ") }
       )
    ),
+   s(
+      "lmb",
+      fmt(
+         [[
+          package main
+
+          import (
+                  "context"
+
+                  "github.com/aws/aws-lambda-go/lambda"
+                  "go.opentelemetry.io/contrib/instrumentation/github.com/aws/aws-lambda-go/otellambda"
+                  "go.opentelemetry.io/otel/trace"
+                  "lab.identitii.com/platform/core/observability"
+          )
+
+          var tracer = observability.NewTracer("lab.identitii.com/platform/{}/lambda/{}")
+
+          type handler struct {{
+          }}
+
+          func newHandler() *handler {{
+                  return &handler{{}}
+          }}
+       
+          func (h *handler) Handle(ctx context.Context, event any) error {{
+                  ctx, sp := tracer.Start(ctx, "Handle", trace.WithSpanKind(trace.SpanKindConsumer))
+                  defer sp.End()
+          }}
+
+          func main() {{
+                  h := newHandler()
+                  
+                  lambda.Start(otellambda.InstrumentHandler(h.Handle))
+          }}
+         ]],
+         { i(1, "iam"), i(2, "mylambda") }
+      )
+   ),
 })

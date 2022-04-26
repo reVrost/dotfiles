@@ -48,7 +48,7 @@ M.setup_lsp = function(attach, capabilities)
             },
             staticcheck = true,
             linksInHover = false,
-            codelens = {
+            codelenses = {
                generate = true,
                gc_details = true,
                regenerate_cgo = true,
