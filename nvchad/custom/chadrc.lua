@@ -4,7 +4,7 @@ local userPlugins = require "custom.plugins"
 local compare = require "cmp.config.compare"
 local types = require "cmp.types"
 
-local th = "tokyonight"
+local th = "aquarium"
 local colors = require("hl_themes." .. th)
 
 -- CMP kind wih snippet deprioritized
