@@ -33,6 +33,10 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install direnv
 brew install neovim
 
+# git stuff
+brew tap microsoft/git; brew install --cask git-credential-manager-core
+
+
 # pure prompt
 printf "\nInstalling pure prompt.."
 mkdir -p "$HOME/.zsh"
