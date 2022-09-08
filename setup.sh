@@ -33,6 +33,13 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew install direnv
 brew install neovim
 
+# lsps
+brew install lua-language-server
+brew install stylua
+brew install luarocks
+brew install shellcheck
+luarocks install luacheck
+
 # git stuff
 brew install git
 brew tap microsoft/git; brew install --cask git-credential-manager-core

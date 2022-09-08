@@ -1,18 +1,28 @@
 local ls = require "luasnip"
+-- shorthands
+-- local s = ls.snippet
+-- local sn = ls.snippet_node
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local d = ls.dynamic_node
+-- local r = ls.restore_node
 
+-- local ls = pcall(require, "luasnip")
 -- This is a snippet creator
 --  s(<trigger>, <nodes>)
-local s = ls.s
-local t = ls.text_node
+-- local s = require("luasnip").s
+-- local t = ls.text_node
 
 -- This is format node, like sprintf
-local fmt = require("luasnip.extras.fmt").fmt
+-- local fmt = require("luasnip.extras.fmt").fmt
 
 -- This is an insert node, i(position, default_text)
-local i = ls.insert_node
+-- local i = ls.insert_node
 
 -- This repeats a node rep(position)
-local rep = require("luasnip.extras").rep
+-- local rep = require("luasnip.extras").rep
 -- ls.add_snippets("all", {
 --    s("china", fmt("sello", {})),
 --    { key = "china" },
@@ -25,78 +35,76 @@ local rep = require("luasnip.extras").rep
 -- })
 
 -- Go
-ls.add_snippets("go", {
-   -- Print anything
-   s(
-      "pr",
-      fmt(
-         [[
-           p{}, _ := json.MarshalIndent({}, "", " ")
-           fmt.Printf("debug: {} is %+v\n", string(p{}))
-         ]],
-         { rep(1), i(1, "default"), rep(1), rep(1) }
-      )
-   ),
-   -- If has key
-   s(
-      "ihk",
-      fmt(
-         [[
-          if val, ok := {}["{}"]; ok {{
-              {}
-          }}
-         ]],
-         { i(1, "dict"), i(2, "key"), i(3, "code") }
-      )
-   ),
-   s(
-      "er",
-      fmt(
-         [[
-          {}, err := {} 
-          if err != nil {{
-              return {}err
-          }}   
-         ]],
-         { i(1, "val"), i(2, "fn()"), i(3, "nil, ") }
-      )
-   ),
-   s(
-      "lmb",
-      fmt(
-         [[
-          package main
-
-          import (
-                  "context"
-
-                  "github.com/aws/aws-lambda-go/lambda"
-                  "go.opentelemetry.io/contrib/instrumentation/github.com/aws/aws-lambda-go/otellambda"
-                  "go.opentelemetry.io/otel/trace"
-                  "lab.identitii.com/platform/core/observability"
-          )
-
-          var tracer = observability.NewTracer("lab.identitii.com/platform/{}/lambda/{}")
-
-          type handler struct {{
-          }}
-
-          func newHandler() *handler {{
-                  return &handler{{}}
-          }}
-       
-          func (h *handler) Handle(ctx context.Context, event any) error {{
-                  ctx, sp := tracer.Start(ctx, "Handle", trace.WithSpanKind(trace.SpanKindConsumer))
-                  defer sp.End()
-          }}
-
-          func main() {{
-                  h := newHandler()
-                  
-                  lambda.Start(otellambda.InstrumentHandler(h.Handle))
-          }}
-         ]],
-         { i(1, "iam"), i(2, "mylambda") }
-      )
-   ),
-})
+-- ls.add_snippets("go", {
+--    s(
+--       "pr",
+--       fmt(
+--          [[
+--            p{}, _ := json.MarshalIndent({}, "", " ")
+--            fmt.Printf("debug: {} is %+v\n", string(p{}))
+--          ]],
+--          { rep(1), i(1, "default"), rep(1), rep(1) }
+--       )
+--    ),
+--    s(
+--       "ihk",
+--       fmt(
+--          [[
+--           if val, ok := {}["{}"]; ok {{
+--               {}
+--           }}
+--          ]],
+--          { i(1, "dict"), i(2, "key"), i(3, "code") }
+--       )
+--    ),
+--    s(
+--       "er",
+--       fmt(
+--          [[
+--           {}, err := {}
+--           if err != nil {{
+--               return {}err
+--           }}
+--          ]],
+--          { i(1, "val"), i(2, "fn()"), i(3, "nil, ") }
+--       )
+--    ),
+--    s(
+--       "lmb",
+--       fmt(
+--          [[
+--           package main
+--
+--           import (
+--                   "context"
+--
+--                   "github.com/aws/aws-lambda-go/lambda"
+--                   "go.opentelemetry.io/contrib/instrumentation/github.com/aws/aws-lambda-go/otellambda"
+--                   "go.opentelemetry.io/otel/trace"
+--                   "lab.identitii.com/platform/core/observability"
+--           )
+--
+--           var tracer = observability.NewTracer("lab.identitii.com/platform/{}/lambda/{}")
+--
+--           type handler struct {{
+--           }}
+--
+--           func newHandler() *handler {{
+--                   return &handler{{}}
+--           }}
+--
+--           func (h *handler) Handle(ctx context.Context, event any) error {{
+--                   ctx, sp := tracer.Start(ctx, "Handle", trace.WithSpanKind(trace.SpanKindConsumer))
+--                   defer sp.End()
+--           }}
+--
+--           func main() {{
+--                   h := newHandler()
+--
+--                   lambda.Start(otellambda.InstrumentHandler(h.Handle))
+--           }}
+--          ]],
+--          { i(1, "iam"), i(2, "mylambda") }
+--       )
+--    ),
+-- })

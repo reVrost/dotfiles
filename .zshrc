@@ -52,6 +52,7 @@ zstyle :prompt:pure:git:stash show yes
 # Zshrc plugin
 #source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey "ç" fzf-cd-widget
 
 # Aliases
 alias vim="nvim"
