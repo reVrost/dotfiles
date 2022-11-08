@@ -29,8 +29,8 @@ local sources = {
   b.diagnostics.buf.with { extra_args = { "--global vim" } },
 
   -- Lua
-  -- b.formatting.stylua,
-  -- b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
+  b.formatting.stylua,
+  b.diagnostics.luacheck.with { extra_args = { "--global vim" } },
 
   -- Shell
   b.formatting.shfmt,

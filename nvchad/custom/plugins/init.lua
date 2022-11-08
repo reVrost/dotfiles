@@ -1,7 +1,4 @@
 return {
-   ["L3MON4D3/LuaSnip"] = {
-      branch = "ls_snippets_preserve",
-   },
    ["neovim/nvim-lspconfig"] = {
       config = function()
          require "plugins.configs.lspconfig"
@@ -9,10 +6,7 @@ return {
       end,
    },
    ["kyazdani42/nvim-tree.lua"] = {
-     -- disable lazy load
-      after = "nvim-web-devicons",
-   },
-   ["hrsh7th/nvim-cmp"] = {
+      -- disable lazy load
       after = "nvim-web-devicons",
    },
    ["jose-elias-alvarez/null-ls.nvim"] = {
@@ -22,9 +16,9 @@ return {
       end,
    },
    ["karb94/neoscroll.nvim"] = {},
-   ["phaazon/hop.nvim"] = {
+   ["ggandor/leap.nvim"] = {
       config = function()
-         require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
+         require("leap").add_default_mappings()
       end,
    },
    ["tpope/vim-surround"] = {},
@@ -46,12 +40,18 @@ return {
    ["ThePrimeagen/harpoon"] = {
       requires = "nvim-lua/plenary.nvim",
    },
-   ["reVrost/played.nvim"] = {},
+   -- ["reVrost/played.nvim"] = {},
    ["max397574/better-escape.nvim"] = {
       config = function()
          require("better_escape").setup {
             mapping = { "jk", "jj" },
          }
+      end,
+   },
+   ["folke/trouble.nvim"] = {
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+         require("trouble").setup {}
       end,
    },
    ["nvim-treesitter/nvim-treesitter"] = {},

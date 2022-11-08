@@ -81,6 +81,11 @@ M.plugins = {
             },
          },
       },
+      ["kyazdani42/nvim-tree.lua"] = {
+         view = {
+            adaptive_size = true,
+         },
+      },
       ["hrsh7th/nvim-cmp"] = {
          sources = {
             { name = "nvim_lsp" },

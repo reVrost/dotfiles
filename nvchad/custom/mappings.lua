@@ -7,6 +7,10 @@ M.general = {
       ["q"] = { "<nop>" },
       ["<leader>s"] = { ":HopWord <CR>" },
       ["<leader>q"] = { ":SymbolsOutline <CR>" },
+      ["<leader>rt"] = { ":GoTestFunc <CR>" },
+      ["<leader>xx"] = { ":TroubleToggle document_diagnostics<CR>" },
+      ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
+      ["ge"] = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>" },
 
       -- reload snippets
       ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },
@@ -70,6 +74,12 @@ M.general = {
       ["<leader>fc"] = {
          function()
             require("telescope.builtin").command_history()
+         end,
+         { silent = true },
+      },
+      ["<leader>fi"] = {
+         function()
+            require("telescope.builtin").lsp_implementations()
          end,
          { silent = true },
       },
