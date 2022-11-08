@@ -13,6 +13,16 @@ local t = function(str)
    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+vim.api.nvim_create_user_command("DiffviewToggle", function(e)
+   local view = require("diffview.lib").get_current_view()
+
+   if view then
+      vim.cmd "DiffviewClose"
+   else
+      vim.cmd("DiffviewOpen " .. e.args)
+   end
+end, { nargs = "*" })
+
 _G.snip_complete = function()
    if fn.pumvisible() == 1 then
       return t "<C-n>"

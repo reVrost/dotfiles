@@ -8,6 +8,7 @@ M.general = {
       ["<leader>s"] = { ":HopWord <CR>" },
       ["<leader>q"] = { ":SymbolsOutline <CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
+      ["<leader>dd"] = { ":DiffviewToggle <CR>" },
       ["<leader>xx"] = { ":TroubleToggle document_diagnostics<CR>" },
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
       ["ge"] = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>" },
