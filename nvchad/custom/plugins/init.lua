@@ -54,6 +54,11 @@ return {
          require("trouble").setup {}
       end,
    },
+   ["folke/zen-mode.nvim"] = {
+      config = function()
+         require("zen-mode").setup {}
+      end,
+   },
    ["nvim-treesitter/nvim-treesitter"] = {},
    ["nvim-treesitter/nvim-treesitter-context"] = {},
 }
