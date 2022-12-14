@@ -40,3 +40,7 @@ _G.r_snip_complete = function()
    end
    return ""
 end
+
+function _G.smart_tab()
+   return require("luasnip").expand_or_jumpable() and t "<Plug>luasnip-expand-or-jump" or t "<Tab>"
+end

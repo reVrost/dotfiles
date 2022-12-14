@@ -4,11 +4,6 @@ local attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 -- lspservers with default config
 local servers = { "clangd", "pyright", "yamlls", "vls" }
-lspconfig.tsserver.setup {
-   on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-   end,
-}
 
 for _, lsp in ipairs(servers) do
    lspconfig[lsp].setup {
@@ -62,6 +57,15 @@ lspconfig.gopls.setup {
       },
    },
 }
+
+-- use null ls for ts format
+lspconfig.tsserver.setup {
+   on_attach = function(client)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+   end,
+}
+
 -- lua lsp!
 lspconfig.sumneko_lua.setup {
    on_attach = attach,

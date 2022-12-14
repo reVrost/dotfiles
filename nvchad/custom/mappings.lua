@@ -1,5 +1,12 @@
 local M = {}
 
+-- The function is called `t` for `termcodes`.
+-- You don't have to call it that, but I find the terseness convenient
+local function t(str)
+   -- Adjust boolean arguments as needed
+   return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 M.general = {
    n = {
 
@@ -12,7 +19,8 @@ M.general = {
       ["<leader>zz"] = { ":ZenMode <CR>" },
       ["<leader>xx"] = { ":TroubleToggle document_diagnostics<CR>" },
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
-      ["ge"] = { "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>" },
+      ["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
+      ["gk"] = { "<cmd>lua vim.lsp.buf.hover()<CR>" },
 
       -- reload snippets
       ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },
@@ -122,6 +130,12 @@ M.general = {
    },
 
    i = {
+      ["<Tab>"] = {
+         "v:lua.smart_tab()",
+         "Jump to next",
+         opts = { expr = true },
+      },
+
       -- -- snippets keybind
       ["<c-k>"] = { "v:lua.snip_complete()" },
       ["<c-j>"] = { "v:lua.r_snip_complete()" },
