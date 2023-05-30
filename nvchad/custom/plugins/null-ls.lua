@@ -33,7 +33,7 @@ local sources = {
 
    -- Shell
    b.formatting.shfmt,
-   b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+   -- b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
 }
 
 local M = {}
