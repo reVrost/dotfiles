@@ -1,0 +1,44 @@
+
+
+new_tab kitty @ ls > kitty-dump.json
+layout tall
+cd /Users/kenley/code/immutable/imx-engine/services/order-book-mr
+title …/services/order-book-mr/e2e
+launch  nvim .
+title kitty @ ls > kitty-dump.json
+launch  zsh
+title kitty @ ls > ~/kitty-dump2.json
+launch  /bin/zsh
+focus
+title …/services/order-book-mr/e2e
+launch  zsh
+title …/services/order-book-mr/e2e
+launch  zsh
+
+
+new_tab …/code/immutable/imx-link
+layout horizontal
+cd /Users/kenley/code/immutable/imx-link
+title …/code/immutable/imx-link
+launch  zsh
+title kitty @ ls > ~/kitty-dump1.json
+launch  zsh
+focus
+
+
+new_tab ImmutableXClient.ts (~/code/immutable/imx-sdk-js/src/apps) - NVIM
+layout grid
+cd /Users/kenley/code/immutable/imx-sdk-js
+title ImmutableXClient.ts (~/code/immutable/imx-sdk-js/src/apps) - NVIM
+launch --env COLORTERM=truecolor --env COMMAND_MODE=unix2003 --env CONDA_CHANGEPS1=no --env CPPFLAGS=-I/usr/local/opt/zlib/include --env CR_PAT=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 --env GOPATH=/Users/kenley/.gvm/pkgsets/go1.19.5/global --env GOROOT=/Users/kenley/.gvm/gos/go1.19.5 --env GVM_OVERLAY_PREFIX=/Users/kenley/.gvm/pkgsets/go1.19.5/global/overlay --env GVM_PATH_BACKUP=/Users/kenley/.gvm/bin:/Users/kenley/.pyenv/shims:/Users/kenley/go/bin://Users/kenley/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/kitty.app/Contents/MacOS:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:/opt/homebrew/bin:/Users/kenley/.fzf/bin:/usr/local/n/bin --env GVM_ROOT=/Users/kenley/.gvm --env GVM_VERSION=1.0.22 --env HOME=/Users/kenley --env HOMEBREW_CELLAR=/opt/homebrew/Cellar --env HOMEBREW_PREFIX=/opt/homebrew --env HOMEBREW_REPOSITORY=/opt/homebrew --env INFOPATH=/opt/homebrew/share/info: --env KITTY_INSTALLATION_DIR=/Applications/kitty.app/Contents/Resources/kitty --env KITTY_PID=2652 --env KITTY_PUBLIC_KEY=1:D!~Ix*ZivSo%7f6xS;joZly<bdualRM6w+LtildJ --env KITTY_WINDOW_ID=6 --env LANG=en_AU.UTF-8 --env LDFLAGS=-L/usr/local/opt/zlib/lib --env LD_LIBRARY_PATH=/Users/kenley/.gvm/pkgsets/go1.19.5/global/overlay/lib: --env LESS=-R --env LOGNAME=kenley --env LSCOLORS=Gxfxcxdxbxegedabagacad --env LS_COLORS=di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43 --env LaunchInstanceID=FB7AA4F6-C82C-4CB9-9BD0-697E51A48E6E --env MANPATH=/Applications/kitty.app/Contents/Resources/man:/opt/homebrew/share/man:/usr/share/man:/usr/local/share/man:/Applications/kitty.app/Contents/Resources/man: --env N_PREFIX=/usr/local/n --env OLDPWD=/Users/kenley --env PAGER=less --env PATH=/Users/kenley/.gvm/pkgsets/go1.19.5/global/bin:/Users/kenley/.gvm/gos/go1.19.5/bin:/Users/kenley/.gvm/pkgsets/go1.19.5/global/overlay/bin:/Users/kenley/.gvm/bin:/Users/kenley/.gvm/bin:/Users/kenley/.pyenv/shims:/Users/kenley/go/bin://Users/kenley/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/kitty.app/Contents/MacOS:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:/opt/homebrew/bin:/Users/kenley/.fzf/bin:/usr/local/n/bin --env PKG_CONFIG_PATH=/Users/kenley/.gvm/pkgsets/go1.19.5/global/overlay/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig: --env PROMPT_EOL_MARK= --env PWD=/Users/kenley/code/immutable/imx-sdk-js --env PYENV_ROOT=/Users/kenley/.pyenv --env SECURITYSESSIONID=186b3 --env SHELL=/bin/zsh --env SHLVL=1 --env SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.kI0jO1sRHg/Listeners --env TERM=xterm-kitty --env TERMINFO=/Applications/kitty.app/Contents/Resources/kitty/terminfo --env TMPDIR=/var/folders/vq/hyzt6xgd5g33z18ghqrw_ly80000gp/T/ --env USER=kenley --env VIRTUAL_ENV_DISABLE_PROMPT=12 --env WINDOWID=179 --env XPC_FLAGS=0x0 --env XPC_SERVICE_NAME=0 --env ZSH=/Users/kenley/.oh-my-zsh --env _=/Applications/kitty.app/Contents/MacOS/kitty --env __CFBundleIdentifier=net.kovidgoyal.kitty --env __CF_USER_TEXT_ENCODING=0x1F6:0:15 --env gvm_go_name=go1.19.5 --env gvm_pkgset_name=global /opt/homebrew/bin/nvim .
+focus
+title …/code/immutable/imx-sdk-js
+launch  zsh
+
+
+new_tab ~
+layout fat
+cd /Users/kenley
+title ~
+launch  zsh
+focus
