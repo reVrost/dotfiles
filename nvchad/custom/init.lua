@@ -29,6 +29,14 @@ local t = function(str)
    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+_G.run_command = function()
+   print "HELLO"
+   local filetype = vim.bo.filetype
+   if filetype == "c" then
+      vim.cmd "!sh run.sh"
+   end
+end
+
 vim.api.nvim_create_user_command("DiffviewToggle", function(e)
    local view = require("diffview.lib").get_current_view()
 

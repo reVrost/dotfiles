@@ -13,7 +13,8 @@ M.general = {
       ["c"] = { '"_c' }, -- don't yank on change
       ["q"] = { "<nop>" },
       ["<leader>s"] = { ":HopWord <CR>" },
-      ["<leader>q"] = { ":SymbolsOutline <CR>" },
+      -- run commands
+      ["<leader>r"] = { ":lua run_command()<CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>dd"] = { ":DiffviewToggle <CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },

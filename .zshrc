@@ -59,6 +59,7 @@ alias vim="nvim"
 alias vi="nvim"
 alias vic="nvim ~/.config/nvim/lua"
 alias vik="nvim ~/.config/kitty/kitty.conf"
+alias bg='nohup "$@" > /dev/null 2>&1 &'
 
 alias ch="curl cht.sh/$1"
 alias workc="git log --shortstat --author \"Kenley Bastari\" --since \"2 weeks ago\" --until \"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
