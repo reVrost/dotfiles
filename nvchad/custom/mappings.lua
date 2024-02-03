@@ -7,6 +7,17 @@ local function t(str)
    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+M.copilot = {
+   i = {
+      ["<C-;>"] = {
+         function()
+            vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
+         end,
+         "Copilot Accept",
+         { replace_keycodes = true, nowait = true, silent = true, expr = true, noremap = true },
+      },
+   },
+}
 M.general = {
    n = {
 
