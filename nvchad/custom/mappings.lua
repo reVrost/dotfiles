@@ -29,6 +29,7 @@ M.general = {
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>dd"] = { ":DiffviewToggle <CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
+      ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
       ["<leader>xx"] = { ":TroubleToggle document_diagnostics<CR>" },
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
       ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
