@@ -38,7 +38,7 @@ M.general = {
       ["<leader>xx"] = { ":TroubleToggle lsp_document_diagnostics<CR>" },
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
       ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
-      ["<leader>qa"] = { ":qa<CR>" },
+      ["<leader>qa"] = { ":qa!<CR>" },
       ["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
       ["gk"] = { "<cmd>lua vim.lsp.buf.hover()<CR>" },
 
