@@ -66,6 +66,7 @@ bindkey "ç" fzf-cd-widget
 # Aliases
 alias vim="nvim"
 alias vi="nvim"
+alias v="nvim"
 alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias python=python3
