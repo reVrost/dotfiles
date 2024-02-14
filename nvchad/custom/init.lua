@@ -7,6 +7,7 @@ local opt, g, fn = vim.opt, vim.g, vim.fn
 opt.belloff = "all"
 opt.relativenumber = true
 opt.encoding = "utf-8"
+opt.splitkeep = "screen"
 
 -- WSL clipboard
 if vim.fn.has "wsl" == 1 then

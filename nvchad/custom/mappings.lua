@@ -22,19 +22,27 @@ M.general = {
    n = {
 
       ["c"] = { '"_c' }, -- don't yank on change
+      ["C"] = { '"_C' }, -- don't yank on change
       ["q"] = { "<nop>" },
       ["<leader>s"] = { ":HopWord <CR>" },
       -- run commands
       ["<leader>r"] = { ":lua run_command()<CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>dd"] = { ":DiffviewToggle <CR>" },
+      --
+      ["<leader>e"] = { "<cmd>lua MiniFiles.open()<CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
-      ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
-      ["<leader>xx"] = { ":TroubleToggle document_diagnostics<CR>" },
+      ["<leader>lr"] = { ":LspRestart <CR>" },
+      ["<leader>li"] = { ":LspInfo <CR>" },
+      ["<leader>ms"] = { ":Mason <CR>" },
+      ["<leader>xx"] = { ":TroubleToggle lsp_document_diagnostics<CR>" },
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
       ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
       ["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
       ["gk"] = { "<cmd>lua vim.lsp.buf.hover()<CR>" },
+
+      -- macros/snippets
+      ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
 
       -- reload snippets
       ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },

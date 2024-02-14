@@ -45,16 +45,24 @@ local plugins = {
       lazy = false, -- Assuming you want to load it at startup
    },
    {
-      "luukvbaal/stabilize.nvim",
-      config = function()
-         require("stabilize").setup()
-      end,
-      lazy = false, -- Assuming you want to load it at startup
-   },
-   {
       "ThePrimeagen/harpoon",
       requires = "nvim-lua/plenary.nvim",
       lazy = false, -- Assuming you want to load it with 'plenary.nvim'
+   },
+
+   {
+      "echasnovski/mini.files",
+      version = false,
+      lazy = false,
+      config = function()
+         require("mini.files").setup {}
+      end,
+   },
+   {
+      "nvimdev/lspsaga.nvim",
+      config = function()
+         require("lspsaga").setup {}
+      end,
    },
    {
       "max397574/better-escape.nvim",
@@ -71,6 +79,10 @@ local plugins = {
          require("zen-mode").setup {}
       end,
       lazy = false, -- Assuming you want to load it at startup
+   },
+   {
+      "folke/which-key.nvim",
+      enabled = false,
    },
    {
       "hrsh7th/nvim-cmp",
@@ -184,6 +196,7 @@ local plugins = {
    },
    {
       "nvim-tree/nvim-tree.lua",
+      lazy = true,
       opts = {
          git = {
             enable = true,
@@ -231,13 +244,13 @@ local plugins = {
    --   lazy = false, -- Assuming you want to load it after 'plenary.nvim'
    -- },
    -- ["reVrost/played.nvim"] is commented out in the original list
-   -- {
-   --   "folke/trouble.nvim",
-   --   requires = "kyazdani42/nvim-web-devicons",
-   --   config = function()
-   --     require("trouble").setup {}
-   --   end,
-   --   lazy = false, -- Assuming you want to load it with 'nvim-web-devicons'
-   -- },
+   {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+         require("trouble").setup {}
+      end,
+      lazy = false, -- Assuming you want to load it with 'nvim-web-devicons'
+   },
 }
 return plugins
