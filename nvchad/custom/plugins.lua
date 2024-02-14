@@ -1,4 +1,3 @@
----@type NvPluginSpec[]
 local plugins = {
    {
       "neovim/nvim-lspconfig",
@@ -58,12 +57,12 @@ local plugins = {
          require("mini.files").setup {}
       end,
    },
-   {
-      "nvimdev/lspsaga.nvim",
-      config = function()
-         require("lspsaga").setup {}
-      end,
-   },
+   -- {
+   --    "nvimdev/lspsaga.nvim",
+   --    config = function()
+   --       require("lspsaga").setup {}
+   --    end,
+   -- },
    {
       "max397574/better-escape.nvim",
       event = "InsertEnter",
