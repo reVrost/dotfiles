@@ -1,5 +1,18 @@
 local plugins = {
    {
+      "echasnovski/mini.files",
+      version = false,
+      lazy = false,
+      config = function()
+         require("mini.files").setup {
+            mappings = {
+               go_in_plus = "l",
+               go_out_plus = "h",
+            },
+         }
+      end,
+   },
+   {
       "neovim/nvim-lspconfig",
       config = function()
          require "plugins.configs.lspconfig"
@@ -49,11 +62,13 @@ local plugins = {
       lazy = false,
    },
    {
-      "echasnovski/mini.files",
-      version = "*",
+      "rmagatti/auto-session",
       lazy = false,
       config = function()
-         require("mini.files").setup {}
+         require("auto-session").setup {
+            log_level = "error",
+            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+         }
       end,
    },
    {
@@ -226,6 +241,7 @@ local plugins = {
    },
    {
       "nvim-tree/nvim-tree.lua",
+      enable = false,
       lazy = true,
       opts = {
          git = {
@@ -259,12 +275,12 @@ local plugins = {
          current_line_blame_formatter = "\t<author>, <author_time:%Y-%m-%d> - <summary>",
       },
    },
-   {
-      "sindrets/diffview.nvim",
-      after = "plenary.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      lazy = true,
-   },
+   -- {
+   --    "sindrets/diffview.nvim",
+   --    after = "plenary.nvim",
+   --    requires = "nvim-lua/plenary.nvim",
+   --    lazy = true,
+   -- },
    -- ["reVrost/played.nvim"] is commented out in the original list
    {
       "folke/trouble.nvim",
