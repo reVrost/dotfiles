@@ -50,7 +50,7 @@ M.general = {
       ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },
 
       -- harpoon keybinds
-      ["<leader>a"] = {
+      ["<leader>ha"] = {
          function()
             require("harpoon.mark").add_file()
          end,
