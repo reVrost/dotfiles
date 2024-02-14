@@ -29,40 +29,33 @@ local plugins = {
    },
    {
       "karb94/neoscroll.nvim",
-      lazy = false, -- Assuming you want to load it at startup
+      lazy = false,
    },
    {
       "tpope/vim-surround",
-      lazy = false, -- Assuming you want to load it at startup
+      lazy = false,
    },
    {
       "fatih/vim-go",
-      lazy = false, -- Assuming you want to load it at startup
+      lazy = false,
    },
    {
       "mg979/vim-visual-multi",
-      lazy = false, -- Assuming you want to load it at startup
+      lazy = false,
    },
    {
       "ThePrimeagen/harpoon",
       requires = "nvim-lua/plenary.nvim",
-      lazy = false, -- Assuming you want to load it with 'plenary.nvim'
+      lazy = false,
    },
-
    {
       "echasnovski/mini.files",
-      version = false,
+      version = "*",
       lazy = false,
       config = function()
          require("mini.files").setup {}
       end,
    },
-   -- {
-   --    "nvimdev/lspsaga.nvim",
-   --    config = function()
-   --       require("lspsaga").setup {}
-   --    end,
-   -- },
    {
       "max397574/better-escape.nvim",
       event = "InsertEnter",
@@ -77,22 +70,20 @@ local plugins = {
       config = function()
          require("zen-mode").setup {}
       end,
-      lazy = false, -- Assuming you want to load it at startup
+      lazy = false,
    },
+   -- {
+   --    "nvimdev/lspsaga.nvim",
+   --    config = function()
+   --       require("lspsaga").setup {}
+   --    end,
+   -- },
    {
       "folke/which-key.nvim",
       enabled = false,
    },
    {
       "hrsh7th/nvim-cmp",
-      --       sources = {
-      --          { name = "nvim_lsp" },
-      --          { name = "luasnip" },
-      --          { name = "buffer" },
-      --          { name = "nvim_lua" },
-      --          { name = "path" },
-      --          { name = "cmp_tabnine" },
-      --       },
       --       experimental = {
       --          ghost_text = true,
       --       },
@@ -159,18 +150,58 @@ local plugins = {
             enable = true,
             keymaps = {
                init_selection = "<C-a>",
-               node_incremental = "<C-a>",
                scope_incremental = "grc",
-               node_decremental = "<C-x>",
+               node_incremental = "<C-a>",
+               node_decremental = "<bs>",
             },
          },
          indent = {
             enable = true,
-            -- disable = {
-            --   "python"
-            -- },
+         },
+         context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+            config = {
+               tsx = "{/* %s */}",
+            },
+         },
+         textobjects = {
+            select = {
+               enable = true,
+               lookahead = true,
+               keymaps = {
+                  ["aa"] = "@parameter.outer",
+                  ["ia"] = "@parameter.inner",
+                  ["af"] = "@function.outer",
+                  ["if"] = "@function.inner",
+                  ["ac"] = "@class.outer",
+                  ["ic"] = "@class.inner",
+                  ["ab"] = "@block.outer",
+                  ["ib"] = "@block.inner",
+               },
+            },
+            swap = {
+               enable = true,
+               swap_next = {
+                  ["<Leader>a"] = "@parameter.inner",
+               },
+               swap_previous = {
+                  ["<Leader>A"] = "@parameter.inner",
+               },
+            },
+            lsp_interop = {
+               enable = true,
+            },
          },
       },
+   },
+   {
+      "nvim-treesitter/nvim-treesitter-context",
+      lazy = false,
+   },
+   {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      lazy = false,
    },
    {
       "williamboman/mason.nvim",
@@ -200,10 +231,6 @@ local plugins = {
          git = {
             enable = true,
          },
-
-         --       view = {
-         --          adaptive_size = true,
-         --       },
          renderer = {
             highlight_git = true,
             icons = {
@@ -215,10 +242,6 @@ local plugins = {
       },
    },
 
-   {
-      "nvim-treesitter/nvim-treesitter-context",
-      lazy = false, -- Assuming you want to load it at startup
-   },
    {
       "ggandor/leap.nvim",
       lazy = false,
@@ -236,12 +259,12 @@ local plugins = {
          current_line_blame_formatter = "\t<author>, <author_time:%Y-%m-%d> - <summary>",
       },
    },
-   -- {
-   --   "sindrets/diffview.nvim",
-   --   after = "plenary.nvim",
-   --   requires = "nvim-lua/plenary.nvim",
-   --   lazy = false, -- Assuming you want to load it after 'plenary.nvim'
-   -- },
+   {
+      "sindrets/diffview.nvim",
+      after = "plenary.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      lazy = true,
+   },
    -- ["reVrost/played.nvim"] is commented out in the original list
    {
       "folke/trouble.nvim",
@@ -249,7 +272,7 @@ local plugins = {
       config = function()
          require("trouble").setup {}
       end,
-      lazy = false, -- Assuming you want to load it with 'nvim-web-devicons'
+      lazy = true,
    },
 }
 return plugins
