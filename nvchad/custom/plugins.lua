@@ -185,6 +185,10 @@ local plugins = {
                enable = true,
                lookahead = true,
                keymaps = {
+                  ["a="] = "@assignment.outer",
+                  ["i="] = "@assignment.inner",
+                  ["at"] = "@comment.outer",
+                  ["it"] = "@comment.inner",
                   ["aa"] = "@parameter.outer",
                   ["ia"] = "@parameter.inner",
                   ["af"] = "@function.outer",
