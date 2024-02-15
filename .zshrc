@@ -171,7 +171,22 @@ export N_PREFIX="/usr/local/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+ifast() {
+    last_meal_time="$1"
 
+    local hour=$(echo "$last_meal_time" | sed 's/\([0-9]*\).*/\1/')
+    local meridian=$(echo "$last_meal_time" | sed 's/[0-9]*\(..\)/\1/')
+    local difference=$((4+ hour))
+    local fasting_end_time=$(( difference % 12))
+
+    if [ "$difference" -gt 12 ]; then  # 720 minutes = 12 hours
+        meridian="pm"
+    else
+        meridian="am"
+    fi
+
+    echo "16/8: breakfast at $fasting_end_time $meridian"
+}
 # immutable
 # hex
 function hex() {
