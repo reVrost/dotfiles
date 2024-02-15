@@ -108,21 +108,21 @@ M.general = {
             require("telescope.builtin").lsp_implementations()
          end,
       },
-      -- ["<leader>fn"] = {
-      --   function()
-      --      require("telescope.builtin").find_files {
-      --         shorten_path = false,
-      --         cwd = "~/.config/nvim/lua/custom/",
-      --         prompt = "~ dotfiles ~",
-      --         hidden = true,
-      --
-      --         layout_strategy = "horizontal",
-      --         layout_config = {
-      --            preview_width = 0.55,
-      --         },
-      --      },
-      --    end,
-      -- },
+      ["<leader>fn"] = {
+         function()
+            require("telescope.builtin").find_files {
+               shorten_path = false,
+               cwd = "~/.config/nvim/lua/",
+               prompt = "~ dotfiles ~",
+               hidden = true,
+
+               layout_strategy = "horizontal",
+               layout_config = {
+                  preview_width = 0.55,
+               },
+            }
+         end,
+      },
       -- ["<leader>fi"] = {
       --   function()
       --      require("telescope.builtin").find_files {
