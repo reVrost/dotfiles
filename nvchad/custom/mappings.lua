@@ -28,7 +28,7 @@ M.general = {
       -- run commands
       ["<leader>r"] = { ":lua run_command()<CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
-      ["<leader>dd"] = { ":DiffviewToggle <CR>" },
+      ["<leader>gd"] = { ":DiffviewToggle <CR>" },
       ["<leader>md"] = { ":MarkdownPreview <CR>" },
       --
       ["<leader>e"] = { "<cmd>lua MiniFiles.open()<CR>" },
