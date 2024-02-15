@@ -41,6 +41,35 @@ local plugins = {
       end,
    },
    {
+      "utilyre/barbecue.nvim",
+      name = "barbecue",
+      lazy = false,
+      version = "*",
+      dependencies = {
+         "SmiteshP/nvim-navic",
+         "nvim-tree/nvim-web-devicons", -- optional dependency
+      },
+      opts = {
+         -- configurations go here
+      },
+   },
+   -- switch to dropbar later when upgrade to nvim 0.10
+   -- {
+   --    "Bekaboo/dropbar.nvim",
+   --    -- optional, but required for fuzzy finder support
+   --    config = function()
+   --       require("dropbar").setup {
+   --          general = {
+   --             enable = true,
+   --          },
+   --       }
+   --    end,
+   --    dependencies = {
+   --       "nvim-telescope/telescope-fzf-native.nvim",
+   --    },
+   --    lazy = false,
+   -- },
+   {
       "karb94/neoscroll.nvim",
       lazy = false,
    },
@@ -61,16 +90,16 @@ local plugins = {
       requires = "nvim-lua/plenary.nvim",
       lazy = false,
    },
-   {
-      "rmagatti/auto-session",
-      lazy = false,
-      config = function()
-         require("auto-session").setup {
-            log_level = "error",
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-         }
-      end,
-   },
+   -- {
+   --    "rmagatti/auto-session",
+   --    lazy = false,
+   --    config = function()
+   --       require("auto-session").setup {
+   --          log_level = "error",
+   --          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+   --       }
+   --    end,
+   -- },
    {
       "max397574/better-escape.nvim",
       event = "InsertEnter",
@@ -214,10 +243,10 @@ local plugins = {
          },
       },
    },
-   {
-      "nvim-treesitter/nvim-treesitter-context",
-      lazy = false,
-   },
+   -- {
+   --    "nvim-treesitter/nvim-treesitter-context",
+   --    lazy = false,
+   -- },
    {
       "nvim-treesitter/nvim-treesitter-textobjects",
       lazy = false,

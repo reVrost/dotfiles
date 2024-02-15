@@ -62,6 +62,7 @@ zstyle :prompt:pure:git:stash show yes
 #source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey "ç" fzf-cd-widget
+bindkey "^I^I" autosuggest-accept
 
 # Aliases
 alias vim="nvim"
@@ -172,6 +173,20 @@ export N_PREFIX="/usr/local/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":
 
 
 # immutable
+# hex
+function hex() {
+    # Check if input is provided
+    if [ $# -ne 1 ]; then
+        echo "Usage: hex <hex_value>"
+        return 1
+    fi
+
+    # Convert hexadecimal input to decimal
+    decimal=$(printf "%d\n" $1)
+
+    # Output the result
+    echo "val: $decimal"
+}
 # # aws
 function kdev() {
     echo "might need: aws sso login"
