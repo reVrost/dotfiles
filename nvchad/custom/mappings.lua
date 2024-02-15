@@ -29,6 +29,7 @@ M.general = {
       ["<leader>r"] = { ":lua run_command()<CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>dd"] = { ":DiffviewToggle <CR>" },
+      ["<leader>md"] = { ":MarkdownPreview <CR>" },
       --
       ["<leader>e"] = { "<cmd>lua MiniFiles.open()<CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
