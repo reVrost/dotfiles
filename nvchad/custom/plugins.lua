@@ -1,9 +1,5 @@
 local plugins = {
    {
-      "sindrets/diffview.nvim",
-      lazy = true,
-   },
-   {
       "echasnovski/mini.files",
       version = false,
       lazy = false,
@@ -25,7 +21,6 @@ local plugins = {
       dependencies = {
          {
             "jose-elias-alvarez/null-ls.nvim",
-            after = "nvim-lspconfig",
             config = function()
                require("custom.null-ls").setup()
             end,
@@ -57,22 +52,6 @@ local plugins = {
          -- configurations go here
       },
    },
-   -- switch to dropbar later when upgrade to nvim 0.10
-   -- {
-   --    "Bekaboo/dropbar.nvim",
-   --    -- optional, but required for fuzzy finder support
-   --    config = function()
-   --       require("dropbar").setup {
-   --          general = {
-   --             enable = true,
-   --          },
-   --       }
-   --    end,
-   --    dependencies = {
-   --       "nvim-telescope/telescope-fzf-native.nvim",
-   --    },
-   --    lazy = false,
-   -- },
    {
       "karb94/neoscroll.nvim",
       lazy = false,
@@ -86,94 +65,37 @@ local plugins = {
       lazy = false,
    },
    {
-      "mg979/vim-visual-multi",
-      lazy = false,
-   },
-   {
       "ThePrimeagen/harpoon",
-      requires = "nvim-lua/plenary.nvim",
       lazy = false,
    },
-   -- {
-   --    "rmagatti/auto-session",
-   --    lazy = false,
-   --    config = function()
-   --       require("auto-session").setup {
-   --          log_level = "error",
-   --          auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-   --       }
-   --    end,
-   -- },
-   {
-      "max397574/better-escape.nvim",
-      event = "InsertEnter",
-      config = function()
-         require("better_escape").setup {
-            mapping = { "jk", "jj" },
-         }
-      end,
-   },
-   {
-      "folke/zen-mode.nvim",
-      config = function()
-         require("zen-mode").setup {}
-      end,
-      lazy = false,
-   },
-   -- {
-   --    "nvimdev/lspsaga.nvim",
-   --    config = function()
-   --       require("lspsaga").setup {}
-   --    end,
-   -- },
    {
       "folke/which-key.nvim",
       enabled = false,
+   },
+   {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      lazy = false,
+   },
+   {
+      "ggandor/leap.nvim",
+      lazy = false,
+   },
+   {
+      "sindrets/diffview.nvim",
+      lazy = true,
    },
    {
       "hrsh7th/nvim-cmp",
       --       experimental = {
       --          ghost_text = true,
       --       },
-      override_options = function()
-         local cmp = require "cmp"
-         return {
-            mapping = {
-               ["<C-p>"] = cmp.mapping.select_prev_item(),
-               ["<C-n>"] = cmp.mapping.select_next_item(),
-               ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-               ["<C-f>"] = cmp.mapping.scroll_docs(4),
-               ["<C-Space>"] = cmp.mapping.complete(),
-               ["<C-e>"] = cmp.mapping.close(),
-               ["<CR>"] = cmp.mapping.confirm {
-                  behavior = cmp.ConfirmBehavior.Replace,
-                  select = false,
-               },
-               ["<Tab>"] = cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                     cmp.select_next_item()
-                  elseif require("luasnip").expand_or_jumpable() then
-                     require("luasnip").jump(1)
-                  else
-                     fallback()
-                  end
-               end, {
-                  "i",
-                  "s",
-               }),
-               ["<S-Tab>"] = cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                     cmp.select_prev_item()
-                  elseif require("luasnip").jumpable(-1) then
-                     require("luasnip").jump(-1)
-                  else
-                     fallback()
-                  end
-               end, {
-                  "i",
-                  "s",
-               }),
-            },
+   },
+   {
+      "max397574/better-escape.nvim",
+      event = "InsertEnter",
+      config = function()
+         require("better_escape").setup {
+            mapping = { "jk", "jj" },
          }
       end,
    },
@@ -284,14 +206,6 @@ local plugins = {
          },
       },
    },
-   -- {
-   --    "nvim-treesitter/nvim-treesitter-context",
-   --    lazy = false,
-   -- },
-   {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      lazy = false,
-   },
    {
       "williamboman/mason.nvim",
       opts = {
@@ -315,7 +229,7 @@ local plugins = {
    },
    {
       "nvim-tree/nvim-tree.lua",
-      enable = false,
+      enabled = false,
       lazy = true,
       opts = {
          git = {
@@ -331,11 +245,6 @@ local plugins = {
          },
       },
    },
-
-   {
-      "ggandor/leap.nvim",
-      lazy = false,
-   },
    {
       "lewis6991/gitsigns.nvim",
       opts = {
@@ -349,10 +258,8 @@ local plugins = {
          current_line_blame_formatter = "\t<author>, <author_time:%Y-%m-%d> - <summary>",
       },
    },
-   -- ["reVrost/played.nvim"] is commented out in the original list
    {
       "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
       config = function()
          require("trouble").setup {}
       end,
@@ -366,5 +273,27 @@ local plugins = {
          vim.fn["mkdp#util#install"]()
       end,
    },
+   -- All disabled ones go here
+   -- {"reVrost/played.nvim", lazy = false}
+   -- {
+   --    "mg979/vim-visual-multi",
+   --    lazy = false,
+   -- },
+   -- switch barbecue to dropbar later when upgrade to nvim 0.10
+   -- {
+   --    "Bekaboo/dropbar.nvim",
+   --    -- optional, but required for fuzzy finder support
+   --    config = function()
+   --       require("dropbar").setup {
+   --          general = {
+   --             enable = true,
+   --          },
+   --       }
+   --    end,
+   --    dependencies = {
+   --       "nvim-telescope/telescope-fzf-native.nvim",
+   --    },
+   --    lazy = false,
+   -- },
 }
 return plugins

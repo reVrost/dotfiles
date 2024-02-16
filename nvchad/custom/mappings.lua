@@ -1,12 +1,5 @@
 local M = {}
 
--- The function is called `t` for `termcodes`.
--- You don't have to call it that, but I find the terseness convenient
-local function t(str)
-   -- Adjust boolean arguments as needed
-   return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 M.copilot = {
    i = {
       ["<C-;>"] = {
@@ -16,6 +9,11 @@ M.copilot = {
          "Copilot Accept",
          { replace_keycodes = true, nowait = true, silent = true, expr = true, noremap = true },
       },
+   },
+}
+M.disabled = {
+   n = {
+      ["gi"] = "",
    },
 }
 M.general = {
@@ -153,8 +151,9 @@ M.general = {
       },
 
       -- -- snippets keybind
-      ["<c-k>"] = { "v:lua.snip_complete()" },
-      ["<c-j>"] = { "v:lua.r_snip_complete()" },
+      --  I don't think this works
+      -- ["<c-k>"] = { "v:lua.snip_complete()" },
+      -- ["<c-j>"] = { "v:lua.r_snip_complete()" },
    },
    s = {
       -- -- snippets keybind

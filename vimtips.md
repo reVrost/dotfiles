@@ -30,5 +30,19 @@ Insert mode:
 
 - search and replace whole project:
 - vimgrep then quickfix list
+- cdo
 
-- gv, gi
+Normal mode:
+
+- gv e-selects the last visual selection.
+- gi switches Vim to insert mode at the position where you last left insert mode
+- g; go to last edit
+- <c-w-o> close all windows including quickfix
+
+Visual mode:
+
+- o goes to the end of selections
+
+Telescope: C-? for help C-n, C-p -> better than arrow keys C-c, close
+
+TODO: hotkey to close quickfix window?
