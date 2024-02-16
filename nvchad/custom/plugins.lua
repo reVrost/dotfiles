@@ -131,9 +131,6 @@ local plugins = {
          context_commentstring = {
             enable = true,
             enable_autocmd = false,
-            config = {
-               tsx = "{/* %s */}",
-            },
          },
          textobjects = {
             select = {
