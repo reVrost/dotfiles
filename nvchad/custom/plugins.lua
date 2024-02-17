@@ -256,13 +256,6 @@ local plugins = {
       },
    },
    {
-      "folke/trouble.nvim",
-      config = function()
-         require("trouble").setup {}
-      end,
-      lazy = true,
-   },
-   {
       "iamcco/markdown-preview.nvim",
       cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
       ft = { "markdown" },
@@ -270,6 +263,13 @@ local plugins = {
          vim.fn["mkdp#util#install"]()
       end,
    },
+   -- {
+   --    "folke/trouble.nvim",
+   --    config = function()
+   --       require("trouble").setup {}
+   --    end,
+   --    lazy = true,
+   -- },
    -- All disabled ones go here
    -- {"reVrost/played.nvim", lazy = false}
    -- {
