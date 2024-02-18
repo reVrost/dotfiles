@@ -29,7 +29,7 @@ M.general = {
       ["<leader>gd"] = { ":DiffviewToggle <CR>" },
       ["<leader>md"] = { ":MarkdownPreview <CR>" },
       --
-      ["<leader>e"] = { "<cmd>lua MiniFiles.open()<CR>" },
+      ["<leader>e"] = { "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
       ["<leader>lr"] = { ":LspRestart <CR>" },
       ["<leader>li"] = { ":LspInfo <CR>" },
