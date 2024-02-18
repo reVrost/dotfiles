@@ -49,7 +49,7 @@ M.general = {
       ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },
 
       -- harpoon keybinds
-      ["<leader>ha"] = {
+      ["<leader>`"] = {
          function()
             require("harpoon.mark").add_file()
          end,
@@ -106,7 +106,7 @@ M.general = {
             require("telescope.builtin").lsp_implementations()
          end,
       },
-      ["<leader>fn"] = {
+      ["<leader>fv"] = {
          function()
             require("telescope.builtin").find_files {
                shorten_path = false,
