@@ -22,12 +22,12 @@ M.general = {
       ["c"] = { '"_c' }, -- don't yank on change
       ["C"] = { '"_C' }, -- don't yank on change
       ["q"] = { "<nop>" },
-      ["<leader>s"] = { ":HopWord <CR>" },
       -- run commands
       ["<leader>r"] = { ":lua run_command()<CR>" },
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>gd"] = { ":DiffviewToggle <CR>" },
       ["<leader>md"] = { ":MarkdownPreview <CR>" },
+      ["<leader>s"] = { ":%s/" },
       --
       ["<leader>e"] = { "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
