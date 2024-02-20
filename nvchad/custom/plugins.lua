@@ -30,26 +30,26 @@ local plugins = {
          }
       end,
    },
-   -- {
-   --    "karb94/neoscroll.nvim",
-   --    config = function()
-   --       require("neoscroll").setup {
-   --          -- pre_hook = function()
-   --          --    vim.opt.eventignore:append {
-   --          --       "WinScrolled",
-   --          --       "CursorMoved",
-   --          --    }
-   --          -- end,
-   --          -- post_hook = function()
-   --          --    vim.opt.eventignore:remove {
-   --          --       "WinScrolled",
-   --          --       "CursorMoved",
-   --          --    }
-   --          -- end,
-   --       }
-   --    end,
-   --    lazy = false,
-   -- },
+   {
+      "karb94/neoscroll.nvim",
+      config = function()
+         require("neoscroll").setup {
+            pre_hook = function()
+               vim.opt.eventignore:append {
+                  "WinScrolled",
+                  "CursorMoved",
+               }
+            end,
+            post_hook = function()
+               vim.opt.eventignore:remove {
+                  "WinScrolled",
+                  "CursorMoved",
+               }
+            end,
+         }
+      end,
+      lazy = false,
+   },
    {
       "nvimdev/dashboard-nvim",
       event = "VimEnter",
