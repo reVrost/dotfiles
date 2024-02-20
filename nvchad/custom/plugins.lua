@@ -19,11 +19,37 @@ local plugins = {
       end,
    },
    {
+      "itchyny/vim-cursorword",
+      lazy = false,
+   },
+   {
+      "romainl/vim-cool",
+      lazy = false,
+   },
+   {
+      "echasnovski/mini.indentscope",
+      version = false,
+      lazy = false,
+      config = function()
+         local id = require "mini.indentscope"
+         id.setup {
+            draw = {
+               delay = 10,
+               animation = id.gen_animation.cubic { duration = 100, unit = "total" },
+            },
+         }
+      end,
+   },
+   {
       "echasnovski/mini.animate",
       version = false,
       lazy = false,
       config = function()
-         require("mini.animate").setup {
+         local animate = require "mini.animate"
+         animate.setup {
+            cursor = {
+               timing = animate.gen_timing.cubic { duration = 85, unit = "total" },
+            },
             scroll = {
                enable = false,
             },
@@ -34,6 +60,7 @@ local plugins = {
       "karb94/neoscroll.nvim",
       config = function()
          require("neoscroll").setup {
+            easing_function = "cubic",
             pre_hook = function()
                vim.opt.eventignore:append {
                   "WinScrolled",
