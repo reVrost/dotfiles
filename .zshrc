@@ -217,7 +217,10 @@ function ksandbox() {
 }
 
 # emscripten
-source ~/code/reVrost/emsdk/emsdk_env.sh
+source ~/code/reVrost/emsdk/emsdk_env.sh > /dev/null 2>&1
 
 alias bg='screen -d -m "$@"'
 eval "$(zoxide init zsh)"
+
+# allow drag by ctrl+cmd
+defaults write -g NSWindowShouldDragOnGesture YES
