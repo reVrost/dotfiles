@@ -48,7 +48,7 @@ local plugins = {
          local animate = require "mini.animate"
          animate.setup {
             cursor = {
-               timing = animate.gen_timing.cubic { duration = 85, unit = "total" },
+               timing = animate.gen_timing.cubic { duration = 125, unit = "total" },
             },
             scroll = {
                enable = false,
@@ -60,6 +60,7 @@ local plugins = {
       "karb94/neoscroll.nvim",
       config = function()
          require("neoscroll").setup {
+            mappings = { "zt", "zz", "zb" },
             easing_function = "cubic",
             pre_hook = function()
                vim.opt.eventignore:append {
