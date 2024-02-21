@@ -37,6 +37,7 @@ local plugins = {
                delay = 10,
                animation = id.gen_animation.cubic { duration = 100, unit = "total" },
             },
+            symbol = "│",
          }
       end,
    },

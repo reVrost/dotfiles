@@ -24,6 +24,9 @@ source $ZSH/oh-my-zsh.sh
 # nerdfont
 source ~/.config/envman/PATH.env
 
+# disable ctrl d from closing our windows
+set -o ignoreeof
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

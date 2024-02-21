@@ -18,6 +18,13 @@ M.disabled = {
 }
 M.general = {
    n = {
+      -- Alternative way to save and exit in Normal mode.
+      -- NOTE: Adding `redraw` helps with `cmdheight=0` if buffer is not modified
+      ["<C-s>"] = { "<cmd>w<CR><cmd>redraw<CR>" },
+
+      -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+      ["n"] = { "'Nn'[v:searchforward]", opts = { expr = true } },
+      ["N"] = { "'nN'[v:searchforward]", opts = { expr = true } },
 
       ["c"] = { '"_c' }, -- don't yank on change
       ["C"] = { '"_C' }, -- don't yank on change
@@ -150,6 +157,10 @@ M.general = {
          opts = { expr = true },
       },
 
+      -- Alternative way to save and exit in Normal mode.
+      -- NOTE: Adding `redraw` helps with `cmdheight=0` if buffer is not modified
+      ["<C-s>"] = { "<cmd>w<CR><cmd>redraw<CR>" },
+
       -- -- snippets keybind
       --  I don't think this works
       -- ["<c-k>"] = { "v:lua.snip_complete()" },
@@ -160,6 +171,17 @@ M.general = {
       ["<c-k>"] = { "v:lua.snip_complete()" },
       ["<c-j>"] = { "v:lua.r_snip_complete()" },
       ["<c-l>"] = { "<Plug>luansip-next-choice" },
+   },
+   x = {
+      ["n"] = { "'Nn'[v:searchforward]", opts = { expr = true } },
+      ["N"] = { "'nN'[v:searchforward]", opts = { expr = true } },
+      -- Alternative way to save and exit in Normal mode.
+      -- NOTE: Adding `redraw` helps with `cmdheight=0` if buffer is not modified
+      ["<C-s>"] = { "<cmd>w<CR><cmd>redraw<CR>" },
+   },
+   o = {
+      ["n"] = { "'Nn'[v:searchforward]", opts = { expr = true } },
+      ["N"] = { "'nN'[v:searchforward]", opts = { expr = true } },
    },
 }
 
