@@ -141,6 +141,25 @@ local plugins = {
       dependencies = { { "nvim-tree/nvim-web-devicons" } },
    },
    {
+      "nvim-telescope/telescope.nvim",
+      dependencies = {
+         "nvim-telescope/telescope-live-grep-args.nvim",
+      },
+      opts = {
+         extensions_list = {
+            "themes",
+            "terms",
+            "fzf",
+            "live_grep_args",
+         },
+         extensions = {
+            live_grep_args = {
+               auto_quoting = true,
+            },
+         },
+      },
+   },
+   {
       "neovim/nvim-lspconfig",
       lazy = false,
       config = function()

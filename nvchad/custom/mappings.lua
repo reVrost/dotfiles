@@ -29,27 +29,36 @@ M.general = {
       ["c"] = { '"_c' }, -- don't yank on change
       ["C"] = { '"_C' }, -- don't yank on change
       ["q"] = { "<nop>" },
+
+      -- QoL
+      ["<leader>s"] = { ":%s/" },
+      ["<leader>qa"] = { ":qa!<CR>" },
+      ["<leader>wa"] = { ":wa<CR>" },
+
       -- run commands
       ["<leader>r"] = { ":lua run_command()<CR>" },
+
+      -- plugins
       ["<leader>rt"] = { ":GoTestFunc <CR>" },
       ["<leader>gd"] = { ":DiffviewToggle <CR>" },
       ["<leader>md"] = { ":MarkdownPreview <CR>" },
-      ["<leader>s"] = { ":%s/" },
-      --
-      ["<leader>e"] = { "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" },
       ["<leader>zz"] = { ":ZenMode <CR>" },
       ["<leader>lr"] = { ":LspRestart <CR>" },
       ["<leader>li"] = { ":LspInfo <CR>" },
       ["<leader>ms"] = { ":Mason <CR>" },
-      ["<leader>xx"] = { ":TroubleToggle lsp_document_diagnostics<CR>" },
+      ["<leader>e"] = { "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>" },
+
+      -- Lsp Keymaps
       ["<leader>ra"] = { "<cmd>lua vim.lsp.buf.rename()<CR>" },
       ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
-      ["<leader>qa"] = { ":qa!<CR>" },
-      ["<leader>wa"] = { ":wa<CR>" },
-      ["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
       ["gk"] = { "<cmd>lua vim.lsp.buf.hover()<CR>" },
 
-      -- macros/snippets
+      -- Diagonostics
+      ["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
+      ["[d"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>" },
+      ["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>" },
+
+      -- snippets
       ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
 
       -- reload snippets
@@ -128,21 +137,43 @@ M.general = {
             }
          end,
       },
-      -- ["<leader>fi"] = {
-      --   function()
-      --      require("telescope.builtin").find_files {
-      --         shorten_path = false,
-      --         cwd = "~/code/platform",
-      --         prompt = "~ Identitii platform ~",
-      --         hidden = true,
-      --
-      --         layout_strategy = "horizontal",
-      --         layout_config = {
-      --            preview_width = 0.55,
-      --         },
-      --      },
-      --    end
-      -- },
+      ["<leader>fw"] = {
+         function()
+            local lga_actions = require "telescope-live-grep-args.actions"
+            require("telescope").extensions.live_grep_args.live_grep_args {
+               mappings = {
+                  i = {
+                     ["<C-k>"] = lga_actions.quote_prompt(),
+                  },
+               },
+               hidden = true,
+               layout_strategy = "horizontal",
+               layout_config = {
+                  preview_width = 0.55,
+               },
+            }
+         end,
+      },
+      -- telescope search in work directory
+      ["<leader>fx"] = {
+         function()
+            local lga_actions = require "telescope-live-grep-args.actions"
+            require("telescope").extensions.live_grep_args.live_grep_args {
+               cwd = "~/code/immutable",
+               prompt = "~ Immutable platform ~",
+               mappings = {
+                  i = {
+                     ["<C-k>"] = lga_actions.quote_prompt(),
+                  },
+               },
+               hidden = true,
+               layout_strategy = "horizontal",
+               layout_config = {
+                  preview_width = 0.55,
+               },
+            }
+         end,
+      },
    },
    v = {
       ["c"] = { '"_c' }, -- don't yank on change

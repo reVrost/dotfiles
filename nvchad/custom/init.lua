@@ -38,6 +38,16 @@ _G.run_command = function()
    end
 end
 
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+   group = highlight_group,
+   callback = function()
+      vim.highlight.on_yank()
+   end,
+})
+
 vim.api.nvim_create_user_command("DiffviewToggle", function(e)
    local view = require("diffview.lib").get_current_view()
 
