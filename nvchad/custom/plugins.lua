@@ -308,6 +308,7 @@ local plugins = {
                enable = true,
                set_jumps = true,
                goto_next_start = {
+                  ["]a"] = { query = "@parameter.inner", desc = "Next function call start" },
                   ["]f"] = { query = "@call.outer", desc = "Next function call start" },
                   ["]m"] = { query = "@function.outer", desc = "Next method/function def start" },
                   ["]c"] = { query = "@class.outer", desc = "Next class start" },
@@ -320,6 +321,7 @@ local plugins = {
                   ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
                },
                goto_next_end = {
+                  ["]A"] = { query = "@parameter.inner", desc = "Next function call start" },
                   ["]F"] = { query = "@call.outer", desc = "Next function call end" },
                   ["]M"] = { query = "@function.outer", desc = "Next method/function def end" },
                   ["]C"] = { query = "@class.outer", desc = "Next class end" },
@@ -327,6 +329,7 @@ local plugins = {
                   ["]L"] = { query = "@loop.outer", desc = "Next loop end" },
                },
                goto_previous_start = {
+                  ["[a"] = { query = "@parameter.inner", desc = "Next function call start" },
                   ["[f"] = { query = "@call.outer", desc = "Prev function call start" },
                   ["[m"] = { query = "@function.outer", desc = "Prev method/function def start" },
                   ["[c"] = { query = "@class.outer", desc = "Prev class start" },
@@ -334,6 +337,7 @@ local plugins = {
                   ["[l"] = { query = "@loop.outer", desc = "Prev loop start" },
                },
                goto_previous_end = {
+                  ["[A"] = { query = "@parameter.inner", desc = "Next function call start" },
                   ["[F"] = { query = "@call.outer", desc = "Prev function call end" },
                   ["[M"] = { query = "@function.outer", desc = "Prev method/function def end" },
                   ["[C"] = { query = "@class.outer", desc = "Prev class end" },

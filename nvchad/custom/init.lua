@@ -9,6 +9,10 @@ opt.relativenumber = true
 opt.encoding = "utf-8"
 opt.splitkeep = "screen"
 
+-- vim snippets
+g.vscode_snippets_path = fn.stdpath "config" .. "/lua/custom/snippets"
+g.lua_snippets_path = fn.stdpath "config" .. "/lua/custom/snippets"
+
 -- WSL clipboard
 if vim.fn.has "wsl" == 1 then
    g.clipboard = {
@@ -31,10 +35,35 @@ local t = function(str)
 end
 
 _G.run_command = function()
-   print "HELLO"
    local filetype = vim.bo.filetype
    if filetype == "c" then
       vim.cmd "!sh run.sh"
+   end
+   if filetype == "go" then
+      run_make_dev()
+   end
+end
+
+-- specific to whatever you're working on atm
+_G.run_make_dev = function()
+   -- Find the directory containing the Makefile
+   local makefile_path = vim.fn.findfile("Makefile", ".")
+   print "Rebuilding..."
+
+   -- Check if Makefile is found
+   if makefile_path ~= "" then
+      -- Change to the directory containing the Makefile
+      local makefile_dir = vim.fn.fnamemodify(makefile_path, ":h")
+      vim.cmd("cd " .. makefile_dir)
+
+      -- Kill previous process if running
+      vim.fn.system "pkill -f marketpal_server"
+
+      -- Run make dev
+      vim.fn.jobstart("make dev", { detach = true })
+      print "Dev is running."
+   else
+      print "Makefile not found."
    end
 end
 

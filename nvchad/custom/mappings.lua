@@ -122,6 +122,11 @@ M.general = {
             require("telescope.builtin").lsp_implementations()
          end,
       },
+      ["<leader>fl"] = {
+         function()
+            require("telescope.builtin").resume()
+         end,
+      },
       ["<leader>fv"] = {
          function()
             require("telescope.builtin").find_files {
@@ -144,6 +149,7 @@ M.general = {
                mappings = {
                   i = {
                      ["<C-k>"] = lga_actions.quote_prompt(),
+                     ["<C-g>"] = lga_actions.quote_prompt { postfix = " --iglob " },
                   },
                },
                hidden = true,
@@ -164,6 +170,7 @@ M.general = {
                mappings = {
                   i = {
                      ["<C-k>"] = lga_actions.quote_prompt(),
+                     ["<C-g>"] = lga_actions.quote_prompt { postfix = " --iglob " },
                   },
                },
                hidden = true,
@@ -177,6 +184,7 @@ M.general = {
    },
    v = {
       ["c"] = { '"_c' }, -- don't yank on change
+      ["C"] = { '"_C' }, -- don't yank on change
       ["q"] = { "<nop>" },
       ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
    },
