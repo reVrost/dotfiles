@@ -411,6 +411,11 @@ local plugins = {
          vim.fn["mkdp#util#install"]()
       end,
    },
+   -- For fun
+   {
+      "eandrju/cellular-automaton.nvim",
+      lazy = false,
+   },
    -- {
    --    "folke/trouble.nvim",
    --    config = function()
