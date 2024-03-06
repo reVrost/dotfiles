@@ -10,14 +10,17 @@ M.ui = {
 	hl_override = {
 		CursorLine = { bg = "#25252f" },
 	},
+	tabufline = {
+		enabled = false,
+	},
 	theme_toggle = {
 		"aquarium",
 		"everforest",
 	},
 	changed_themes = {
-		mountain = {
+		aquarium = {
 			base_16 = {
-				base00 = "#161620",
+				base00 = "#121220",
 			},
 		},
 
