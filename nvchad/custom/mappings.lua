@@ -171,6 +171,11 @@ M.general = {
 				require("telescope.builtin").lsp_references()
 			end,
 		},
+		["<leader>fs"] = {
+			function()
+				require("telescope.builtin").lsp_workspace_symbols()
+			end,
+		},
 		["<leader>fc"] = {
 			function()
 				require("telescope.builtin").command_history()
