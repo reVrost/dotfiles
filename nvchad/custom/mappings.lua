@@ -59,8 +59,8 @@ M.general = {
 		["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>" },
 
 		-- fun
-		["<leader>fml"] = { ":CellularAutomaton make_it_rain" },
-		["<leader>fmg"] = { ":CellularAutomaton game_of_life" },
+		["<leader>fml"] = { ":CellularAutomaton make_it_rain<CR>" },
+		["<leader>fmg"] = { ":CellularAutomaton game_of_life<CR>" },
 
 		-- snippets
 		["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
