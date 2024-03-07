@@ -20,7 +20,7 @@ M.ui = {
 	changed_themes = {
 		aquarium = {
 			base_16 = {
-				base00 = "#121220",
+				base00 = "#202026",
 			},
 		},
 

@@ -53,10 +53,14 @@ M.general = {
 		["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action()<CR>" },
 		["gk"] = { "<cmd>lua vim.lsp.buf.hover()<CR>" },
 
-		-- Diagonostics
+		-- Diagnostics
 		["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
 		["[d"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>" },
 		["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>" },
+
+		-- fun
+		["<leader>fml"] = { ":CellularAutomaton make_it_rain" },
+		["<leader>fmg"] = { ":CellularAutomaton game_of_life" },
 
 		-- snippets
 		["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
@@ -157,6 +161,11 @@ M.general = {
 				require("telescope.builtin").quickfix()
 			end,
 		},
+		["<leader>fj"] = {
+			function()
+				require("telescope.builtin").jumplist()
+			end,
+		},
 		["<leader>fr"] = {
 			function()
 				require("telescope.builtin").lsp_references()
@@ -170,11 +179,6 @@ M.general = {
 		["<leader>fi"] = {
 			function()
 				require("telescope.builtin").lsp_implementations()
-			end,
-		},
-		["<leader>fl"] = {
-			function()
-				require("telescope.builtin").resume()
 			end,
 		},
 		["<leader>fv"] = {
