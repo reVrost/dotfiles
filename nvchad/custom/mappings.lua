@@ -55,8 +55,8 @@ M.general = {
 
 		-- Diagnostics
 		["ge"] = { "<cmd>lua vim.diagnostic.open_float()<CR>" },
-		["[d"] = { "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>" },
-		["]d"] = { "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>" },
+		["[d"] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>" },
+		["]d"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>" },
 
 		-- fun
 		["<leader>fml"] = { ":CellularAutomaton make_it_rain<CR>" },
