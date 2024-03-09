@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:/$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/local/lua-language-server/bin:$(yarn global bin):/opt/homebrew/bin
+export PATH=$HOME/go/bin:/$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/local/lua-language-server/bin:$(yarn global bin):/opt/homebrew/bin:$HOME/.local/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -21,10 +21,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# nerdfont
-source ~/.config/envman/PATH.env
-
-# disable ctrl d from closing our windows
+# disable ctrl d from closing window
 set -o ignoreeof
 
 # User configuration
@@ -65,7 +62,10 @@ zstyle :prompt:pure:git:stash show yes
 #source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey "ç" fzf-cd-widget
-bindkey "^I^I" autosuggest-accept
+bindkey "∫" backward-word
+bindkey "ƒ" forward-word
+# bindkey '^;' autosuggest-accept
+bindkey '^I^I' autosuggest-accept
 
 # Aliases
 alias vim="nvim"
@@ -75,19 +75,14 @@ alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias python=python3
 alias pip=pip3
-
 alias ch="curl cht.sh/$1"
-alias workc="git log --shortstat --author \"Kenley Bastari\" --since \"2 weeks ago\" --until \"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
+alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks ago\" --until=\"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
 
-# ch() {
-#   curl "cht.sh/${1}"
-# }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-# Some python pyenve init stuff
-# # pyenv
+# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/shims:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -190,6 +185,7 @@ ifast() {
 
     echo "16/8: breakfast at $fasting_end_time $meridian"
 }
+
 # immutable
 # hex
 function hex() {
@@ -208,14 +204,14 @@ function hex() {
 # # aws
 function kdev() {
     echo "might need: aws sso login"
-    aws --profile imx-nonprod-engineer sts get-caller-identity | jq
-    aws --profile imx-nonprod-engineer eks update-kubeconfig --name dev --region us-east-2 --alias dev
+    aws --profile platform-nonprod-engineer sts get-caller-identity | jq
+    aws --profile platform-nonprod-engineer eks update-kubeconfig --name dev --region us-east-2 --alias dev
     kubectl config set-context --current --namespace=dev
 }
 function ksandbox() {
     echo "might need: aws sso login"
-    aws --profile imx-nonprod-engineer sts get-caller-identity | jq
-    aws --profile imx-nonprod-engineer eks update-kubeconfig --name sandbox --region us-east-2 --alias sandbox
+    aws --profile platform-nonprod-engineer sts get-caller-identity | jq
+    aws --profile platform-nonprod-engineer eks update-kubeconfig --name sandbox --region us-east-2 --alias sandbox
     kubectl config set-context --current --namespace=sandbox
 }
 
