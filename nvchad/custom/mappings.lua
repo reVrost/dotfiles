@@ -190,7 +190,7 @@ M.general = {
 			function()
 				require("telescope.builtin").find_files {
 					shorten_path = false,
-					cwd = "~/.config/nvim/lua/",
+					cwd = "~/.config/nvim/lua/custom",
 					prompt = "~ dotfiles ~",
 					hidden = true,
 
