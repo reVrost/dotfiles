@@ -19,7 +19,7 @@ printf "\nConfiguring links.."
 ln -s $(pwd)/kitty ~/.config/kitty
 ln -s $(pwd)/nvchad/custom ~/.config/nvim/lua/custom
 mv ~/.zshrc ~/.zshrc.bak
-ln $(pwd)/.zshrc ~/.zshrc
+ln -s $(pwd)/.zshrc ~/.zshrc
 source ~/.zshrc
 
 # install brew
