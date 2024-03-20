@@ -71,87 +71,62 @@ M.general = {
 		-- harpoon keybinds
 		["<leader>`"] = {
 			function()
-				require("harpoon.mark").add_file()
+				require("grapple").tag()
 			end,
 		},
 		["<leader>hh"] = {
 			function()
-				require("harpoon.ui").toggle_quick_menu()
+				require("grapple").toggle_quick_menu()
 			end,
 		},
 		["<C-1>"] = {
 			function()
-				require("harpoon.mark").set_current_at(1)
+				require("grapple").tag { index = 1 }
 			end,
 		},
 		["<C-2>"] = {
 			function()
-				require("harpoon.mark").set_current_at(2)
+				require("grapple").tag { index = 2 }
 			end,
 		},
 		["<C-3>"] = {
 			function()
-				require("harpoon.mark").set_current_at(3)
+				require("grapple").tag { index = 3 }
 			end,
 		},
 		["<C-4>"] = {
 			function()
-				require("harpoon.mark").set_current_at(4)
+				require("grapple").tag { index = 4 }
 			end,
 		},
 		["<C-5>"] = {
 			function()
-				require("harpoon.mark").set_current_at(5)
+				require("grapple").tag { index = 5 }
 			end,
 		},
 		["<leader>1"] = {
 			function()
-				require("harpoon.ui").nav_file(1)
+				require("grapple").select { index = 1 }
 			end,
 		},
 		["<leader>2"] = {
 			function()
-				require("harpoon.ui").nav_file(2)
+				require("grapple").select { index = 2 }
 			end,
 		},
 		["<leader>3"] = {
 			function()
-				require("harpoon.ui").nav_file(3)
+				require("grapple").select { index = 3 }
 			end,
 		},
 		["<leader>4"] = {
 			function()
-				require("harpoon.ui").nav_file(4)
+				require("grapple").select { index = 4 }
 			end,
 		},
 		["<leader>5"] = {
 			function()
-				require("harpoon.ui").nav_file(5)
-			end,
-		},
-		["<leader>6"] = {
-			function()
-				require("harpoon.ui").nav_file(6)
-			end,
-		},
-		["<leader>7"] = {
-			function()
-				require("harpoon.ui").nav_file(7)
-			end,
-		},
-		["<leader>8"] = {
-			function()
-				require("harpoon.ui").nav_file(8)
-			end,
-		},
-		["<leader>9"] = {
-			function()
-				require("harpoon.ui").nav_file(9)
-			end,
-		},
-		["<leader>0"] = {
-			function()
-				require("harpoon.ui").nav_file(0)
+				require("grapple").select { index = 5 }
 			end,
 		},
 
