@@ -75,6 +75,7 @@ alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias python=python3
 alias pip=pip3
+alias k="kubectl"
 alias ch="curl cht.sh/$1"
 alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks ago\" --until=\"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
 
