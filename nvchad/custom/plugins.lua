@@ -260,7 +260,6 @@ local plugins = {
 			icons = true,
 		},
 		keys = {
-			{ ";", "<cmd>Grapple toggle_tags<cr>", desc = "Toggle tags menu" },
 			{ "H", "<cmd>Grapple cycle forward<cr>", desc = "Go to next tag" },
 			{ "L", "<cmd>Grapple cycle backward<cr>", desc = "Go to previous tag" },
 		},
