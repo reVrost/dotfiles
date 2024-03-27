@@ -16,7 +16,10 @@ ZSH_THEME=""
 
 plugins=(
 	git
+  auto-notify
+  kubectl
 	zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # ZSHRC plugin
@@ -44,11 +47,31 @@ zstyle :prompt:pure:git:stash show yes
 
 
 # bindkeys remap
+bindkey '^Z' fancy-ctrl-z
 bindkey "ç" fzf-cd-widget
 bindkey "ƒ" forward-word
 bindkey "∫" backward-word
 bindkey '^I^I' autosuggest-accept
+bindkey '^G' clear-git-status
 # bindkey '^;' autosuggest-accept
+
+globalias() {
+   zle _expand_alias
+   zle expand-word
+   zle self-insert
+}
+zle -N globalias
+
+# space expands all aliases, including global
+bindkey -M emacs " " globalias
+bindkey -M viins " " globalias
+
+# control-space to make a normal space
+bindkey -M emacs "^ " magic-space
+bindkey -M viins "^ " magic-space
+
+# normal space during searches
+bindkey -M isearch " " magic-space
 
 # Aliases
 alias bg='screen -d -m "$@"'
@@ -61,7 +84,12 @@ alias vi="nvim"
 alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias vim="nvim"
+alias vz="nvim ~/.zshrc"
 alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks ago\" --until=\"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
+
+alias -g C="| pbcopy"
+alias -g G="| rg"
+alias -g W="| wc -l"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -132,6 +160,24 @@ hex() {
     echo "val: $decimal"
 }
 
+clear-git-status () {
+  clear
+  git status
+  zle reset-prompt
+}
+zle -N clear-git-status
+
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+
 # Work specific
 kdev() {
     echo "might need: aws sso login"
@@ -145,4 +191,6 @@ ksandbox() {
     aws --profile platform-nonprod-engineer eks update-kubeconfig --name sandbox --region us-east-2 --alias sandbox
     kubectl config set-context --current --namespace=sandbox
 }
-
+pc() {
+    aws --profile platform-nonprod-engineer sts get-caller-identity | jq
+}
