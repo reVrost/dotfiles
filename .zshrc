@@ -51,12 +51,15 @@ bindkey '^Z' fancy-ctrl-z
 bindkey "ç" fzf-cd-widget
 bindkey "ƒ" forward-word
 bindkey "∫" backward-word
-bindkey '^I^I' autosuggest-accept
+# bindkey '^I^I' autosuggest-accept
+# bindkey '^;' autosuggest-accept
 bindkey '^G' clear-git-status
 # bindkey '^;' autosuggest-accept
 
 globalias() {
-   zle _expand_alias
+   if [[ "$LBUFFER" =~ ^[[:upper:]]+$ ]]; then
+     zle _expand_alias
+   fi
    zle expand-word
    zle self-insert
 }
