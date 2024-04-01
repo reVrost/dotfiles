@@ -36,7 +36,7 @@ set -o ignoreeof
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='nvim'
 fi
 
 # Pure prompt
@@ -92,7 +92,7 @@ alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks a
 
 alias -g C="| pbcopy"
 alias -g G="| rg"
-alias -g W="| wc -l"
+alias -g L="| lnav"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

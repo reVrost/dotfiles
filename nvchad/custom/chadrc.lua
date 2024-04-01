@@ -29,14 +29,14 @@ M.ui = {
   --   },
   -- },
   changed_themes = {
-    aquarium = {
+    ghostly = {
       base_16 = {
-        base00 = "#202026",
+        -- base00 = "#202026",
       },
     },
 
     -- ghostly
-    ghostly = {
+    everblush = {
       base_30 = {
         white = "#dadada",
         darker_black = "#101010",
@@ -76,19 +76,19 @@ M.ui = {
         base00 = "#161616",
         base01 = "#161616",
         base02 = "#343434", -- Selection bg
-        base03 = "#AAAAAA", -- diagnostic dark
+        base03 = "#444444", -- diagnostic dark, codelens
         base04 = "#88DDD2",
         base05 = "#b0b0b0", -- variables, majority of text
         base06 = "#b0b0b0",
         base07 = "#DDDDDD",
-        base08 = "#b0b0b0", -- also variables in params
+        base08 = "#E5E5E5", -- also variables in params
         base09 = "#E5E5E5",
         base0A = "#E5E5E5", -- Identifiers and types
         base0B = "#77bc9a",
         base0C = "#E5E5E5", -- Symbols
         base0D = "#FFCFA8",
         base0E = "#FFCFA8", -- keywords func, const, if
-        base0F = "#8b8b8b", -- Brackets, and commas in lua
+        base0F = "#FFCFA8", -- Brackets, and commas in lua
       },
     },
 

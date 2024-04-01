@@ -39,7 +39,7 @@ M.general = {
     ["<leader>r"] = { ":lua run_command()<CR>" },
 
     -- plugins
-    ["<leader>rt"] = { ":GoTestFunc <CR>" },
+    ["<leader>rt"] = { ":RunGoTest <CR>" },
     ["<leader>gd"] = { ":DiffviewToggle <CR>" },
     ["<leader>md"] = { ":MarkdownPreview <CR>" },
     ["<leader>zz"] = { ":ZenMode <CR>" },
@@ -66,7 +66,7 @@ M.general = {
     ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
 
     -- reload snippets
-    ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/snippets/init.lua<CR>" },
+    ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/init.lua<CR>" },
 
     -- harpoon keybinds
     ["<leader>`"] = {
