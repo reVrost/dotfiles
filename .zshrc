@@ -57,7 +57,7 @@ bindkey '^G' clear-git-status
 # bindkey '^;' autosuggest-accept
 
 globalias() {
-   if [[ "$LBUFFER" =~ ^[[:upper:]]+$ ]]; then
+   if [[ "$LBUFFER" =~ [[:upper:]]+$ ]]; then
      zle _expand_alias
    fi
    zle expand-word
@@ -90,9 +90,13 @@ alias vim="nvim"
 alias vz="nvim ~/.zshrc"
 alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks ago\" --until=\"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
 
+# git checkout interactive
+alias gci='git checkout $(git branch --sort=-committerdate | head -n 5 | fzf)'
+
 alias -g C="| pbcopy"
 alias -g G="| rg"
 alias -g L="| lnav"
+alias -g A="| awk '{print \$1}'"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

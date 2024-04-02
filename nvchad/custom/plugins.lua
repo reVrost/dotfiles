@@ -73,7 +73,7 @@ local plugins = {
     "karb94/neoscroll.nvim",
     config = function()
       require("neoscroll").setup {
-        mappings = { "zt", "zz", "zb" },
+        mappings = { "zt", "zz", "zb", "<C-u>", "<C-d>" },
         easing_function = "cubic",
         pre_hook = function()
           vim.opt.eventignore:append {
