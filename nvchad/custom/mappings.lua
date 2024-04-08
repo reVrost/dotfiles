@@ -63,7 +63,7 @@ M.general = {
     ["<leader>fmg"] = { ":CellularAutomaton game_of_life<CR>" },
 
     -- snippets
-    ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
+    -- ["<leader>ee"] = { "oif err != nil {<CR>}<Esc>Oreturn err<Esc>" },
 
     -- reload snippets
     ["<leader>rs"] = { "<cmd>source ~/.config/nvim/lua/custom/init.lua<CR>" },
