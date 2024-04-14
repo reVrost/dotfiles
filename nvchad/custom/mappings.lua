@@ -182,7 +182,7 @@ M.general = {
         require("telescope").extensions.live_grep_args.live_grep_args {
           mappings = {
             i = {
-              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-k>"] = lga_actions.quote_prompt { postfix = " -t" },
               ["<C-g>"] = lga_actions.quote_prompt { postfix = " --iglob " },
             },
           },
