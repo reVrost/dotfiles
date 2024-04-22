@@ -30,6 +30,9 @@ M.general = {
     ["C"] = { '"_C' }, -- don't yank on change
     ["q"] = { "<nop>" },
 
+    ["]q"] = { "<cmd>cnext<CR>zz" },
+    ["[q"] = { "<cmd>cprev<CR>zz" },
+
     -- QoL
     ["<leader>s"] = { ":%s/" },
     ["<leader>qa"] = { ":qa!<CR>" },
