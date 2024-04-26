@@ -6,8 +6,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
-export CR_PAT=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
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
