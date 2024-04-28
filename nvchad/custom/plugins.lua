@@ -18,17 +18,24 @@ local plugins = {
       }
     end,
   },
+  -- {
+  --   "mikesmithgh/kitty-scrollback.nvim",
+  --   enabled = true,
+  --   lazy = true,
+  --   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  --   event = { "User KittyScrollbackLaunch" },
+  --   -- version = '*', -- latest stable version, may have breaking changes if major version changed
+  --   -- version = '^4.0.0', -- pin major version, include fixes and features that do not have breaking changes
+  --   config = function()
+  --     require("kitty-scrollback").setup()
+  --   end,
+  -- },
   {
-    "mikesmithgh/kitty-scrollback.nvim",
-    enabled = true,
-    lazy = true,
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    event = { "User KittyScrollbackLaunch" },
-    -- version = '*', -- latest stable version, may have breaking changes if major version changed
-    -- version = '^4.0.0', -- pin major version, include fixes and features that do not have breaking changes
+    "andymass/vim-matchup",
     config = function()
-      require("kitty-scrollback").setup()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
+    lazy = false,
   },
   {
     "itchyny/vim-cursorword",
@@ -73,7 +80,7 @@ local plugins = {
     "karb94/neoscroll.nvim",
     config = function()
       require("neoscroll").setup {
-        mappings = { "zt", "zz", "zb", "<C-u>", "<C-d>" },
+        mappings = { "zt", "zz", "zb" },
         easing_function = "cubic",
         pre_hook = function()
           vim.opt.eventignore:append {
