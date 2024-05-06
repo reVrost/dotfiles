@@ -20,6 +20,7 @@ ln -s $(pwd)/kitty ~/.config/kitty
 ln -s $(pwd)/nvchad/custom ~/.config/nvim/lua/custom
 mv ~/.zshrc ~/.zshrc.bak
 ln -s $(pwd)/.zshrc ~/.zshrc
+ln -s ~/code/reVrost/dotfiles/custom ~/.zsh/custom
 source ~/.zshrc
 
 # install brew

@@ -2,7 +2,7 @@
 export PATH=$HOME/go/bin:/$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/local/lua-language-server/bin:$(yarn global bin):/opt/homebrew/bin:$HOME/.local/bin
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
@@ -12,18 +12,27 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME=""
 
-plugins=(
-	git
-  auto-notify
-  kubectl
-	zsh-autosuggestions
-  zsh-syntax-highlighting
-)
+# plugins=(
+# 	git
+#   kubectl
+# 	zsh-autosuggestions
+#   zsh-syntax-highlighting
+# )
+
+# Pure prompt
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit;
+prompt pure
+zstyle :prompt:pure:git:stash show yes
 
 # ZSHRC plugin
-source $ZSH/oh-my-zsh.sh
-#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source $ZSH/oh-my-zsh.sh
+autoload -Uz compinit
+compinit
+source ~/.zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/custom/plugins/git.plugin.zsh
+source ~/.zsh/custom/plugins/kubectl.plugin.zsh
 
 # disable ctrl d from closing window
 set -o ignoreeof
@@ -36,13 +45,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
-
-# Pure prompt
-fpath+=$HOME/.zsh/pure
-autoload -U promptinit; promptinit
-prompt pure
-zstyle :prompt:pure:git:stash show yes
-
 
 # bindkeys remap
 bindkey '^Z' fancy-ctrl-z
@@ -123,7 +125,9 @@ export N_PREFIX="/usr/local/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # emscripten
-source ~/code/reVrost/emsdk/emsdk_env.sh > /dev/null 2>&1
+emscripten() {
+ source ~/code/reVrost/emsdk/emsdk_env.sh > /dev/null 2>&1
+}
 
 # zoxide
 eval "$(zoxide init zsh)"

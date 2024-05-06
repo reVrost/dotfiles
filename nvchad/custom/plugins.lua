@@ -76,28 +76,28 @@ local plugins = {
       }
     end,
   },
-  {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require("neoscroll").setup {
-        mappings = { "zt", "zz", "zb" },
-        easing_function = "cubic",
-        pre_hook = function()
-          vim.opt.eventignore:append {
-            "WinScrolled",
-            "CursorMoved",
-          }
-        end,
-        post_hook = function()
-          vim.opt.eventignore:remove {
-            "WinScrolled",
-            "CursorMoved",
-          }
-        end,
-      }
-    end,
-    lazy = false,
-  },
+  -- {
+  --   "karb94/neoscroll.nvim",
+  --   config = function()
+  --     require("neoscroll").setup {
+  --       mappings = { "zt", "zz", "zb" },
+  --       easing_function = "cubic",
+  --       pre_hook = function()
+  --         vim.opt.eventignore:append {
+  --           "WinScrolled",
+  --           "CursorMoved",
+  --         }
+  --       end,
+  --       post_hook = function()
+  --         vim.opt.eventignore:remove {
+  --           "WinScrolled",
+  --           "CursorMoved",
+  --         }
+  --       end,
+  --     }
+  --   end,
+  --   lazy = false,
+  -- },
   {
     "b0o/incline.nvim",
     config = function()
@@ -313,6 +313,7 @@ local plugins = {
         "lua",
         "html",
         "css",
+        "scss",
         "javascript",
         "typescript",
         "go",

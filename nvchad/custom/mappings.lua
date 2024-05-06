@@ -176,6 +176,9 @@ M.general = {
           layout_config = {
             preview_width = 0.55,
           },
+          file_ignore_patterns = {
+            "^node_modules/",
+          },
         }
       end,
     },
@@ -193,6 +196,9 @@ M.general = {
           layout_strategy = "horizontal",
           layout_config = {
             preview_width = 0.55,
+          },
+          file_ignore_patterns = {
+            "^node_modules/",
           },
         }
       end,
