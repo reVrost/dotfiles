@@ -18,6 +18,11 @@ g.go_term_enabled = 1
 -- if using neovide
 g.neovide_scale_factor = 0.8
 
+-- temp
+vim.lsp.set_log_level "debug" -- Sets the LSP log level to 'debug' for detailed logs
+
+-- Specify the log file location
+
 -- WSL clipboard
 if vim.fn.has "wsl" == 1 then
   g.clipboard = {
@@ -85,7 +90,17 @@ vim.api.nvim_create_user_command("RunGoTest", function()
   for _, node in packageQuery:iter_captures(package_node, 0) do
     package = get_node_text(node, 0)
   end
-  vim.cmd(":vsplit term://" .. "gotest -v -count=1 ./.../" .. package .. " -run " .. function_name)
+  -- Find the Go module root directory by looking for go.mod
+  local go_mod_path = vim.fn.findfile("go.mod", ".;")
+  if go_mod_path == "" then
+    print "go.mod not found in the directory tree"
+    return
+  end
+  local go_mod_directory = vim.fn.fnamemodify(go_mod_path, ":h")
+
+  -- Change directory to the Go module root
+  local cmd = "cd " .. go_mod_directory .. " && gotest -v -count=1 ./" .. package .. " -run " .. function_name
+  vim.cmd(":vsplit term://" .. cmd)
 end, { nargs = "*" })
 
 _G.run_command = function()
