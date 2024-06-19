@@ -42,7 +42,7 @@ M.general = {
     ["<leader>r"] = { ":lua run_command()<CR>" },
 
     -- plugins
-    ["<leader>rt"] = { ":RunGoTest <CR>" },
+    ["<leader>rt"] = { ":lua require('neotest').run.run() <CR>" },
     ["<leader>gd"] = { ":DiffviewToggle <CR>" },
     ["<leader>md"] = { ":MarkdownPreview <CR>" },
     ["<leader>zz"] = { ":ZenMode <CR>" },

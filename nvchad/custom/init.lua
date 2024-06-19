@@ -19,7 +19,7 @@ g.go_term_enabled = 1
 g.neovide_scale_factor = 0.8
 
 -- temp
-vim.lsp.set_log_level "debug" -- Sets the LSP log level to 'debug' for detailed logs
+-- vim.lsp.set_log_level "debug" -- Sets the LSP log level to 'debug' for detailed logs
 
 -- Specify the log file location
 
@@ -44,7 +44,6 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
--- Runs and open go test in split terminal
 vim.api.nvim_create_user_command("RunGoTest", function()
   local ts_locals = require "nvim-treesitter.locals"
   local ts_utils = require "nvim-treesitter.ts_utils"
@@ -63,44 +62,44 @@ vim.api.nvim_create_user_command("RunGoTest", function()
       package_node = v
     end
   end
-  local packageQuery = vim.treesitter.query.parse(
-    "go",
-    [[
-      [
-        (source_file (package_clause (package_identifier) @id))
-      ]
-    ]]
-  )
-  local functionQuery = vim.treesitter.query.parse(
-    "go",
-    [[
-      [
-        (function_declaration name: (_) @id)
-      ]
-    ]]
-  )
   if not function_node then
     print "Not in a function"
     return
   end
   local package, function_name
+  local packageQuery = vim.treesitter.query.parse("go", "(source_file (package_clause (package_identifier) @id))")
+  local functionQuery = vim.treesitter.query.parse("go", "(function_declaration name: (_) @id)")
   for _, node in functionQuery:iter_captures(function_node, 0) do
     function_name = get_node_text(node, 0)
   end
   for _, node in packageQuery:iter_captures(package_node, 0) do
     package = get_node_text(node, 0)
   end
-  -- Find the Go module root directory by looking for go.mod
   local go_mod_path = vim.fn.findfile("go.mod", ".;")
   if go_mod_path == "" then
     print "go.mod not found in the directory tree"
     return
   end
   local go_mod_directory = vim.fn.fnamemodify(go_mod_path, ":h")
-
-  -- Change directory to the Go module root
-  local cmd = "cd " .. go_mod_directory .. " && gotest -v -count=1 ./" .. package .. " -run " .. function_name
-  vim.cmd(":vsplit term://" .. cmd)
+  local cmd = "gotest -v -count=1 ./.../" .. package .. " -run " .. function_name
+  print(go_mod_directory)
+  local term_buf = nil
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == "terminal" then
+      local job_id = vim.b[buf].terminal_job_id
+      if vim.fn.jobwait({ job_id }, 0)[1] == -1 then -- Check if the job is still active
+        term_buf = buf
+        break
+      end
+    end
+  end
+  if term_buf then
+    vim.cmd("buffer " .. term_buf)
+    vim.cmd "startinsert"
+    vim.fn.chansend(vim.b[term_buf].terminal_job_id, cmd .. "\n")
+  else
+    vim.cmd("vsplit term://" .. cmd)
+  end
 end, { nargs = "*" })
 
 _G.run_command = function()
