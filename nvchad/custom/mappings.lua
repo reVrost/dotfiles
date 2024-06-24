@@ -265,6 +265,10 @@ M.general = {
     ["n"] = { "'Nn'[v:searchforward]", opts = { expr = true } },
     ["N"] = { "'nN'[v:searchforward]", opts = { expr = true } },
   },
+  -- terminal
+  t = {
+    ["<C-e>"] = { "<Right>", opts = { noremap = true, silent = true } },
+  },
 }
 
 return M
