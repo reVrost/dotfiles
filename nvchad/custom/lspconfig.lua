@@ -61,7 +61,7 @@ lspconfig.gopls.setup {
 }
 
 -- use null ls for ts format
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = function(client)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
