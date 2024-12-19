@@ -204,3 +204,4 @@ ksandbox() {
 pc() {
     aws --profile platform-nonprod-engineer sts get-caller-identity | jq
 }
+eval "$(/opt/homebrew/bin/mise activate zsh)"

@@ -5,6 +5,7 @@ local map = vim.keymap.set
 -- General mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("i", "jj", "<ESC>")
 
 -- Save and redraw
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Links
 printf "\nConfiguring links.."
 # move existing kitty conf

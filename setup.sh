@@ -33,12 +33,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosu
 
 # git 
 install_package git
-# install othersj
+# install others
 install_package direnv
 install_package neovim
-install_package yarn
 install_package zoxide
-install_package n
+install_package mise
 install_package rg
 install_package bat
 install_package docker
@@ -46,7 +45,6 @@ install_package docker-compose
 
 brew install --cask font-blex-mono-nerd-font
 brew install --cask rectangle
-
 
 # Install Git Credential Manager for Linux if brew is not available
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
