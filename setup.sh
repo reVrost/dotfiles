@@ -31,29 +31,22 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-sy
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 
 
-# install direnv and neovim
+# git 
+install_package git
+# install othersj
 install_package direnv
 install_package neovim
 install_package yarn
 install_package zoxide
 install_package n
+install_package rg
+install_package bat
+install_package docker
+install_package docker-compose
 
 brew install --cask font-blex-mono-nerd-font
 brew install --cask rectangle
 
-# lsps
-#install_package lua-language-server
-#install_package stylua
-#install_package luarocks
-#install_package luacheck
-#install_package shellcheck
-#install_package shfmt
-#install_package bat
-install_package docker
-install_package docker-compose
-
-# git stuff
-install_package git
 
 # Install Git Credential Manager for Linux if brew is not available
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -67,10 +60,6 @@ fi
 printf "\nInstalling pure prompt.."
 mkdir -p "$HOME/.zsh"
 git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
-
-# install nvchad
-git clone -b v2.5 https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-#nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
 
 # git
 printf "\nConfiguring git credentials store.."

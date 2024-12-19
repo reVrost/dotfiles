@@ -4,8 +4,11 @@ printf "\nConfiguring links.."
 mv ~/.config/kitty ~/.config/kitty_bak
 ln -s $(pwd)/kitty ~/.config
 
-mv ~/.config/nvim/lua/custom ~/.config.nvim/lua/custom_bak
-ln -s $(pwd)/nvchad/custom ~/.config/nvim/lua/custom
+#mv ~/.config/nvim/lua/custom ~/.config/nvim/lua/custom_bak
+#ln -s $(pwd)/nvchad/custom ~/.config/nvim/lua/custom
+
+mv ~/.config/nvim ~/.config/nvim_bak
+ln -s $(pwd)/nvim ~/.config
 
 mv ~/.zshrc ~/.zshrc.bak
 ln -s $(pwd)/.zshrc ~/.zshrc
