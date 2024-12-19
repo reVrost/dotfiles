@@ -78,7 +78,7 @@ bindkey -M isearch " " magic-space
 
 # Aliases
 alias bg='screen -d -m "$@"'
-alias cat='bat'
+#alias cat='bat'
 alias ch="curl cht.sh/$1"
 alias k="kubectl"
 alias pip=pip3

@@ -30,27 +30,25 @@ fi
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
 
-# Links
-printf "\nConfiguring links.."
-ln -s $(pwd)/kitty ~/.config/kitty
-ln -s $(pwd)/nvchad/custom ~/.config/nvim/lua/custom
-mv ~/.zshrc ~/.zshrc.bak
-ln -s $(pwd)/.zshrc ~/.zshrc
-ln -s ~/code/reVrost/dotfiles/custom ~/.zsh/custom
-source ~/.zshrc
 
 # install direnv and neovim
 install_package direnv
 install_package neovim
+install_package yarn
+install_package zoxide
+install_package n
+
+brew install --cask font-blex-mono-nerd-font
+brew install --cask rectangle
 
 # lsps
-install_package lua-language-server
-install_package stylua
-install_package luarocks
-install_package luacheck
-install_package shellcheck
-install_package shfmt
-install_package bat
+#install_package lua-language-server
+#install_package stylua
+#install_package luarocks
+#install_package luacheck
+#install_package shellcheck
+#install_package shfmt
+#install_package bat
 install_package docker
 install_package docker-compose
 
@@ -71,11 +69,11 @@ mkdir -p "$HOME/.zsh"
 git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
 # install nvchad
-git clone -b v2.0 https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+git clone -b v2.5 https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 #nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
 
 # git
-printf "\nConfiguring git stuff.."
+printf "\nConfiguring git credentials store.."
 git config --global credential.helper store
 
 # FZF
