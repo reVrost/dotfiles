@@ -1,4 +1,8 @@
 local plugins = {
+ {
+    "stevearc/conform.nvim",
+    opts = require "configs.conform",
+  },
   {
     "echasnovski/mini.files",
     version = false,
@@ -211,14 +215,6 @@ local plugins = {
     config = function()
       require("configs.lspconfig")
     end,
-    dependencies = {
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-          require("configs.null-ls").setup()
-        end,
-      },
-    },
   },
   {
     "github/copilot.vim",
@@ -415,6 +411,10 @@ local plugins = {
         "typescript-language-server",
         "deno",
         "prettier",
+        "prettierd",
+        "buf",
+        "shfmt",
+        "terraform_fmt",
 
         -- c/cpp stuff
         "clangd",

@@ -9,7 +9,7 @@ M.ui = {
 }
 
 M.base46 = {
-  theme = "yoru",
+  theme = "ashes",
   hl_override = {
     CursorLine = { bg = "#25252f" },
   },
