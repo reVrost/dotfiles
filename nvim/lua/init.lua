@@ -8,8 +8,8 @@ opt.encoding = "utf-8"
 opt.splitkeep = "screen"
 
 -- vim snippets
-g.vscode_snippets_path = fn.stdpath "config" .. "/lua/custom/snippets"
-g.lua_snippets_path = fn.stdpath "config" .. "/lua/custom/snippets"
+g.vscode_snippets_path = fn.stdpath "config" .. "/lua/snippets"
+g.lua_snippets_path = fn.stdpath "config" .. "/lua/snippets"
 g.go_term_mode = "vsplit"
 g.go_term_enabled = 1
 
