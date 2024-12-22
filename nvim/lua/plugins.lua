@@ -265,12 +265,40 @@ local plugins = {
   {
     "sindrets/diffview.nvim",
     lazy = true,
+    opts = {
+      diff_binaries = false,
+      enhanced_diff_hl = false,
+      git_cmd = { "git" },
+      hg_cmd = { "chg" },
+      use_icons = false,
+      show_help_hints = false,
+      icons = {
+        folder_closed = "",
+        folder_open = "",
+      },
+      signs = {
+        fold_closed = "",
+        fold_open = "",
+      },
+      view = {
+        default = {
+          disable_diagnostics = false,
+          winbar_info = false,
+        },
+        merge_tool = {
+          layout = "diff3_mixed",
+          disable_diagnostics = true,
+          winbar_info = true,
+        },
+        file_history = {
+          disable_diagnostics = false,
+          winbar_info = false,
+        },
+      },
+    },
   },
   {
     "hrsh7th/nvim-cmp",
-    --       experimental = {
-    --          ghost_text = true,
-    --       },
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -460,68 +488,78 @@ local plugins = {
     opts = {
       bar = {
         enable = function(buf, win, _)
-          return vim.api.nvim_buf_is_valid(buf)
+          -- Fetch buffer name
+          local bufname = vim.api.nvim_buf_get_name(buf)
+          -- Fetch all open windows and check if any Diffview buffer is active
+          local diffview_active = false
+          for _, w in ipairs(vim.api.nvim_list_wins()) do
+            local b = vim.api.nvim_win_get_buf(w)
+            local name = vim.api.nvim_buf_get_name(b)
+            if name:match "^diffview://" then
+              diffview_active = true
+              break
+            end
+          end
+
+          -- Disable dropbar for all Diffview windows
+          return not diffview_active
+            and vim.api.nvim_buf_is_valid(buf)
             and vim.api.nvim_win_is_valid(win)
             and vim.wo[win].winbar == ""
             and vim.fn.win_gettype(win) == ""
-            and vim.bo[buf].ft ~= "help"
             and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
         end,
       },
     },
-    config = function(_, opts)
-      vim.keymap.set("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dropbar: pick" })
-      require("dropbar").setup(opts)
-    end,
-    {
-      "yetone/avante.nvim",
-      event = "VeryLazy",
-      lazy = false,
-      version = false, -- set this if you want to always pull the latest change
-      opts = {
-        -- add any opts here
-      },
-      keys = {
-        { "<leader>aa", "<cmd>AvanteAsk<CR>", desc = "avante: open" },
-        { "<leader>ac", "<cmd>AvanteChat<CR>", desc = "avante: chat" },
-        { "<leader>ae", "<cmd>AvanteEdit<CR>", desc = "avante: edit" },
-      },
-      -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-      build = "make",
-      -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-      dependencies = {
-        "stevearc/dressing.nvim",
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        --- The below dependencies are optional,
-        "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-        "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-        "zbirenbaum/copilot.lua", -- for providers='copilot'
-        {
-          -- support for image pasting
-          "HakonHarnes/img-clip.nvim",
-          event = "VeryLazy",
-          opts = {
-            -- recommended settings
-            default = {
-              embed_image_as_base64 = false,
-              prompt_for_file_name = false,
-              drag_and_drop = {
-                insert_mode = true,
-              },
-              -- required for Windows users
-              use_absolute_path = true,
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- set this if you want to always pull the latest change
+    opts = {
+      -- add any opts here
+    },
+    keys = {
+      { "<leader>aa", "<cmd>AvanteAsk<CR>", desc = "avante: open" },
+      { "<leader>ac", "<cmd>AvanteChat<CR>", desc = "avante: chat" },
+      { "<leader>ae", "<cmd>AvanteEdit<CR>", desc = "avante: edit" },
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
             },
+            -- required for Windows users
+            use_absolute_path = true,
           },
         },
-        {
-          -- Make sure to set this up properly if you have lazy=true
-          "MeanderingProgrammer/render-markdown.nvim",
-          opts = {
-            file_types = { "markdown", "Avante" },
-          },
-          ft = { "markdown", "Avante" },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "Avante" },
         },
+        ft = { "markdown", "Avante" },
       },
     },
   },
