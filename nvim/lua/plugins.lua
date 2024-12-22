@@ -4,6 +4,12 @@ local plugins = {
     opts = require "configs.conform",
   },
   {
+    "stevearc/quicker.nvim",
+    event = "FileType qf",
+    ---@module "quicker"
+    opts = {},
+  },
+  {
     "echasnovski/mini.files",
     version = false,
     lazy = false,
@@ -38,28 +44,6 @@ local plugins = {
     end,
   },
   {
-    "stevearc/quicker.nvim",
-    event = "FileType qf",
-    ---@module "quicker"
-    ---@type quicker.SetupOptions
-    opts = {},
-  },
-  {
-    "andymass/vim-matchup",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end,
-    lazy = false,
-  },
-  {
-    "itchyny/vim-cursorword",
-    lazy = false,
-  },
-  {
-    "romainl/vim-cool",
-    lazy = false,
-  },
-  {
     "echasnovski/mini.indentscope",
     version = false,
     lazy = false,
@@ -75,50 +59,19 @@ local plugins = {
     end,
   },
   {
-    "echasnovski/mini.animate",
-    version = false,
-    lazy = false,
+    "andymass/vim-matchup",
     config = function()
-      local animate = require "mini.animate"
-      animate.setup {
-        cursor = {
-          timing = animate.gen_timing.cubic { duration = 125, unit = "total" },
-        },
-        scroll = {
-          enable = false,
-        },
-      }
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
+    lazy = false,
   },
   {
-    "b0o/incline.nvim",
-    config = function()
-      local helpers = require "incline.helpers"
-      local devicons = require "nvim-web-devicons"
-      require("incline").setup {
-        window = {
-          padding = 0,
-          margin = { horizontal = 0 },
-        },
-        render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
-          if filename == "" then
-            filename = "[No Name]"
-          end
-          local ft_icon, ft_color = devicons.get_icon_color(filename)
-          local modified = vim.bo[props.buf].modified
-          return {
-            ft_icon and { " ", ft_icon, " ", guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or "",
-            " ",
-            { filename, gui = modified and "bold,italic" or "bold" },
-            " ",
-            guibg = "#44406e",
-          }
-        end,
-      }
-    end,
-    -- Optional: Lazy load Incline
-    event = "VeryLazy",
+    "itchyny/vim-cursorword",
+    lazy = false,
+  },
+  {
+    "romainl/vim-cool",
+    lazy = false,
   },
   {
     "nvimdev/dashboard-nvim",
@@ -479,6 +432,18 @@ local plugins = {
     lazy = false,
   },
   {
+    "sphamba/smear-cursor.nvim",
+
+    opts = {
+      -- stiffness = 0.8, -- 0.6      [0, 1]
+      -- trailing_stiffness = 0.5, -- 0.3      [0, 1]
+      distance_stop_animating = 0.5, -- 0.1      > 0
+      -- hide_target_hack = false, -- true     boolean
+      smear_between_neighbor_lines = true,
+      legacy_computing_symbols_support = true,
+    },
+  },
+  {
     "Bekaboo/dropbar.nvim",
     dependencies = {
       -- optional, but required for fuzzy finder support
@@ -563,56 +528,5 @@ local plugins = {
       },
     },
   },
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   config = function()
-  --     require("neoscroll").setup {
-  --       mappings = { "zt", "zz", "zb" },
-  --       easing_function = "cubic",
-  --       pre_hook = function()
-  --         vim.opt.eventignore:append {
-  --           "WinScrolled",
-  --           "CursorMoved",
-  --         }
-  --       end,
-  --       post_hook = function()
-  --         vim.opt.eventignore:remove {
-  --           "WinScrolled",
-  --           "CursorMoved",
-  --         }
-  --       end,
-  --     }z
-  --   end,
-  --   lazy = false,
-  -- },
-  -- {
-  -- 	"nvim-neotest/neotest",
-  -- 	dependencies = {
-  -- 		"nvim-neotest/nvim-nio",
-  -- 		"nvim-lua/plenary.nvim",
-  -- 		"antoinemadec/FixCursorHold.nvim",
-  -- 		"nvim-treesitter/nvim-treesitter",
-  -- 		"nvim-neotest/neotest-go",
-  -- 	},
-  -- 	config = function()
-  -- 		-- get neotest namespace (api call creates or returns namespace)
-  -- 		local neotest_ns = vim.api.nvim_create_namespace("neotest")
-  -- 		vim.diagnostic.config({
-  -- 			virtual_text = {
-  -- 				format = function(diagnostic)
-  -- 					local message =
-  -- 						diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-  -- 					return message
-  -- 				end,
-  -- 			},
-  -- 		}, neotest_ns)
-  -- 		require("neotest").setup({
-  -- 			-- your neotest config here
-  -- 			adapters = {
-  -- 				require("neotest-go"),
-  -- 			},
-  -- 		})
-  -- 	end,
-  -- },
 }
 return plugins

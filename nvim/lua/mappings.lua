@@ -30,13 +30,14 @@ map("n", "<leader>r", ":lua run_command()<CR>", { desc = "Run command" })
 
 -- Plugin-specific mappings
 map("n", "<leader>rt", ":lua require('neotest').run.run()<CR>", { desc = "Run Neotest" })
-map("n", "<leader>gd", ":DiffviewToggle<CR>", { desc = "Toggle Diffview" })
+map("n", "<leader>gs", ":lua git_terminal()<CR>", { desc = "Toggle git terminal", silent = true })
+map("n", "<leader>gd", ":DiffviewToggle<CR>", { desc = "Toggle Diffview", silent = true })
 map("n", "<leader>md", ":MarkdownPreview<CR>", { desc = "Markdown Preview" })
 map("n", "<leader>zz", ":ZenMode<CR>", { desc = "Zen Mode" })
 map("n", "<leader>lr", ":LspRestart<CR>", { desc = "LSP Restart" })
-map("n", "<leader>li", ":LspInfo<CR>", { desc = "LSP Info" })
-map("n", "<leader>ms", ":Mason<CR>", { desc = "Open Mason" })
-map("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "Open MiniFiles" })
+map("n", "<leader>li", ":LspInfo<CR>", { desc = "LSP Info", silent = true })
+map("n", "<leader>ms", ":Mason<CR>", { desc = "Open Mason", silent = true })
+map("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "Open MiniFiles", silent = true })
 
 -- Copilot mappings
 map("i", "<C-;>", function()

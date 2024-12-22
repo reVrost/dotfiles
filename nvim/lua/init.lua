@@ -138,6 +138,39 @@ _G.run_command = function()
   end
 end
 
+_G.git_terminal = function()
+  -- Create a terminal buffer (modifiable and persistent)
+  local buf = vim.api.nvim_create_buf(true, false) -- true for listed, false for scratch
+  vim.api.nvim_buf_set_name(buf, "[Git Terminal]") -- Set a name for the buffer
+
+  -- Open the buffer in a new terminal window
+  local win = vim.api.nvim_open_win(buf, true, {
+    style = "minimal",
+    relative = "editor",
+    width = math.ceil(vim.o.columns * 0.8),
+    height = math.ceil(vim.o.lines * 0.8),
+    row = math.ceil((vim.o.lines - math.ceil(vim.o.lines * 0.8)) / 2),
+    col = math.ceil((vim.o.columns - math.ceil(vim.o.columns * 0.8)) / 2),
+    border = "single",
+  })
+  vim.api.nvim_set_current_win(win)
+
+  -- Launch a terminal and pre-run `git status`
+  vim.fn.termopen(vim.o.shell, { -- Open the user's shell
+    on_exit = function(_, _, _)
+      if vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true)
+      end
+    end,
+  })
+
+  -- Automatically run `git status` once the terminal is ready
+  vim.cmd "startinsert"
+  vim.defer_fn(function()
+    vim.api.nvim_chan_send(vim.b.terminal_job_id, "git status\n")
+  end, 50)
+end
+
 -- specific to whatever you're working on atm
 _G.run_make_dev = function()
   -- Find the directory containing the Makefile

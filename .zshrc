@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:/$HOME/bin:/usr/local/bin:$PATH:/usr/local/go/bin:/usr/local/lua-language-server/bin:$(yarn global bin):/opt/homebrew/bin:$HOME/.local/bin
+export PATH="$PATH:$HOME/go/bin:$HOME/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:$HOME/.local/bin:$HOME/.local/share/mise/shims:$(yarn global bin)"
 
 # Path to your oh-my-zsh installation.
 # export ZSH="$HOME/.oh-my-zsh"
@@ -132,6 +132,60 @@ emscripten() {
 # zoxide
 eval "$(zoxide init zsh)"
 
+export MISE_SHELL=zsh
+export __MISE_ORIG_PATH="$PATH"
+
+mise() {
+  local command
+  command="${1:-}"
+  if [ "$#" = 0 ]; then
+    command /opt/homebrew/bin/mise
+    return
+  fi
+  shift
+
+  case "$command" in
+  deactivate|shell|sh)
+    # if argv doesn't contains -h,--help
+    if [[ ! " $@ " =~ " --help " ]] && [[ ! " $@ " =~ " -h " ]]; then
+      eval "$(command /opt/homebrew/bin/mise "$command" "$@")"
+      return $?
+    fi
+    ;;
+  esac
+  command /opt/homebrew/bin/mise "$command" "$@"
+}
+
+_mise_hook() {
+  eval "$(/opt/homebrew/bin/mise hook-env -s zsh)";
+}
+typeset -ag precmd_functions;
+if [[ -z "${precmd_functions[(r)_mise_hook]+1}" ]]; then
+  precmd_functions=( _mise_hook ${precmd_functions[@]} )
+fi
+typeset -ag chpwd_functions;
+if [[ -z "${chpwd_functions[(r)_mise_hook]+1}" ]]; then
+  chpwd_functions=( _mise_hook ${chpwd_functions[@]} )
+fi
+
+_mise_hook
+if [ -z "${_mise_cmd_not_found:-}" ]; then
+    _mise_cmd_not_found=1
+    [ -n "$(declare -f command_not_found_handler)" ] && eval "${$(declare -f command_not_found_handler)/command_not_found_handler/_command_not_found_handler}"
+
+    function command_not_found_handler() {
+        if /opt/homebrew/bin/mise hook-not-found -s zsh -- "$1"; then
+          _mise_hook
+          "$@"
+        elif [ -n "$(declare -f _command_not_found_handler)" ]; then
+            _command_not_found_handler "$@"
+        else
+            echo "zsh: command not found: $1" >&2
+            return 127
+        fi
+    }
+fi
+
 # allow drag by ctrl+cmd
 defaults write -g NSWindowShouldDragOnGesture YES
 
@@ -204,4 +258,3 @@ ksandbox() {
 pc() {
     aws --profile platform-nonprod-engineer sts get-caller-identity | jq
 }
-eval "$(/opt/homebrew/bin/mise activate zsh)"
