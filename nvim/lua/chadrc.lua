@@ -9,7 +9,7 @@ M.ui = {
 }
 
 M.base46 = {
-  theme = "ashes",
+  theme = "chadracula-evondev",
   hl_override = {
     CursorLine = { bg = "#25252f" },
   },

@@ -23,34 +23,56 @@ local plugins = {
 		end,
 	},
 	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-neotest/neotest-go",
-		},
+		"echasnovski/mini.ai",
+		version = false,
+		lazy = false,
 		config = function()
-			-- get neotest namespace (api call creates or returns namespace)
-			local neotest_ns = vim.api.nvim_create_namespace("neotest")
-			vim.diagnostic.config({
-				virtual_text = {
-					format = function(diagnostic)
-						local message =
-							diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
-						return message
-					end,
-				},
-			}, neotest_ns)
-			require("neotest").setup({
-				-- your neotest config here
-				adapters = {
-					require("neotest-go"),
+			local ai = require("mini.ai")
+			require("mini.ai").setup({
+				n_lines = 500,
+				custom_textobjects = {
+					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
 				},
 			})
 		end,
 	},
+	{
+		"stevearc/quicker.nvim",
+		event = "FileType qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
+	},
+	-- {
+	-- 	"nvim-neotest/neotest",
+	-- 	dependencies = {
+	-- 		"nvim-neotest/nvim-nio",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"antoinemadec/FixCursorHold.nvim",
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"nvim-neotest/neotest-go",
+	-- 	},
+	-- 	config = function()
+	-- 		-- get neotest namespace (api call creates or returns namespace)
+	-- 		local neotest_ns = vim.api.nvim_create_namespace("neotest")
+	-- 		vim.diagnostic.config({
+	-- 			virtual_text = {
+	-- 				format = function(diagnostic)
+	-- 					local message =
+	-- 						diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+	-- 					return message
+	-- 				end,
+	-- 			},
+	-- 		}, neotest_ns)
+	-- 		require("neotest").setup({
+	-- 			-- your neotest config here
+	-- 			adapters = {
+	-- 				require("neotest-go"),
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"andymass/vim-matchup",
 		config = function()
@@ -228,19 +250,19 @@ local plugins = {
 			-- or run <leader>ch to see copilot mapping section
 		end,
 	},
-	{
-		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		lazy = false,
-		version = "*",
-		dependencies = {
-			"SmiteshP/nvim-navic",
-			"nvim-tree/nvim-web-devicons", -- optional dependency
-		},
-		opts = {
-			-- configurations go here
-		},
-	},
+	-- {
+	-- 	"utilyre/barbecue.nvim",
+	-- 	name = "barbecue",
+	-- 	lazy = false,
+	-- 	version = "*",
+	-- 	dependencies = {
+	-- 		"SmiteshP/nvim-navic",
+	-- 		"nvim-tree/nvim-web-devicons", -- optional dependency
+	-- 	},
+	-- 	opts = {
+	-- 		-- configurations go here
+	-- 	},
+	-- },
 	{
 		"tpope/vim-surround",
 		lazy = false,
@@ -276,6 +298,12 @@ local plugins = {
 	{
 		"ggandor/leap.nvim",
 		lazy = false,
+	},
+	{
+		"ggandor/flit.nvim",
+		config = function()
+			require("flit").setup()
+		end,
 	},
 	{
 		"sindrets/diffview.nvim",
@@ -466,22 +494,30 @@ local plugins = {
 		"eandrju/cellular-automaton.nvim",
 		lazy = false,
 	},
-	-- switch barbecue to dropbar later when upgrade to nvim 0.10
-	-- {
-	--    "Bekaboo/dropbar.nvim",
-	--    -- optional, but required for fuzzy finder support
-	--    config = function()
-	--       require("dropbar").setup {
-	--          general = {
-	--             enable = true,
-	--          },
-	--       }
-	--    end,
-	--    dependencies = {
-	--       "nvim-telescope/telescope-fzf-native.nvim",
-	--    },
-	--    lazy = false,
-	-- },
+	{
+		"Bekaboo/dropbar.nvim",
+		dependencies = {
+			-- optional, but required for fuzzy finder support
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
+		lazy = false,
+		opts = {
+			bar = {
+				enable = function(buf, win, _)
+					return vim.api.nvim_buf_is_valid(buf)
+						and vim.api.nvim_win_is_valid(win)
+						and vim.wo[win].winbar == ""
+						and vim.fn.win_gettype(win) == ""
+						and vim.bo[buf].ft ~= "help"
+						and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
+				end,
+			},
+		},
+		config = function(_, opts)
+			vim.keymap.set("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dropbar: pick" })
+			require("dropbar").setup(opts)
+		end,
+	},
 	-- {
 	--   "karb94/neoscroll.nvim",
 	--   config = function()
@@ -500,7 +536,7 @@ local plugins = {
 	--           "CursorMoved",
 	--         }
 	--       end,
-	--     }
+	--     }z
 	--   end,
 	--   lazy = false,
 	-- },
