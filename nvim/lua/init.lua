@@ -1,5 +1,7 @@
 -- local ls = require "luasnip"
 local opt, g, fn = vim.opt, vim.g, vim.fn
+local augroup = vim.api.nvim_create_augroup
+local cmd = vim.api.nvim_create_user_command
 
 -- vim opts
 opt.belloff = "all"
@@ -18,7 +20,7 @@ g.neovide_scale_factor = 0.8
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+local highlight_group = augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   callback = function()
@@ -27,7 +29,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- auto trim trailing whitespace
-local trim_whitespace_group = vim.api.nvim_create_augroup("trim_whitespace", { clear = true })
+local trim_whitespace_group = augroup("trim_whitespace", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
   group = trim_whitespace_group,
   callback = function()
@@ -70,78 +72,11 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-vim.api.nvim_create_user_command("RunGoTest", function()
-  local ts_locals = require "nvim-treesitter.locals"
-  local ts_utils = require "nvim-treesitter.ts_utils"
-  local cursor_node = ts_utils.get_node_at_cursor()
-  local scope = ts_locals.get_scope_tree(cursor_node, 0)
-  local get_node_text = vim.treesitter.get_node_text
-  local function_node, package_node
-  local function_node_types = {
-    function_declaration = true,
-  }
-  for _, v in ipairs(scope) do
-    if function_node_types[v:type()] then
-      function_node = v
-    end
-    if v:type() == "source_file" then
-      package_node = v
-    end
-  end
-  if not function_node then
-    print "Not in a function"
-    return
-  end
-  local package, function_name
-  local packageQuery = vim.treesitter.query.parse("go", "(source_file (package_clause (package_identifier) @id))")
-  local functionQuery = vim.treesitter.query.parse("go", "(function_declaration name: (_) @id)")
-  for _, node in functionQuery:iter_captures(function_node, 0) do
-    function_name = get_node_text(node, 0)
-  end
-  for _, node in packageQuery:iter_captures(package_node, 0) do
-    package = get_node_text(node, 0)
-  end
-  local go_mod_path = vim.fn.findfile("go.mod", ".;")
-  if go_mod_path == "" then
-    print "go.mod not found in the directory tree"
-    return
-  end
-  local go_mod_directory = vim.fn.fnamemodify(go_mod_path, ":h")
-  local cmd = "gotest -v -count=1 ./.../" .. package .. " -run " .. function_name
-  print(go_mod_directory)
-  local term_buf = nil
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == "terminal" then
-      local job_id = vim.b[buf].terminal_job_id
-      if vim.fn.jobwait({ job_id }, 0)[1] == -1 then -- Check if the job is still active
-        term_buf = buf
-        break
-      end
-    end
-  end
-  if term_buf then
-    vim.cmd("buffer " .. term_buf)
-    vim.cmd "startinsert"
-    vim.fn.chansend(vim.b[term_buf].terminal_job_id, cmd .. "\n")
-  else
-    vim.cmd("vsplit term://" .. cmd)
-  end
-end, { nargs = "*" })
-
-_G.run_command = function()
-  local filetype = vim.bo.filetype
-  if filetype == "c" then
-    vim.cmd "!sh run.sh"
-  end
-  if filetype == "go" then
-    run_make_dev()
-  end
-end
-
-_G.git_terminal = function()
+_G.open_term = function(command, title)
   -- Create a terminal buffer (modifiable and persistent)
   local buf = vim.api.nvim_create_buf(true, false) -- true for listed, false for scratch
-  vim.api.nvim_buf_set_name(buf, "[Git Terminal]") -- Set a name for the buffer
+  title = title or "[Terminal]"
+  vim.api.nvim_buf_set_name(buf, title) -- Set a name for the buffer
 
   -- Open the buffer in a new terminal window
   local win = vim.api.nvim_open_win(buf, true, {
@@ -155,8 +90,8 @@ _G.git_terminal = function()
   })
   vim.api.nvim_set_current_win(win)
 
-  -- Launch a terminal and pre-run `git status`
-  vim.fn.termopen(vim.o.shell, { -- Open the user's shell
+  -- Launch a terminal
+  vim.fn.termopen(vim.o.shell, {
     on_exit = function(_, _, _)
       if vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_win_close(win, true)
@@ -164,11 +99,82 @@ _G.git_terminal = function()
     end,
   })
 
-  -- Automatically run `git status` once the terminal is ready
-  vim.cmd "startinsert"
-  vim.defer_fn(function()
-    vim.api.nvim_chan_send(vim.b.terminal_job_id, "git status\n")
-  end, 50)
+  -- Automatically run the command once the terminal is ready
+  if command and command ~= "" then
+    vim.cmd "startinsert"
+    vim.defer_fn(function()
+      vim.api.nvim_chan_send(vim.b.terminal_job_id, command .. "\n")
+    end, 50)
+  else
+    vim.cmd "startinsert"
+  end
+end
+
+cmd("GitTerminal", function()
+  _G.open_term("git status", "[Git Terminal]")
+end, { nargs = "*" })
+
+cmd("RunGoTest", function()
+  local ts_locals = require "nvim-treesitter.locals"
+  local ts_utils = require "nvim-treesitter.ts_utils"
+  local cursor_node = ts_utils.get_node_at_cursor()
+  local scope = ts_locals.get_scope_tree(cursor_node, 0)
+  local get_node_text = vim.treesitter.get_node_text
+  local function_node, package_node
+  local function_node_types = {
+    function_declaration = true,
+  }
+
+  -- Find the function and package nodes
+  for _, v in ipairs(scope) do
+    if function_node_types[v:type()] then
+      function_node = v
+    end
+    if v:type() == "source_file" then
+      package_node = v
+    end
+  end
+
+  if not function_node then
+    print "Not in a function"
+    return
+  end
+
+  -- Extract the function name and package name
+  local package, function_name
+  local packageQuery = vim.treesitter.query.parse("go", "(source_file (package_clause (package_identifier) @id))")
+  local functionQuery = vim.treesitter.query.parse("go", "(function_declaration name: (_) @id)")
+
+  for _, node in functionQuery:iter_captures(function_node, 0) do
+    function_name = get_node_text(node, 0)
+  end
+
+  for _, node in packageQuery:iter_captures(package_node, 0) do
+    package = get_node_text(node, 0)
+  end
+
+  local go_mod_path = vim.fn.findfile("go.mod", ".;")
+  if go_mod_path == "" then
+    print "go.mod not found in the directory tree"
+    return
+  end
+
+  local go_mod_directory = vim.fn.fnamemodify(go_mod_path, ":h")
+  local cmd = "gotest -v -count=1 ./.../" .. package .. " -run " .. function_name
+  print("Running command in directory:", go_mod_directory)
+
+  -- Use the global `open_terminal_window` function to run the command
+  _G.open_term(cmd, "[Go Test Terminal]")
+end, { nargs = "*" })
+
+_G.run_command = function()
+  local filetype = vim.bo.filetype
+  if filetype == "c" then
+    vim.cmd "!sh run.sh"
+  end
+  if filetype == "go" then
+    run_make_dev()
+  end
 end
 
 -- specific to whatever you're working on atm

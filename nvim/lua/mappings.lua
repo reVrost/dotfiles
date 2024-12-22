@@ -29,8 +29,8 @@ map("n", "<leader>wa", ":wa<CR>", { desc = "Write all" })
 map("n", "<leader>r", ":lua run_command()<CR>", { desc = "Run command" })
 
 -- Plugin-specific mappings
-map("n", "<leader>rt", ":lua require('neotest').run.run()<CR>", { desc = "Run Neotest" })
-map("n", "<leader>gs", ":lua git_terminal()<CR>", { desc = "Toggle git terminal", silent = true })
+map("n", "<leader>rt", ":RunGoTest<CR>", { desc = "Run test" })
+map("n", "<leader>gs", ":GitTerminal<CR>", { desc = "Toggle git terminal", silent = true })
 map("n", "<leader>gd", ":DiffviewToggle<CR>", { desc = "Toggle Diffview", silent = true })
 map("n", "<leader>md", ":MarkdownPreview<CR>", { desc = "Markdown Preview" })
 map("n", "<leader>zz", ":ZenMode<CR>", { desc = "Zen Mode" })
