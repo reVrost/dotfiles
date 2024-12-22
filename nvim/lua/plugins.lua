@@ -440,7 +440,6 @@ local plugins = {
 				"deno",
 				"prettier",
 				"prettierd",
-				"buf",
 				"shfmt",
 				"terraform_fmt",
 
