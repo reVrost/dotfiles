@@ -403,7 +403,7 @@ local plugins = {
 
     opts = {
       smear_between_neighbor_lines = false,
-      legacy_computing_symbols_support = true,
+      legacy_computing_symbols_support = false,
     },
   },
   {

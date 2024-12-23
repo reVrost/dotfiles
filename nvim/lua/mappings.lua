@@ -37,7 +37,12 @@ map("n", "<leader>zz", ":ZenMode<CR>", { desc = "Zen Mode" })
 map("n", "<leader>lr", ":LspRestart<CR>", { desc = "LSP Restart" })
 map("n", "<leader>li", ":LspInfo<CR>", { desc = "LSP Info", silent = true })
 map("n", "<leader>ms", ":Mason<CR>", { desc = "Open Mason", silent = true })
-map("n", "<leader>e", ":lua MiniFiles.open()<CR>", { desc = "Open MiniFiles", silent = true })
+map(
+  "n",
+  "<leader>e",
+  "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>",
+  { desc = "Open MiniFiles", silent = true }
+)
 
 -- Copilot mappings
 map("i", "<C-;>", function()
