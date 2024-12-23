@@ -8,6 +8,7 @@ opt.belloff = "all"
 opt.relativenumber = true
 opt.encoding = "utf-8"
 opt.splitkeep = "screen"
+opt.fillchars:append { diff = "╱" }
 
 -- vim snippets
 g.vscode_snippets_path = fn.stdpath "config" .. "/lua/snippets"
@@ -40,6 +41,20 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.api.nvim_win_set_cursor(0, curpos)
   end,
 })
+-- -- General Diff Highlights
+-- vim.api.nvim_set_hl(0, "DiffAdd", { fg = "none", bg = "#103235" })
+-- vim.api.nvim_set_hl(0, "DiffChange", { fg = "#ffffff", bg = "#ffffff" })
+-- vim.api.nvim_set_hl(0, "DiffText", { fg = "#ffffff", bg = "#394b70" })
+-- vim.api.nvim_set_hl(0, "DiffDelete", { fg = "none", bg = "#3F2D3D" })
+-- vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { fg = "#ffffff", bg = "#3f2d3d" })
+vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { fg = "#3B4252", bg = "none" })
+--
+-- -- Left Panel Highlights
+-- vim.api.nvim_set_hl(0, "DiffAddAsDelete", { fg = "none", bg = "#3F2D3D" })
+-- vim.api.nvim_set_hl(0, "DiffDeleteText", { fg = "none", bg = "#4B1818" })
+--
+-- -- Right Panel Highlights
+-- vim.api.nvim_set_hl(0, "DiffAddText", { fg = "#ffffff", bg = "#1C5458" })
 
 -- vim.api.nvim_set_hl(0, "LeapMatch", {
 --   ---For light themes, set to 'black' or similar.
@@ -112,6 +127,10 @@ end
 
 cmd("GitTerminal", function()
   _G.open_term("git status", "[Git Terminal]")
+end, { nargs = "*" })
+
+cmd("GitDelta", function()
+  _G.open_term("git diff", "[Git Delta]")
 end, { nargs = "*" })
 
 cmd("RunGoTest", function()
