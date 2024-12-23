@@ -216,65 +216,6 @@ local plugins = {
   {
     "sindrets/diffview.nvim",
     lazy = true,
-    -- opts = {
-    --   diff_binaries = false,
-    --   enhanced_diff_hl = false,
-    --   git_cmd = { "git" },
-    --   hg_cmd = { "chg" },
-    --   use_icons = false,
-    --   show_help_hints = false,
-    --   icons = {
-    --     folder_closed = "",
-    --     folder_open = "",
-    --   },
-    --   signs = {
-    --     fold_closed = "",
-    --     fold_open = "",
-    --   },
-    --   view = {
-    --     default = {
-    --       disable_diagnostics = false,
-    --       winbar_info = false,
-    --     },
-    --     merge_tool = {
-    --       layout = "diff3_mixed",
-    --       disable_diagnostics = true,
-    --       winbar_info = true,
-    --     },
-    --     file_history = {
-    --       disable_diagnostics = false,
-    --       winbar_info = false,
-    --     },
-    --   },
-      -- hooks = {
-      --   view_opened = function(view)
-      --     local utils = require "utils"
-      --     -- Highlight 'DiffChange' as 'DiffDelete' on the left, and 'DiffAdd' on
-      --     -- the right.
-      --     local function post_layout()
-      --       utils.tbl_ensure(view, "winopts.diff2.a")
-      --       utils.tbl_ensure(view, "winopts.diff2.b")
-      --       -- left
-      --       view.winopts.diff2.a = utils.tbl_union_extend(view.winopts.diff2.a, {
-      --         winhl = {
-      --           "DiffChange:DiffAddAsDelete",
-      --           "DiffText:DiffDeleteText",
-      --         },
-      --       })
-      --       -- right
-      --       view.winopts.diff2.b = utils.tbl_union_extend(view.winopts.diff2.b, {
-      --         winhl = {
-      --           "DiffChange:DiffAdd",
-      --           "DiffText:DiffAddText",
-      --         },
-      --       })
-      --     end
-      --
-      --     view.emitter:on("post_layout", post_layout)
-      --     post_layout()
-      --   end,
-      -- }, -- See ':h diffview-config-hooks'
-    -- },
   },
   {
     "hrsh7th/nvim-cmp",
