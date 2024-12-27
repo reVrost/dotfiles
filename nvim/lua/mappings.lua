@@ -1,4 +1,9 @@
 require "nvchad.mappings"
+-- Disable nvchad mappings
+local nomap = vim.keymap.del
+
+nomap("n", "<Tab>")
+nomap("n", "<S-Tab>")
 -- Define key mappings using the new format
 local map = vim.keymap.set
 
@@ -6,6 +11,8 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map("i", "jj", "<ESC>")
+map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer", silent = true })
+map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
 
 -- Save and redraw
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })

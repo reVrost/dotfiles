@@ -62,11 +62,11 @@ M.base46 = {
         base08 = "#E5E5E5", -- also variables in params
         base09 = "#E5E5E5",
         -- base0A = "#E5E5E5", -- Identifiers and types
-        base0A = "#77bc9a", -- Identifiers and types, highlights bg on search?
+        base0A = "#FFCFA8", -- Identifiers and types, highlights bg on search?
         base0B = "#77bc9a",
         base0C = "#E5E5E5", -- Symbols
         base0D = "#FFCFA8",
-        base0E = "#FFCFA8", -- keywords func, const, if
+        base0E = "#b0b0b0", -- keywords func, const, if
         base0F = "#FFCFA8", -- Brackets, and commas in lua
       },
     },
