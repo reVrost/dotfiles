@@ -404,6 +404,8 @@ local plugins = {
     opts = {
       smear_between_neighbor_lines = false,
       legacy_computing_symbols_support = true,
+      cursor_color = "#d3cdc3",
+      transparent_bg_fallback_color = "#303030",
     },
   },
   {
@@ -446,7 +448,7 @@ local plugins = {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      -- add any opts here
+      provider = "openai",
     },
     keys = {
       { "<leader>aa", "<cmd>AvanteAsk<CR>", desc = "avante: open" },
