@@ -1,13 +1,28 @@
 local plugins = {
   {
-    "stevearc/conform.nvim",
-    opts = require "configs.conform",
-  },
-  {
     "stevearc/quicker.nvim",
     event = "FileType qf",
     ---@module "quicker"
     opts = {},
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = require "configs.conform",
+  },
+  {
+    "echasnovski/mini.ai",
+    version = false,
+    lazy = false,
+    config = function()
+      local ai = require "mini.ai"
+      require("mini.ai").setup {
+        n_lines = 500,
+        custom_textobjects = {
+          f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" }, -- function
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+        },
+      }
+    end,
   },
   {
     "echasnovski/mini.files",
@@ -24,21 +39,6 @@ local plugins = {
         },
         windows = {
           preview = true,
-        },
-      }
-    end,
-  },
-  {
-    "echasnovski/mini.ai",
-    version = false,
-    lazy = false,
-    config = function()
-      local ai = require "mini.ai"
-      require("mini.ai").setup {
-        n_lines = 500,
-        custom_textobjects = {
-          f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" }, -- function
-          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
         },
       }
     end,
@@ -193,9 +193,6 @@ local plugins = {
       scope = "git_branch",
       icons = true,
     },
-    keys = {
-      { "<leader>hh", "<cmd>Grapple toggle_tags<cr>", desc = "Toggle tags menu" },
-    },
   },
   {
     "folke/which-key.nvim",
@@ -273,15 +270,15 @@ local plugins = {
             ["ib"] = "@block.inner",
           },
         },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<Leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<Leader>A"] = "@parameter.inner",
-          },
-        },
+        -- swap = {
+        --   enable = true,
+        --   swap_next = {
+        --     ["<Leader>a"] = "@parameter.inner",
+        --   },
+        --   swap_previous = {
+        --     ["<Leader>A"] = "@parameter.inner",
+        --   },
+        -- },
         move = {
           enable = true,
           set_jumps = true,

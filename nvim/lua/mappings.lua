@@ -14,6 +14,15 @@ map("i", "jj", "<ESC>")
 map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer", silent = true })
 map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
 
+-- Grapple mappings
+map("n", "<leader>hh", "<cmd>Grapple toggle_tags<cr>", { desc = "Toggle tags menu", silent = true })
+map("n", "<leader>a", "<cmd>Grapple toggle<cr>", { desc = "Tag a file", silent = true })
+map("n", "<leader>1", "<cmd>Grapple select index=1<cr>", { silent = true })
+map("n", "<leader>2", "<cmd>Grapple select index=2<cr>", { silent = true })
+map("n", "<leader>3", "<cmd>Grapple select index=3<cr>", { silent = true })
+map("n", "<leader>4", "<cmd>Grapple select index=4<cr>", { silent = true })
+map("n", "<leader>5", "<cmd>Grapple select index=5<cr>", { silent = true })
+
 -- Save and redraw
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })
 
@@ -68,10 +77,12 @@ map({ "x", "o" }, "s", "<Plug>(leap-forward)")
 map({ "x", "o" }, "S", "<Plug>(leap-backward)")
 
 -- Don't yank on change
-map("n", "c", '"_c', { desc = "Don't yank on change" })
-map("n", "C", '"_C', { desc = "Don't yank on change" })
-map("v", "c", '"_c', { desc = "Don't yank on change (visual mode)" })
-map("v", "C", '"_C', { desc = "Don't yank on change (visual mode)" })
+map({ "n", "v" }, "c", '"_c', { desc = "Don't yank on change" })
+map({ "n", "v" }, "C", '"_C', { desc = "Don't yank on change" })
+
+-- Safe paste in visual mode
+map("v", "p", '"_dP', { desc = "Safe paste without overwriting clipboard" })
+map("v", "P", '"_dP', { desc = "Safe paste without overwriting clipboard" })
 
 -- LSP key mappings
 map("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
