@@ -4,6 +4,7 @@ local nomap = vim.keymap.del
 
 nomap("n", "<Tab>")
 nomap("n", "<S-Tab>")
+nomap("n", "q")
 -- Define key mappings using the new format
 local map = vim.keymap.set
 

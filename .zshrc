@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="$PATH:$HOME/go/bin:$HOME/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:$HOME/.local/bin:$HOME/.local/share/mise/shims:$(yarn global bin)"
+export PATH="$PATH:$HOME/go/bin:$HOME/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:$HOME/.local/bin:$HOME/.local/share/mise/shims"
 
 # Path to your oh-my-zsh installation.
 # export ZSH="$HOME/.oh-my-zsh"
