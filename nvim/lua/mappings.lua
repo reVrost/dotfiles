@@ -4,7 +4,6 @@ local nomap = vim.keymap.del
 
 nomap("n", "<Tab>")
 nomap("n", "<S-Tab>")
-nomap("n", "q")
 -- Define key mappings using the new format
 local map = vim.keymap.set
 
@@ -14,6 +13,7 @@ map("i", "jk", "<ESC>")
 map("i", "jj", "<ESC>")
 map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer", silent = true })
 map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
+map("n", "q", "<Nop>")
 
 -- Grapple mappings
 map("n", "<leader>hh", "<cmd>Grapple toggle_tags<cr>", { desc = "Toggle tags menu", silent = true })
