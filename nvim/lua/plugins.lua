@@ -400,9 +400,14 @@ local plugins = {
 
     opts = {
       smear_between_neighbor_lines = false,
-      legacy_computing_symbols_support = true,
       cursor_color = "#d3cdc3",
       transparent_bg_fallback_color = "#303030",
+    },
+  },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
     },
   },
   {
@@ -445,7 +450,7 @@ local plugins = {
     lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      provider = "openai",
+      provider = "copilot",
       openai = {
         endpoint = "https://openrouter.ai/api/v1",
         model = "deepseek/deepseek-chat",
@@ -453,11 +458,38 @@ local plugins = {
         temperature = 0.6,
         max_tokens = 8000,
       },
-    },
-    keys = {
-      { "<leader>aa", "<cmd>AvanteAsk<CR>", desc = "avante: open" },
-      { "<leader>ac", "<cmd>AvanteChat<CR>", desc = "avante: chat" },
-      { "<leader>ae", "<cmd>AvanteEdit<CR>", desc = "avante: edit" },
+      behaviour = {
+        support_paste_from_clipboard = true,
+        auto_apply_diff_after_generation = true,
+      },
+      mappings = {
+        submit = { normal = "<CR>", insert = "<CR>" },
+        suggestion = {
+          accept = "<M-j>",
+          next = "<M-l>",
+          prev = "<M-h>",
+          dismiss = "<M-k>",
+        },
+        jump = {
+          next = "]]",
+          prev = "[[",
+        },
+      },
+      windows = {
+        position = "smart",
+        sidebar_header = {
+          align = "left", -- left, center, right for title
+          rounded = false,
+          enabled = false,
+        },
+        input = { prefix = "➜ " },
+        ask = { start_insert = true },
+        edit = { start_insert = true },
+      },
+      file_selector = {
+        start_insert = true,
+        provider = "fzf",
+      },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = "make",
@@ -496,6 +528,43 @@ local plugins = {
         ft = { "markdown", "Avante" },
       },
     },
+  },
+  {
+    "tronikelis/conflict-marker.nvim",
+    lazy = false,
+    config = function()
+      require("conflict-marker").setup {
+        highlights = true,
+
+        on_attach = function(conflict)
+          local map = function(key, fn)
+            vim.keymap.set("n", key, fn, { buffer = conflict.bufnr })
+          end
+          local MID = "^=======$"
+
+          map("[x", function()
+            vim.cmd("?" .. MID)
+          end)
+
+          map("]x", function()
+            vim.cmd("/" .. MID)
+          end)
+
+          map("co", function()
+            conflict:choose_ours()
+          end)
+          map("ct", function()
+            conflict:choose_theirs()
+          end)
+          map("cb", function()
+            conflict:choose_both()
+          end)
+          map("cn", function()
+            conflict:choose_none()
+          end)
+        end,
+      }
+    end,
   },
 }
 return plugins

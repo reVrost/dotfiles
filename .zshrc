@@ -100,7 +100,6 @@ alias -g L="| lnav"
 alias -g A="| awk '{print \$1}'"
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # pyenv

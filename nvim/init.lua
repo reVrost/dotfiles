@@ -30,6 +30,7 @@ dofile(vim.g.base46_cache .. "statusline")
 
 require "nvchad.options"
 require "nvchad.autocmds"
+
 require "init"
 
 vim.schedule(function()

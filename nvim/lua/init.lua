@@ -48,6 +48,11 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 -- vim.api.nvim_set_hl(0, "DiffDelete", { fg = "none", bg = "#3F2D3D" })
 -- vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { fg = "#ffffff", bg = "#3f2d3d" })
 vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { fg = "#3B4252", bg = "none" })
+
+-- Conflict markers
+vim.api.nvim_set_hl(0, "ConflictOurs", { fg = "none", bg = "#405060" })
+vim.api.nvim_set_hl(0, "ConflictTheirs", { fg = "none", bg = "#415050" })
+
 --
 -- -- Left Panel Highlights
 -- vim.api.nvim_set_hl(0, "DiffAddAsDelete", { fg = "none", bg = "#3F2D3D" })
@@ -55,7 +60,6 @@ vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { fg = "#3B4252", bg = "none" })
 --
 -- -- Right Panel Highlights
 -- vim.api.nvim_set_hl(0, "DiffAddText", { fg = "#ffffff", bg = "#1C5458" })
-
 -- vim.api.nvim_set_hl(0, "LeapMatch", {
 --   ---For light themes, set to 'black' or similar.
 --   fg = vim.go.background == "dark" and "white" or "black",
