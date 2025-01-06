@@ -451,12 +451,15 @@ local plugins = {
     version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = "copilot",
-      openai = {
-        endpoint = "https://openrouter.ai/api/v1",
-        model = "deepseek/deepseek-chat",
-        api_key_name = "OPENROUTER_API_KEY",
-        temperature = 0.6,
-        max_tokens = 8000,
+      vendors = {
+        openrouter = {
+          __inherited_from = "openai",
+          endpoint = "https://openrouter.ai/api/v1",
+          model = "deepseek/deepseek-chat",
+          api_key_name = "OPENROUTER_API_KEY",
+          temperature = 0.6,
+          max_tokens = 8000,
+        },
       },
       behaviour = {
         support_paste_from_clipboard = true,
