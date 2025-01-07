@@ -479,7 +479,7 @@ local plugins = {
         },
       },
       windows = {
-        position = "smart",
+        -- position = "smart",
         sidebar_header = {
           align = "left", -- left, center, right for title
           rounded = false,
