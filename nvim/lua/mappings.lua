@@ -23,6 +23,11 @@ map("n", "<leader>2", "<cmd>Grapple select index=2<cr>", { silent = true })
 map("n", "<leader>3", "<cmd>Grapple select index=3<cr>", { silent = true })
 map("n", "<leader>4", "<cmd>Grapple select index=4<cr>", { silent = true })
 map("n", "<leader>5", "<cmd>Grapple select index=5<cr>", { silent = true })
+map("n", "<C-1>", "<cmd>Grapple tag index=1<cr>", { silent = true })
+map("n", "<C-2>", "<cmd>Grapple tag index=2<cr>", { silent = true })
+map("n", "<C-3>", "<cmd>Grapple tag index=3<cr>", { silent = true })
+map("n", "<C-4>", "<cmd>Grapple tag index=4<cr>", { silent = true })
+map("n", "<C-5>", "<cmd>Grapple tag index=5<cr>", { silent = true })
 
 -- Save and redraw
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })
