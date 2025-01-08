@@ -91,46 +91,71 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-_G.open_term = function(command, title)
-  -- Create a terminal buffer (modifiable and persistent)
-  local buf = vim.api.nvim_create_buf(true, false) -- true for listed, false for scratch
-  title = title or "[Terminal]"
-  vim.api.nvim_buf_set_name(buf, title) -- Set a name for the buffer
+local float_state = {
+  buf = -1,
+  win = -1,
+}
 
-  -- Open the buffer in a new terminal window
-  local win = vim.api.nvim_open_win(buf, true, {
+local function is_terminal_running(buf)
+  local job_id = vim.b[buf].terminal_job_id
+  if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
+    return true
+  end
+  return false
+end
+
+_G.open_term = function(command, title, buf)
+  if not vim.api.nvim_buf_is_valid(buf) or not is_terminal_running(buf) then
+    if not buf == -1 then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+    buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_name(buf, title) -- Set a name for the buffer
+  end
+  -- Create a terminal buffer (modifiable and persistent)
+  local win_config = {
     style = "minimal",
     relative = "editor",
     width = math.ceil(vim.o.columns * 0.8),
     height = math.ceil(vim.o.lines * 0.8),
     row = math.ceil((vim.o.lines - math.ceil(vim.o.lines * 0.8)) / 2),
     col = math.ceil((vim.o.columns - math.ceil(vim.o.columns * 0.8)) / 2),
-    border = "single",
-  })
+    border = "rounded",
+  }
+  title = title or "[Terminal]"
+
+  local win = vim.api.nvim_open_win(buf, true, win_config)
   vim.api.nvim_set_current_win(win)
 
-  -- Launch a terminal
-  vim.fn.termopen(vim.o.shell, {
-    on_exit = function(_, _, _)
-      if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_win_close(win, true)
-      end
-    end,
-  })
-
-  -- Automatically run the command once the terminal is ready
-  if command and command ~= "" then
-    vim.cmd "startinsert"
-    vim.defer_fn(function()
-      vim.api.nvim_chan_send(vim.b.terminal_job_id, command .. "\n")
-    end, 50)
-  else
-    vim.cmd "startinsert"
+  -- Launch a terminal if its the first time
+  if not is_terminal_running(buf) then
+    vim.fn.termopen(vim.o.shell, {
+      on_exit = function(_, _, _)
+        if vim.api.nvim_win_is_valid(win) then
+          vim.api.nvim_win_close(win, true)
+        end
+      end,
+    })
+    -- Automatically run the command once the terminal is ready
+    if command and command ~= "" then
+      vim.cmd "startinsert"
+      vim.defer_fn(function()
+        vim.api.nvim_chan_send(vim.b.terminal_job_id, command .. "\n")
+      end, 50)
+    else
+      vim.cmd "startinsert"
+    end
   end
+
+  return { buf = buf, win = win }
 end
 
 cmd("GitTerminal", function()
-  _G.open_term("git status", "[Git Terminal]")
+  if not vim.api.nvim_win_is_valid(float_state.win) then
+    float_state = _G.open_term("git status", "[Git Status]", float_state.buf)
+  else
+    vim.api.nvim_win_hide(float_state.win)
+  end
 end, { nargs = "*" })
 
 cmd("GitDelta", function()

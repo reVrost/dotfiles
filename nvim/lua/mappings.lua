@@ -14,6 +14,7 @@ map("i", "jj", "<ESC>")
 map("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer", silent = true })
 map("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer", silent = true })
 map("n", "q", "<Nop>")
+map("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Grapple mappings
 map("n", "<leader>hh", "<cmd>Grapple toggle_tags<cr>", { desc = "Toggle tags menu", silent = true })
@@ -52,7 +53,7 @@ map("n", "<leader>r", ":lua run_command()<CR>", { desc = "Run command" })
 
 -- Plugin-specific mappings
 map("n", "<leader>rt", ":RunGoTest<CR>", { desc = "Run test" })
-map("n", "<leader>gs", ":GitTerminal<CR>", { desc = "Toggle git terminal", silent = true })
+map({ "n", "t" }, "<leader>gs", ":GitTerminal<CR>", { desc = "Toggle git terminal", silent = true })
 map("n", "<leader>gd", ":DiffviewToggle<CR>", { desc = "Toggle Diffview", silent = true })
 map("n", "<leader>md", ":MarkdownPreview<CR>", { desc = "Markdown Preview" })
 map("n", "<leader>zz", ":ZenMode<CR>", { desc = "Zen Mode" })
