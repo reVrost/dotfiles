@@ -112,6 +112,9 @@ end)
 
 map("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dropbar: pick" })
 
+-- FZF LUA test
+map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "FZF Files" })
+
 -- Telescope mappings
 map("n", "<leader>fq", function()
   require("telescope.builtin").quickfix()
