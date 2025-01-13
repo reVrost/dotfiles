@@ -466,6 +466,9 @@ local plugins = {
         auto_apply_diff_after_generation = true,
       },
       mappings = {
+        toggle = {
+          default = "<leader>aa",
+        },
         submit = { normal = "<CR>", insert = "<CR>" },
         suggestion = {
           accept = "<M-j>",
