@@ -208,7 +208,7 @@ cmd("RunGoTest", function()
   end
 
   local go_mod_directory = vim.fn.fnamemodify(go_mod_path, ":h")
-  local cmd = "gotest -v -count=1 ./.../" .. package .. " -run " .. function_name
+  local cmd = "go test -v -count=1 ./.../" .. package .. " -run " .. function_name
   print("Running command in directory:", go_mod_directory)
 
   -- Use the global `open_terminal_window` function to run the command

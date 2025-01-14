@@ -113,27 +113,42 @@ end)
 map("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dropbar: pick" })
 
 -- FZF LUA test
-map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "FZF Files" })
+map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files({resume = true})<CR>", { desc = "FZF Files" })
+map("n", "<leader>fq", "<cmd>lua require('fzf-lua').quickfix({resume = true})<CR>", { desc = "FZF Quickfix" })
+map("n", "<leader>fr", "<cmd>lua require('fzf-lua').lsp_references({resume = true})<CR>", { desc = "FZF References" })
+map(
+  "n",
+  "<leader>fs",
+  "<cmd>lua require('fzf-lua').lsp_workspace_symbols({resume = true})<CR>",
+  { desc = "FZF Symbols" }
+)
+map(
+  "n",
+  "<leader>fi",
+  "<cmd>lua require('fzf-lua').lsp_implementations({resume = true})<CR>",
+  { desc = "FZF Quickfix" }
+)
+map("n", "<leader>fw", "<cmd>lua require('fzf-lua').live_grep({resume = true})<CR>", { desc = "FZF Live Grep" })
 
 -- Telescope mappings
-map("n", "<leader>fq", function()
-  require("telescope.builtin").quickfix()
-end, { desc = "Telescope Quickfix" })
+-- map("n", "<leader>fq", function()
+--   require("telescope.builtin").quickfix()
+-- end, { desc = "Telescope Quickfix" })
 map("n", "<leader>fj", function()
   require("telescope.builtin").jumplist()
 end, { desc = "Telescope Jumplist" })
-map("n", "<leader>fr", function()
-  require("telescope.builtin").lsp_references()
-end, { desc = "LSP References" })
+-- map("n", "<leader>fr", function()
+--   require("telescope.builtin").lsp_references()
+-- end, { desc = "LSP References" })
 map("n", "<leader>fs", function()
   require("telescope.builtin").lsp_workspace_symbols()
 end, { desc = "Workspace Symbols" })
 map("n", "<leader>fc", function()
   require("telescope.builtin").command_history()
 end, { desc = "Command History" })
-map("n", "<leader>fi", function()
-  require("telescope.builtin").lsp_implementations()
-end, { desc = "LSP Implementations" })
+-- map("n", "<leader>fi", function()
+--   require("telescope.builtin").lsp_implementations()
+-- end, { desc = "LSP Implementations" })
 map("n", "<leader>fv", function()
   require("telescope.builtin").find_files {
     shorten_path = false,
@@ -145,21 +160,21 @@ map("n", "<leader>fv", function()
     file_ignore_patterns = { "^node_modules/" },
   }
 end, { desc = "Find dotfiles" })
-map("n", "<leader>fw", function()
-  local lga_actions = require "telescope-live-grep-args.actions"
-  require("telescope").extensions.live_grep_args.live_grep_args {
-    mappings = {
-      i = {
-        ["<C-k>"] = lga_actions.quote_prompt { postfix = " -t" },
-        ["<C-g>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-      },
-    },
-    hidden = true,
-    layout_strategy = "horizontal",
-    layout_config = { preview_width = 0.55 },
-    file_ignore_patterns = { "^node_modules/" },
-  }
-end, { desc = "Live grep with Telescope" })
+-- map("n", "<leader>fw", function()
+--   local lga_actions = require "telescope-live-grep-args.actions"
+--   require("telescope").extensions.live_grep_args.live_grep_args {
+--     mappings = {
+--       i = {
+--         ["<C-k>"] = lga_actions.quote_prompt { postfix = " -t" },
+--         ["<C-g>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+--       },
+--     },
+--     hidden = true,
+--     layout_strategy = "horizontal",
+--     layout_config = { preview_width = 0.55 },
+--     file_ignore_patterns = { "^node_modules/" },
+--   }
+-- end, { desc = "Live grep with Telescope" })
 
 -- Terminal in nvim
 map("t", "<C-e>", "<Right>", { desc = "Navigate in terminal mode", noremap = true, silent = true })

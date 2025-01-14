@@ -12,7 +12,6 @@ local plugins = {
   {
     "echasnovski/mini.ai",
     version = false,
-    lazy = false,
     config = function()
       local ai = require "mini.ai"
       require("mini.ai").setup {
@@ -27,7 +26,6 @@ local plugins = {
   {
     "echasnovski/mini.files",
     version = false,
-    lazy = false,
     config = function()
       require("mini.files").setup {
         mappings = {
@@ -46,7 +44,6 @@ local plugins = {
   {
     "echasnovski/mini.indentscope",
     version = false,
-    lazy = false,
     config = function()
       local id = require "mini.indentscope"
       id.setup {
@@ -63,15 +60,12 @@ local plugins = {
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
-    lazy = false,
   },
   {
     "itchyny/vim-cursorword",
-    lazy = false,
   },
   {
     "romainl/vim-cool",
-    lazy = false,
   },
   {
     "nvimdev/dashboard-nvim",
@@ -156,14 +150,12 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
     config = function()
       require "configs.lspconfig"
     end,
   },
   {
     "github/copilot.vim",
-    lazy = false,
     config = function()
       -- Mapping tab is already used by NvChad
       vim.g.copilot_no_tab_map = true
@@ -200,11 +192,9 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    lazy = false,
   },
   {
     "ggandor/leap.nvim",
-    lazy = false,
   },
   {
     "ggandor/flit.nvim",
@@ -216,6 +206,7 @@ local plugins = {
   },
   {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -393,7 +384,6 @@ local plugins = {
   -- For fun
   {
     "eandrju/cellular-automaton.nvim",
-    lazy = false,
   },
   {
     "sphamba/smear-cursor.nvim",
@@ -409,6 +399,20 @@ local plugins = {
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
+    config = function()
+      local actions = require("fzf-lua").actions
+      require("fzf-lua").setup {
+        grep = {
+          rg_glob = true,
+          glob_flag = "--iglob", -- for case sensitive globs use '--glob'
+        },
+        defaults = {
+          actions = {
+            ["ctrl-q"] = { fn = actions.file_sel_to_qf, prefix = "select-all+" },
+          },
+        },
+      }
+    end,
   },
   {
     "Bekaboo/dropbar.nvim",
@@ -416,7 +420,6 @@ local plugins = {
       -- optional, but required for fuzzy finder support
       "nvim-telescope/telescope-fzf-native.nvim",
     },
-    lazy = false,
     opts = {
       bar = {
         enable = function(buf, win, _)
@@ -447,7 +450,6 @@ local plugins = {
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
-    lazy = false,
     version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = "copilot",
@@ -537,7 +539,6 @@ local plugins = {
   },
   {
     "tronikelis/conflict-marker.nvim",
-    lazy = false,
     config = function()
       require("conflict-marker").setup {
         highlights = true,
