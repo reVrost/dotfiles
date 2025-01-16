@@ -113,22 +113,12 @@ end)
 map("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dropbar: pick" })
 
 -- FZF LUA test
-map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files({resume = true})<CR>", { desc = "FZF Files" })
-map("n", "<leader>fq", "<cmd>lua require('fzf-lua').quickfix({resume = true})<CR>", { desc = "FZF Quickfix" })
-map("n", "<leader>fr", "<cmd>lua require('fzf-lua').lsp_references({resume = true})<CR>", { desc = "FZF References" })
-map(
-  "n",
-  "<leader>fs",
-  "<cmd>lua require('fzf-lua').lsp_workspace_symbols({resume = true})<CR>",
-  { desc = "FZF Symbols" }
-)
-map(
-  "n",
-  "<leader>fi",
-  "<cmd>lua require('fzf-lua').lsp_implementations({resume = true})<CR>",
-  { desc = "FZF Quickfix" }
-)
-map("n", "<leader>fw", "<cmd>lua require('fzf-lua').live_grep({resume = true})<CR>", { desc = "FZF Live Grep" })
+map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files({})<CR>", { desc = "FZF Files" })
+map("n", "<leader>fq", "<cmd>lua require('fzf-lua').quickfix({})<CR>", { desc = "FZF Quickfix" })
+map("n", "<leader>fr", "<cmd>lua require('fzf-lua').lsp_references({})<CR>", { desc = "FZF References" })
+map("n", "<leader>fs", "<cmd>lua require('fzf-lua').lsp_workspace_symbols({})<CR>", { desc = "FZF Symbols" })
+map("n", "<leader>fi", "<cmd>lua require('fzf-lua').lsp_implementations({})<CR>", { desc = "FZF Quickfix" })
+map("n", "<leader>fw", "<cmd>lua require('fzf-lua').live_grep({})<CR>", { desc = "FZF Live Grep" })
 
 -- Telescope mappings
 -- map("n", "<leader>fq", function()

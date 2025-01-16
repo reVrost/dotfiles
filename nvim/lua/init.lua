@@ -68,7 +68,7 @@ vim.api.nvim_set_hl(0, "ConflictTheirs", { fg = "none", bg = "#415050" })
 -- })
 
 -- temp
-vim.lsp.set_log_level "debug"
+-- vim.lsp.set_log_level "debug"
 
 -- WSL clipboard
 if vim.fn.has "wsl" == 1 then
