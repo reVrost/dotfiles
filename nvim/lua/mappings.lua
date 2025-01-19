@@ -87,10 +87,6 @@ map({ "x", "o" }, "S", "<Plug>(leap-backward)")
 map({ "n", "v" }, "c", '"_c', { desc = "Don't yank on change" })
 map({ "n", "v" }, "C", '"_C', { desc = "Don't yank on change" })
 
--- Safe paste in visual mode
-map("v", "p", '"_p', { desc = "Safe paste without overwriting clipboard" })
-map("v", "P", '"_P', { desc = "Safe paste without overwriting clipboard" })
-
 -- LSP key mappings
 map("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
 map("n", "<leader>ca", "<cmd>vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
