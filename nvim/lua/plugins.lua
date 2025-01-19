@@ -3,7 +3,16 @@ local plugins = {
     "stevearc/quicker.nvim",
     event = "FileType qf",
     ---@module "quicker"
-    opts = {},
+    opts = {
+      opts = {
+        buflisted = false,
+        number = true,
+        relativenumber = true,
+        signcolumn = "auto",
+        winfixheight = true,
+        wrap = false,
+      },
+    },
   },
   {
     "stevearc/conform.nvim",
@@ -14,6 +23,20 @@ local plugins = {
     lazy = true,
     opts = {
       enable_autocmd = false,
+    },
+  },
+  {
+    "echasnovski/mini.surround",
+    opts = {
+      mappings = {
+        add = "gs", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
     },
   },
   {
@@ -183,10 +206,10 @@ local plugins = {
       -- or run <leader>ch to see copilot mapping section
     end,
   },
-  {
-    "tpope/vim-surround",
-    lazy = false,
-  },
+  -- {
+  --   "tpope/vim-surround",
+  --   lazy = false,
+  -- },
   {
     "fatih/vim-go",
     lazy = false,
@@ -218,10 +241,10 @@ local plugins = {
     "ggandor/flit.nvim",
     opts = {},
   },
-  {
-    "sindrets/diffview.nvim",
-    lazy = true,
-  },
+  -- {
+  --   "sindrets/diffview.nvim",
+  --   lazy = true,
+  -- },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",

@@ -14,7 +14,6 @@
   "copilot.lua": { "branch": "master", "commit": "886ee73b6d464b2b3e3e6a7ff55ce87feac423a9" },
   "copilot.vim": { "branch": "release", "commit": "87038123804796ca7af20d1b71c3428d858a9124" },
   "dashboard-nvim": { "branch": "master", "commit": "ae309606940d26d8c9df8b048a6e136b6bbec478" },
-  "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "dressing.nvim": { "branch": "master", "commit": "3a45525bb182730fe462325c99395529308f431e" },
   "dropbar.nvim": { "branch": "master", "commit": "e5f9fb998a54c0ec1c2d25de88a3c260c494ffe1" },
   "flit.nvim": { "branch": "main", "commit": "1ef72de6a02458d31b10039372c8a15ab8989e0d" },
@@ -33,6 +32,7 @@
   "mini.comment": { "branch": "main", "commit": "6e1f9a8ebbf6f693fa3787ceda8ca3bf3cb6aec7" },
   "mini.files": { "branch": "main", "commit": "4d2359158a171564d0a46d4a48da8b4491649f6a" },
   "mini.indentscope": { "branch": "main", "commit": "da9af64649e114aa79480c238fd23f6524bc0903" },
+  "mini.surround": { "branch": "main", "commit": "aa5e245829dd12d8ff0c96ef11da28681d6049aa" },
   "minty": { "branch": "main", "commit": "6dce9f097667862537823d515a0250ce58faab05" },
   "nui.nvim": { "branch": "main", "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46" },
   "nvim-autopairs": { "branch": "master", "commit": "b464658e9b880f463b9f7e6ccddd93fb0013f559" },
@@ -55,7 +55,6 @@
   "vim-cursorword": { "branch": "master", "commit": "371fdd7fa8817c28aa09d181cfcfa3c7ca29bf56" },
   "vim-go": { "branch": "master", "commit": "6adc82bfef7f9a4b0db78065ae51b8ebb145c355" },
   "vim-matchup": { "branch": "master", "commit": "aca23ce53ebfe34e02c4fe07e29e9133a2026481" },
-  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "volt": { "branch": "main", "commit": "b7582c8e2ab3a411a72ab058251ba22d24e70f4a" },
   "which-key.nvim": { "branch": "main", "commit": "8ab96b38a2530eacba5be717f52e04601eb59326" }
 }
