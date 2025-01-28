@@ -254,6 +254,12 @@ ksandbox() {
     aws --profile platform-nonprod-engineer eks update-kubeconfig --name sandbox --region us-east-2 --alias sandbox
     kubectl config set-context --current --namespace=sandbox
 }
+kprod() {
+    echo "might need: aws sso login"
+    aws --profile platform-prod-engineer sts get-caller-identity | jq
+    aws --profile platform-prod-engineer eks update-kubeconfig --name prod --region us-east-2 --alias prod
+    kubectl config set-context --current --namespace=prod
+}
 pc() {
     aws --profile platform-nonprod-engineer sts get-caller-identity | jq
 }

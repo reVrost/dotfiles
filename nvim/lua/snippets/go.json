@@ -3,7 +3,7 @@
     "prefix": "pj",
     "body": [
       "b, _ := json.MarshalIndent(${1:variable}, \"\", \"\\t\")",
-      "fmt.Printf(\"${1:variable} :\\n %s\", string(b))"
+      "fmt.Printf(\"${1:variable} :\\n %s\\n\", string(b))"
     ],
     "description": "Prints the JSON representation of a variable"
   }
