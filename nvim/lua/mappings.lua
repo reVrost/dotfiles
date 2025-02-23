@@ -112,7 +112,7 @@ map("n", "<leader>b", '<cmd>lua require("dropbar.api").pick()<cr>', { desc = "dr
 map("n", "<leader>ff", "<cmd>lua require('fzf-lua').files({})<CR>", { desc = "FZF Files" })
 map("n", "<leader>fq", "<cmd>lua require('fzf-lua').quickfix({})<CR>", { desc = "FZF Quickfix" })
 map("n", "<leader>fr", "<cmd>lua require('fzf-lua').lsp_references({})<CR>", { desc = "FZF References" })
-map("n", "<leader>fs", "<cmd>lua require('fzf-lua').lsp_workspace_symbols({})<CR>", { desc = "FZF Symbols" })
+map("n", "<leader>fs", "<cmd>lua require('fzf-lua').lsp_live_workspace_symbols({})<CR>", { desc = "FZF Symbols" })
 map("n", "<leader>fi", "<cmd>lua require('fzf-lua').lsp_implementations({})<CR>", { desc = "FZF Quickfix" })
 map("n", "<leader>fw", "<cmd>lua require('fzf-lua').live_grep({})<CR>", { desc = "FZF Live Grep" })
 
