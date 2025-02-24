@@ -68,16 +68,16 @@ map(
 )
 
 -- Copilot mappings
-map("i", "<C-;>", function()
-  vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
-end, {
-  desc = "Copilot Accept",
-  replace_keycodes = true,
-  nowait = true,
-  silent = true,
-  expr = true,
-  noremap = true,
-})
+-- map("i", "<C-;>", function()
+--   vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
+-- end, {
+--   desc = "Copilot Accept",
+--   replace_keycodes = true,
+--   nowait = true,
+--   silent = true,
+--   expr = true,
+--   noremap = true,
+-- })
 map("n", "s", "<Plug>(leap)")
 map("n", "S", "<Plug>(leap-from-window)")
 map({ "x", "o" }, "s", "<Plug>(leap-forward)")

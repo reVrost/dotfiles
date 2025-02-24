@@ -196,16 +196,26 @@ local plugins = {
     end,
   },
   {
-    "github/copilot.vim",
-    config = function()
-      -- Mapping tab is already used by NvChad
-      vim.g.copilot_no_tab_map = true
-      vim.g.copilot_assume_mapped = true
-      vim.g.copilot_tab_fallback = ""
-      -- The mapping is set to other key, see custom/lua/mappings
-      -- or run <leader>ch to see copilot mapping section
-    end,
+    "supermaven-inc/supermaven-nvim",
+    opts = {
+      keymaps = {
+        accept_suggestion = "<C-;>",
+        clear_suggestion = "<C-]>",
+        accept_word = "<C->",
+      },
+    },
   },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     -- Mapping tab is already used by NvChad
+  --     vim.g.copilot_no_tab_map = true
+  --     vim.g.copilot_assume_mapped = true
+  --     vim.g.copilot_tab_fallback = ""
+  --     -- The mapping is set to other key, see custom/lua/mappings
+  --     -- or run <leader>ch to see copilot mapping section
+  --   end,
+  -- },
   -- {
   --   "tpope/vim-surround",
   --   lazy = false,
@@ -492,7 +502,7 @@ local plugins = {
     event = "VeryLazy",
     version = false, -- set this if you want to always pull the latest change
     opts = {
-      provider = "copilot",
+      provider = "openrouter",
       vendors = {
         openrouter = {
           __inherited_from = "openai",
