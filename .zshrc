@@ -223,6 +223,24 @@ hex() {
     echo "val: $decimal"
 }
 
+hexeth() {
+    # Check if an argument was provided
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: hexeth <hex_value>"
+        echo "Example: hexeth 0xd31d95881a4a3116"
+        return 1
+    fi
+  # Remove 0x prefix if present
+    local hex_value="${1#0x}"
+
+    # Use Python for precise conversion
+    python3 -c "
+hex_value = '0x$hex_value'
+eth_value = int(hex_value, 16) / (10**18)
+print(f'{eth_value:.4f} ETH')
+"
+}
+
 clear-git-status () {
   clear
   git status
