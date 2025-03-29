@@ -31,7 +31,7 @@ map("n", "<C-4>", "<cmd>Grapple tag index=4<cr>", { silent = true })
 map("n", "<C-5>", "<cmd>Grapple tag index=5<cr>", { silent = true })
 
 -- Save and redraw
-map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })
+-- map({ "n", "i", "v" }, "<C-s>", "<cmd>w<CR><cmd>redraw<CR>", { desc = "Save and redraw" })
 
 -- Navigation
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
