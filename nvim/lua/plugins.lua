@@ -435,15 +435,15 @@ local plugins = {
   {
     "eandrju/cellular-automaton.nvim",
   },
-  {
-    "sphamba/smear-cursor.nvim",
-
-    opts = {
-      smear_between_neighbor_lines = false,
-      cursor_color = "#d3cdc3",
-      transparent_bg_fallback_color = "#303030",
-    },
-  },
+  -- {
+  --   "sphamba/smear-cursor.nvim",
+  --
+  --   opts = {
+  --     smear_between_neighbor_lines = false,
+  --     cursor_color = "#d3cdc3",
+  --     transparent_bg_fallback_color = "#303030",
+  --   },
+  -- },
   {
     "ibhagwan/fzf-lua",
     dependencies = {
@@ -507,7 +507,7 @@ local plugins = {
         openrouter = {
           __inherited_from = "openai",
           endpoint = "https://openrouter.ai/api/v1",
-          model = "deepseek/deepseek-chat",
+          model = "deepseek/deepseek-chat-v3-0324",
           api_key_name = "OPENROUTER_API_KEY",
           temperature = 0.6,
           max_tokens = 8000,

@@ -281,3 +281,48 @@ kprod() {
 pc() {
     aws --profile platform-nonprod-engineer sts get-caller-identity | jq
 }
+ai() {
+  # Check if a query is provided
+  if [ -z "$1" ]; then
+    echo "Usage: ai <your query>"
+    return 1
+  fi
+
+  # Your OpenRouter API key (set as env variable or replace here)
+  API_KEY=${OPENROUTER_API_KEY:-"your-api-key-here"}
+
+  # API endpoint for OpenRouter
+  API_URL="https://openrouter.ai/api/v1/chat/completions"
+
+  # The query from command line arguments
+  QUERY="$@"
+
+  # JSON payload for the API request
+  PAYLOAD=$(jq -n \
+    --arg model "google/gemini-2.5-flash-preview" \
+    --arg query "$QUERY" \
+    '{
+      model: $model,
+      messages: [
+        {
+          role: "user",
+          content: $query
+        }
+      ]
+    }')
+
+  # Make the curl request to OpenRouter API
+  RESPONSE=$(curl -s -X POST "$API_URL" \
+    -H "Authorization: Bearer $API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "$PAYLOAD")
+
+  # Check if the response contains an error
+  if echo "$RESPONSE" | jq -e '.error' >/dev/null; then
+    echo "Error: $(echo "$RESPONSE" | jq -r '.error.message')"
+    return 1
+  fi
+
+  # Extract and print the response content
+  echo "$RESPONSE" | jq -r '.choices[0].message.content'
+}
