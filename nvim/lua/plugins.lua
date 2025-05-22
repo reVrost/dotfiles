@@ -77,7 +77,7 @@ local plugins = {
           use_as_default_explorer = false,
         },
         windows = {
-          preview = true,
+          preview = false,
         },
       }
     end,
