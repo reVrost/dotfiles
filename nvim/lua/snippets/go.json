@@ -1,6 +1,6 @@
 {
   "Print JSON Variable": {
-    "prefix": "pj",
+    "prefix": "px",
     "body": [
       "b, _ := json.MarshalIndent(${1:variable}, \"\", \"\\t\")",
       "fmt.Printf(\"${1:variable} :\\n %s\\n\", string(b))"
