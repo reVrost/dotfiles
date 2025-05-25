@@ -11,8 +11,8 @@ opt.splitkeep = "screen"
 opt.fillchars:append { diff = "╱" }
 
 -- vim snippets
-g.vscode_snippets_path = fn.stdpath "config" .. "/lua/snippets"
-g.lua_snippets_path = fn.stdpath "config" .. "/lua/snippets"
+require("luasnip.loaders.from_vscode").lazy_load { paths = { fn.stdpath "config" .. "/lua/snippets" } }
+require("luasnip.loaders.from_lua").load { paths = { fn.stdpath "config" .. "/lua/snippets" } }
 g.go_term_mode = "vsplit"
 g.go_term_enabled = 1
 
