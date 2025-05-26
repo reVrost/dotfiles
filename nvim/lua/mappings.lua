@@ -87,8 +87,8 @@ map({ "x", "o" }, "S", "<Plug>(leap-backward)")
 map({ "n", "v" }, "c", '"_c', { desc = "Don't yank on change" })
 map({ "n", "v" }, "C", '"_C', { desc = "Don't yank on change" })
 
-map({ "n", "v" }, "p", '"_dp', { desc = "Don't replace register on paste", noremap = true, silent = true })
-map({ "n", "v" }, "P", '"_dP', { desc = "Don't replace register on paste", noremap = true, silent = true })
+map("x", "p", '"_dP', { desc = "Don't replace register on paste", noremap = true, silent = true })
+map("x", "P", '"_dP', { desc = "Don't replace register on paste", noremap = true, silent = true })
 
 -- LSP key mappings
 map("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
