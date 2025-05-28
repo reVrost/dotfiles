@@ -3,6 +3,13 @@ local opt, g, fn = vim.opt, vim.g, vim.fn
 local augroup = vim.api.nvim_create_augroup
 local cmd = vim.api.nvim_create_user_command
 
+vim.cmd [[
+  highlight Normal guibg=none
+  highlight NonText guibg=none
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+]]
+
 -- vim opts
 opt.belloff = "all"
 opt.relativenumber = true
