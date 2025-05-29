@@ -1,10 +1,21 @@
-# If you come from bash you might have to change your $PATH.
+# zmodload zsh/zprof
+
+# zshload optimizations
+
+# Limit fpath to reduce compinit scan time
+# fpath=(~/.zsh/completions $fpath)
+
+
+# Minimize compaudit calls and enable completion caching
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zcompdump
+
+
+# Starts
 export PATH="$PATH:$HOME/go/bin:$HOME/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/lua-language-server/bin:/opt/homebrew/bin:$HOME/.local/bin:$HOME/.local/share/mise/shims"
 
 # Path to your oh-my-zsh installation.
 # export ZSH="$HOME/.oh-my-zsh"
-
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -23,12 +34,21 @@ ZSH_THEME=""
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit;
 prompt pure
-zstyle :prompt:pure:git:stash show yes
+# zstyle :prompt:pure:git:stash show yes
 
 # ZSHRC plugin
 # source $ZSH/oh-my-zsh.sh
 autoload -Uz compinit
-compinit
+# Regenerate if no dump or dump is older than 24 hours
+if [[ -f ~/.zcompdump && $(stat -f %m ~/.zcompdump 2>/dev/null) -ge $(( $(date +%s) - 24*60*60 )) ]]; then
+    compinit -C  # Load from cache without checking
+else
+    compinit     # Regenerate cache
+fi
+# Clean up old zcompdump files to prevent accumulation
+if [[ -f ~/.zcompdump && $(stat -f %m ~/.zcompdump 2>/dev/null) -lt $(( $(date +%s) - 24*60*60 )) ]]; then
+    rm -f ~/.zcompdump*(N) 2>/dev/null
+fi
 source ~/.zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/custom/plugins/git.plugin.zsh
@@ -130,60 +150,6 @@ emscripten() {
 
 # zoxide
 eval "$(zoxide init zsh)"
-
-export MISE_SHELL=zsh
-export __MISE_ORIG_PATH="$PATH"
-
-mise() {
-  local command
-  command="${1:-}"
-  if [ "$#" = 0 ]; then
-    command /opt/homebrew/bin/mise
-    return
-  fi
-  shift
-
-  case "$command" in
-  deactivate|shell|sh)
-    # if argv doesn't contains -h,--help
-    if [[ ! " $@ " =~ " --help " ]] && [[ ! " $@ " =~ " -h " ]]; then
-      eval "$(command /opt/homebrew/bin/mise "$command" "$@")"
-      return $?
-    fi
-    ;;
-  esac
-  command /opt/homebrew/bin/mise "$command" "$@"
-}
-
-_mise_hook() {
-  eval "$(/opt/homebrew/bin/mise hook-env -s zsh)";
-}
-typeset -ag precmd_functions;
-if [[ -z "${precmd_functions[(r)_mise_hook]+1}" ]]; then
-  precmd_functions=( _mise_hook ${precmd_functions[@]} )
-fi
-typeset -ag chpwd_functions;
-if [[ -z "${chpwd_functions[(r)_mise_hook]+1}" ]]; then
-  chpwd_functions=( _mise_hook ${chpwd_functions[@]} )
-fi
-
-_mise_hook
-if [ -z "${_mise_cmd_not_found:-}" ]; then
-    _mise_cmd_not_found=1
-    [ -n "$(declare -f command_not_found_handler)" ] && eval "${$(declare -f command_not_found_handler)/command_not_found_handler/_command_not_found_handler}"
-
-    function command_not_found_handler() {
-        if /opt/homebrew/bin/mise hook-not-found -s zsh -- "$1"; then
-          _mise_hook
-          "$@"
-        elif [ -n "$(declare -f _command_not_found_handler)" ]; then
-            _command_not_found_handler "$@"
-        else
-            echo "zsh: command not found: $1" >&2
-            return 127
-        fi
-    }
-fi
 
 # allow drag by ctrl+cmd
 defaults write -g NSWindowShouldDragOnGesture YES
@@ -326,3 +292,4 @@ ai() {
   # Extract and print the response content
   echo "$RESPONSE" | jq -r '.choices[0].message.content'
 }
+# zprof
