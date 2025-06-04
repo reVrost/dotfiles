@@ -1,44 +1,44 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 local attach = require("nvchad.configs.lspconfig").on_attach
 
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 -- lspservers with default config
-local servers = { "clangd", "pyright", "yamlls", "vls" }
+local servers = { "pyright", "yamlls", "vls" }
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup({
+  lspconfig[lsp].setup {
     on_attach = attach,
     capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     },
-  })
+  }
 end
 
-vim.diagnostic.config({
+vim.diagnostic.config {
   underline = true,
   virtual_text = true,
-})
+}
 
-lspconfig.solidity.setup({
+lspconfig.solidity.setup {
   cmd = { "nomicfoundation-solidity-language-server", "--stdio" },
   filetypes = { "solidity" },
   root_dir = require("lspconfig.util").find_git_ancestor,
   single_file_support = true,
-})
+}
 
-lspconfig.terraformls.setup({
+lspconfig.terraformls.setup {
   on_attach = attach,
   capabilities = capabilities,
   filetypes = { "terraform", "hcl" },
   flags = {
     debounce_text_changes = 150,
   },
-})
+}
 
-lspconfig.gopls.setup({
+lspconfig.gopls.setup {
   on_attach = attach,
   capabilities = capabilities,
   cmd = { "gopls", "serve" },
@@ -60,15 +60,20 @@ lspconfig.gopls.setup({
       usePlaceholders = true,
     },
   },
-})
+}
+
+-- exclude proto clangd
+lspconfig.clangd.setup {
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto".
+}
 
 -- use null ls for ts format
-lspconfig.ts_ls.setup({
+lspconfig.ts_ls.setup {
   on_attach = function(client)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   end,
-})
+}
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -97,13 +102,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<space>f", function()
-      vim.lsp.buf.format({ async = true })
+      vim.lsp.buf.format { async = true }
     end, opts)
   end,
 })
 
 -- lua lsp!
-lspconfig.lua_ls.setup({
+lspconfig.lua_ls.setup {
   on_attach = attach,
   capabilities = capabilities,
   settings = {
@@ -113,12 +118,12 @@ lspconfig.lua_ls.setup({
       },
       workspace = {
         library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
       },
     },
   },
-})
+}

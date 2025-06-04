@@ -88,13 +88,19 @@ map({ "x", "o" }, "S", "<Plug>(leap-backward)")
 vim.keymap.set({ "n", "v" }, "c", '"_c', { desc = "Change without yanking", noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "C", '"_C', { desc = "Change to EOL without yanking", noremap = true, silent = true })
 
--- Prevent yanking on delete (d, D) in normal and visual modes
-vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking", noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "D", '"_D', { desc = "Delete to EOL without yanking", noremap = true, silent = true })
-
 -- Prevent replacing register on paste (p, P) in visual mode
-vim.keymap.set("x", "p", '"_dP', { desc = "Paste without yanking in visual mode", noremap = true, silent = true })
-vim.keymap.set("x", "P", '"_dP', { desc = "Paste without yanking in visual mode", noremap = true, silent = true })
+-- vim.keymap.set(
+--   { "n", "x", "v" },
+--   "p",
+--   '"_dp',
+--   { desc = "Paste without yanking in visual mode", noremap = true, silent = true }
+-- )
+-- vim.keymap.set(
+--   { "n", "x", "v" },
+--   "P",
+--   '"_dP',
+--   { desc = "Paste without yanking in visual mode", noremap = true, silent = true }
+-- )
 
 -- LSP key mappings
 map("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
