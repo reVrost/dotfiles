@@ -157,6 +157,21 @@ _G.open_term = function(command, title, buf)
   return { buf = buf, win = win }
 end
 
+-- BufAll to lint and generate protos in one command
+vim.api.nvim_create_user_command("BufAll", function(opts)
+  local args = opts.args -- Capture any arguments passed to the command
+
+  -- Run linting for protocol buffers
+  local lint_result = vim.fn.system("buf lint " .. args)
+  if vim.v.shell_error == 0 then
+    print "Linting succeeded, proceeding to generate..."
+    -- Run code generation for protocol buffers
+    vim.cmd("!buf generate " .. args)
+  else
+    print("Linting failed:\n" .. lint_result)
+  end
+end, { nargs = "*" })
+
 cmd("GitTerminal", function()
   if not vim.api.nvim_win_is_valid(float_state.win) then
     float_state = _G.open_term("git status", "[Git Status]", float_state.buf)

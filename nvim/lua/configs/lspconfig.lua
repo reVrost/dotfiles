@@ -5,7 +5,7 @@ local attach = require("nvchad.configs.lspconfig").on_attach
 
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 -- lspservers with default config
-local servers = { "pyright", "yamlls", "vls" }
+local servers = { "buf", "pyright", "yamlls", "vls" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {

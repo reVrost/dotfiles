@@ -1,11 +1,11 @@
 local options = {
-  formatters = {
-    buf = {
-      command = "buf",
-      args = { "format", "--global", "vim" },
-      stdin = true,
-    },
-  },
+  -- formatters = {
+  --   buf = {
+  --     command = "buf",
+  --     args = { "format", "--global", "vim" },
+  --     stdin = true,
+  --   },
+  -- },
   formatters_by_ft = {
     javascript = { "prettierd" },
     javascriptreact = { "prettierd" },

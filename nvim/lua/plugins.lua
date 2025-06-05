@@ -225,19 +225,6 @@ local plugins = {
     lazy = false,
   },
   {
-    "cbochs/grapple.nvim",
-    dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
-    },
-    config = function()
-      require("grapple").statusline()
-    end,
-    opts = {
-      scope = "git_branch",
-      icons = true,
-    },
-  },
-  {
     "folke/which-key.nvim",
     enabled = false,
   },
