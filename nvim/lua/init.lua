@@ -16,6 +16,7 @@ opt.relativenumber = true
 opt.encoding = "utf-8"
 opt.splitkeep = "screen"
 opt.fillchars:append { diff = "╱" }
+opt.conceallevel = 2
 
 -- vim snippets
 require("luasnip.loaders.from_vscode").lazy_load { paths = { fn.stdpath "config" .. "/lua/snippets" } }
