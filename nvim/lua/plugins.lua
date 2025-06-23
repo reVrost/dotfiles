@@ -612,5 +612,25 @@ local plugins = {
       }
     end,
   },
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    conceallevel = 1,
+    opts = {
+      workspaces = {
+        {
+          name = "Notes",
+          path = "~/code/reVrost/obsidianvault/",
+        },
+      },
+
+      -- see below for full list of options 👇
+    },
+  },
 }
 return plugins
