@@ -624,9 +624,18 @@ local plugins = {
       workspaces = {
         {
           name = "Notes",
-          path = "~/code/reVrost/obsidianvault/",
+          path = "~/Documents/obsidianvault/",
         },
       },
+      note_id_func = function(title)
+        local suffix = ""
+        if title ~= nil then
+          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+          suffix = "note" -- Default to "note" instead of random letters
+        end
+        return suffix .. "-" .. tostring(os.time())
+      end,
 
       -- see below for full list of options 👇
     },
