@@ -293,3 +293,10 @@ ai() {
   echo "$RESPONSE" | jq -r '.choices[0].message.content'
 }
 # zprof
+#
+if [ -f ~/.zshrc.local ]; then
+    . ~/.zshrc.local
+fi
+
+# opencode
+export PATH=/Users/kenley/.opencode/bin:$PATH
