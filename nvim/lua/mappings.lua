@@ -1,9 +1,9 @@
 require "nvchad.mappings"
 -- Disable nvchad mappings
-local nomap = vim.keymap.del
+-- local nomap = vim.keymap.del
 
-nomap("n", "<Tab>")
-nomap("n", "<S-Tab>")
+-- nomap("n", "<Tab>")
+-- nomap("n", "<S-Tab>")
 -- Define key mappings using the new format
 local map = vim.keymap.set
 
