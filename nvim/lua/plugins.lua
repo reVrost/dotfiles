@@ -632,7 +632,7 @@ local plugins = {
       workspaces = {
         {
           name = "Notes",
-          path = "~/Documents/obsidianvault/",
+          path = "~/code/reVrost/obsidianvault/",
         },
       },
       note_id_func = function(title)
