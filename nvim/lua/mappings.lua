@@ -1,7 +1,6 @@
 require "nvchad.mappings"
 -- Disable nvchad mappings
 -- local nomap = vim.keymap.del
-
 -- nomap("n", "<Tab>")
 -- nomap("n", "<S-Tab>")
 -- Define key mappings using the new format
@@ -144,6 +143,17 @@ end, { desc = "Command History" })
 -- map("n", "<leader>fi", function()
 --   require("telescope.builtin").lsp_implementations()
 -- end, { desc = "LSP Implementations" })
+map("n", "<leader>fm", function()
+  require("telescope.builtin").find_files {
+    shorten_path = false,
+    cwd = "~/code",
+    prompt = "~ code ~",
+    hidden = true,
+    layout_strategy = "horizontal",
+    layout_config = { preview_width = 0.55 },
+    file_ignore_patterns = { "^node_modules/" },
+  }
+end, { desc = "Find codebase" })
 map("n", "<leader>fv", function()
   require("telescope.builtin").find_files {
     shorten_path = false,
