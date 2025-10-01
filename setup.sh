@@ -27,11 +27,11 @@ if ! command -v zsh &>/dev/null; then
 fi
 
 # install plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/custom/plugins/zsh-autosuggestions
 
 
-# git 
+# git
 install_package git
 # install others
 install_package direnv
