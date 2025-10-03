@@ -97,8 +97,10 @@ bindkey -M viins "^ " magic-space
 bindkey -M isearch " " magic-space
 
 # Aliases
+alias ssh="kitty +kitten ssh"
 alias bg='screen -d -m "$@"'
 #alias cat='bat'
+alias gl="golangci-lint run $(git diff --name-only --diff-filter=d | grep '\.go$')"
 alias ch="curl cht.sh/$1"
 alias k="kubectl"
 alias pip=pip3
