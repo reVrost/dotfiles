@@ -99,10 +99,7 @@ bindkey -M isearch " " magic-space
 # Aliases
 alias ssh="kitty +kitten ssh"
 alias bg='screen -d -m "$@"'
-#alias cat='bat'
-alias gl="golangci-lint run $(git diff --name-only --diff-filter=d | grep '\.go$')"
 alias ch="curl cht.sh/$1"
-alias k="kubectl"
 alias pip=pip3
 alias python=python3
 alias v="nvim"
@@ -111,7 +108,6 @@ alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias vim="nvim"
 alias vz="nvim ~/.zshrc"
-alias workc="git log --shortstat --author=\"Kenley Bastari\" --since=\"2 weeks ago\" --until=\"1 week ago\" | grep \"files changed\" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print \"files changed\", files, \"lines inserted:\", inserted, \"lines deleted:\", deleted}'"
 
 # git checkout interactive
 alias gci='git checkout $(git branch --sort=-committerdate | head -n 5 | fzf)'
@@ -123,16 +119,6 @@ alias -g A="| awk '{print \$1}'"
 
 
 export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-# pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/shims:$PATH"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv virtualenv-init -)"
-# fi
 
 # zlib
 export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
@@ -159,6 +145,41 @@ defaults write -g NSWindowShouldDragOnGesture YES
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+gwi() {
+  local choice
+  choice=$(printf "List existing\nAdd new" | fzf --prompt="Worktree action: ")
+
+  if [[ $choice == "List existing" ]]; then
+    local dir
+    dir=$(git worktree list --porcelain | awk '/worktree /{print $2}' | fzf --prompt="Select worktree: ")
+    [ -n "$dir" ] && cd "$dir"
+  elif [[ $choice == "Add new" ]]; then
+    local branch newdir
+    branch=$(git branch --sort=-committerdate | sed 's/..//' | fzf --prompt="Select branch for new worktree: ")
+    [ -z "$branch" ] && return
+    newdir="../${branch//\//-}"
+    git worktree add "$newdir" "$branch" && cd "$newdir"
+  fi
+}
+
+
+workc() {
+  git log --shortstat \
+    --author="Kenley Bastari" \
+    --since="2 weeks ago" \
+    --until="1 week ago" |
+  grep "files changed" |
+  awk '{files+=$1; inserted+=$4; deleted+=$6} END {print "files changed", files, "lines inserted:", inserted, "lines deleted:", deleted}'
+}
+
+gol() {
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    golangci-lint run $(git diff --name-only --diff-filter=d | grep '\.go$')
+  else
+    echo "golangci-lint: Not a git repository"
+  fi
+}
 
 ifast() {
     last_meal_time="$1"
