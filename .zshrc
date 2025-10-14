@@ -323,3 +323,4 @@ fi
 
 # opencode
 export PATH=/Users/kenley/.opencode/bin:$PATH
+eval "$(mise activate zsh)"

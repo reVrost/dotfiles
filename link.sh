@@ -14,6 +14,6 @@ ln -s $(pwd)/nvim ~/.config
 
 mv ~/.zshrc ~/.zshrc.bak
 ln -s $(pwd)/.zshrc ~/.zshrc
-ln -s $(pwd)/custom ~/.zsh/custom
+cp -r custom/plugins/* ~/.zsh/custom/plugins
 source ~/.zshrc
 ln -s $(pwd)/themes/ghostly.lua ~/.local/share/nvim/lazy/base46/lua/base46/themes/ghostly.lua
