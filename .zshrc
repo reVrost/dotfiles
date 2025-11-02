@@ -174,11 +174,7 @@ workc() {
 }
 
 gol() {
-  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    golangci-lint run $(git diff --name-only --diff-filter=d | grep '\.go$')
-  else
-    echo "golangci-lint: Not a git repository"
-  fi
+  golangci-lint run --fix
 }
 
 ifast() {
