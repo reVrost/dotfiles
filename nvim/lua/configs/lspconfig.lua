@@ -10,7 +10,7 @@ vim.diagnostic.config {
 }
 
 -- LSP servers with default config
-local servers = { "pyright", "yamlls", "vls" }
+local servers = { "pyright", "vls", "jdtls" }
 
 for _, lsp in ipairs(servers) do
   vim.lsp.config[lsp] = {

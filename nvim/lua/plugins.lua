@@ -29,12 +29,12 @@ local plugins = {
     "echasnovski/mini.surround",
     opts = {
       mappings = {
-        add = "gs", -- Add surrounding in Normal and Visual modes
-        delete = "gsd", -- Delete surrounding
-        find = "gsf", -- Find surrounding (to the right)
-        find_left = "gsF", -- Find surrounding (to the left)
-        highlight = "gsh", -- Highlight surrounding
-        replace = "gsr", -- Replace surrounding
+        add = "gs",             -- Add surrounding in Normal and Visual modes
+        delete = "gsd",         -- Delete surrounding
+        find = "gsf",           -- Find surrounding (to the right)
+        find_left = "gsF",      -- Find surrounding (to the left)
+        highlight = "gsh",      -- Highlight surrounding
+        replace = "gsr",        -- Replace surrounding
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
@@ -48,7 +48,7 @@ local plugins = {
         n_lines = 500,
         custom_textobjects = {
           f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" }, -- function
-          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },          -- tags
         },
       }
     end,
@@ -356,28 +356,34 @@ local plugins = {
   },
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        -- lua stuff
-        "lua-language-server",
-        "stylua",
-        "luacheck",
 
-        -- web dev stuff
-        "css-lsp",
-        "html-lsp",
-        "typescript-language-server",
-        "deno",
-        "prettier",
-        "prettierd",
-        "shfmt",
-        "terraform_fmt",
+    config = function()
+      require("mason").setup({
+        ensure_installed = {
+          -- lua stuff
+          "lua-language-server",
+          "stylua",
+          "luacheck",
+          "jdtls@v1.12.0",
 
-        -- c/cpp stuff
-        "clangd",
-        "clang-format",
-      },
-    },
+          -- web dev stuff
+          "css-lsp",
+          "html-lsp",
+          "typescript-language-server",
+          "deno",
+          "prettier",
+          "prettierd",
+          "shfmt",
+          "terraform_fmt",
+
+          -- c/cpp stuff
+          "clangd",
+          "clang-format",
+        },
+      })
+    end,
+    -- opts = {
+    -- },
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -475,11 +481,11 @@ local plugins = {
 
           -- Disable dropbar for all Diffview windows
           return not diffview_active
-            and vim.api.nvim_buf_is_valid(buf)
-            and vim.api.nvim_win_is_valid(win)
-            and vim.wo[win].winbar == ""
-            and vim.fn.win_gettype(win) == ""
-            and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
+              and vim.api.nvim_buf_is_valid(buf)
+              and vim.api.nvim_win_is_valid(win)
+              and vim.wo[win].winbar == ""
+              and vim.fn.win_gettype(win) == ""
+              and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
         end,
       },
     },
@@ -620,33 +626,51 @@ local plugins = {
       }
     end,
   },
+  -- {
+  --   "nvim-java/nvim-java",
+  --   config = function()
+  --   end,
+  -- },
   {
-    "epwalsh/obsidian.nvim",
-    version = "*", -- recommended, use latest release instead of latest commit
-    lazy = true,
-    ft = "markdown",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "VeryLazy",
     opts = {
-      workspaces = {
-        {
-          name = "Notes",
-          path = "~/code/reVrost/obsidianvault/",
-        },
-      },
-      note_id_func = function(title)
-        local suffix = ""
-        if title ~= nil then
-          suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-        else
-          suffix = "note" -- Default to "note" instead of random letters
-        end
-        return suffix .. "-" .. tostring(os.time())
-      end,
-
-      -- see below for full list of options 👇
-    },
+      -- your options here
+    }
   },
+  {
+    "chrisgrieser/nvim-early-retirement",
+    config = true,
+    event = "VeryLazy",
+  },
+  -- {
+  --   "epwalsh/obsidian.nvim",
+  --   version = "*", -- recommended, use latest release instead of latest commit
+  --   lazy = true,
+  --   ft = "markdown",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   opts = {
+  --     workspaces = {
+  --       {
+  --         name = "Notes",
+  --         path = "~/code/reVrost/obsidianvault/",
+  --       },
+  --     },
+  --     note_id_func = function(title)
+  --       local suffix = ""
+  --       if title ~= nil then
+  --         suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+  --       else
+  --         suffix = "note" -- Default to "note" instead of random letters
+  --       end
+  --       return suffix .. "-" .. tostring(os.time())
+  --     end,
+  --
+  --     -- see below for full list of options 👇
+  --   },
+  -- },
 }
 return plugins
