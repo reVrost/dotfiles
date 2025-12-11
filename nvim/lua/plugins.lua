@@ -29,12 +29,12 @@ local plugins = {
     "echasnovski/mini.surround",
     opts = {
       mappings = {
-        add = "gs",             -- Add surrounding in Normal and Visual modes
-        delete = "gsd",         -- Delete surrounding
-        find = "gsf",           -- Find surrounding (to the right)
-        find_left = "gsF",      -- Find surrounding (to the left)
-        highlight = "gsh",      -- Highlight surrounding
-        replace = "gsr",        -- Replace surrounding
+        add = "gs", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
         update_n_lines = "gsn", -- Update `n_lines`
       },
     },
@@ -48,7 +48,7 @@ local plugins = {
         n_lines = 500,
         custom_textobjects = {
           f = ai.gen_spec.treesitter { a = "@function.outer", i = "@function.inner" }, -- function
-          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },          -- tags
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
         },
       }
     end,
@@ -358,7 +358,7 @@ local plugins = {
     "williamboman/mason.nvim",
 
     config = function()
-      require("mason").setup({
+      require("mason").setup {
         ensure_installed = {
           -- lua stuff
           "lua-language-server",
@@ -380,7 +380,7 @@ local plugins = {
           "clangd",
           "clang-format",
         },
-      })
+      }
     end,
     -- opts = {
     -- },
@@ -481,11 +481,11 @@ local plugins = {
 
           -- Disable dropbar for all Diffview windows
           return not diffview_active
-              and vim.api.nvim_buf_is_valid(buf)
-              and vim.api.nvim_win_is_valid(win)
-              and vim.wo[win].winbar == ""
-              and vim.fn.win_gettype(win) == ""
-              and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
+            and vim.api.nvim_buf_is_valid(buf)
+            and vim.api.nvim_win_is_valid(win)
+            and vim.wo[win].winbar == ""
+            and vim.fn.win_gettype(win) == ""
+            and ((pcall(vim.treesitter.get_parser, buf)) and true or false)
         end,
       },
     },
@@ -637,12 +637,16 @@ local plugins = {
     event = "VeryLazy",
     opts = {
       -- your options here
-    }
+    },
   },
   {
     "chrisgrieser/nvim-early-retirement",
     config = true,
     event = "VeryLazy",
+  },
+  {
+    "folke/zen-mode.nvim",
+    opts = {},
   },
   -- {
   --   "epwalsh/obsidian.nvim",
