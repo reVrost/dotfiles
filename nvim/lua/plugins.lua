@@ -236,7 +236,14 @@ local plugins = {
   },
   {
     "ggandor/flit.nvim",
-    opts = {},
+    config = function()
+      require("flit").setup {
+        keys = { f = "f", F = "F", t = "t", T = "T" },
+        clever_repeat = true,
+        multiline = true,
+        labeled_modes = "v",
+      }
+    end,
   },
   -- {
   --   "sindrets/diffview.nvim",
