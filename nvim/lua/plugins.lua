@@ -270,6 +270,7 @@ local plugins = {
         "c",
         "markdown",
         "markdown_inline",
+        "templ",
       },
       incremental_selection = {
         enable = true,
@@ -382,6 +383,9 @@ local plugins = {
           "prettierd",
           "shfmt",
           "terraform_fmt",
+
+          -- templ
+          "templ",
 
           -- c/cpp stuff
           "clangd",

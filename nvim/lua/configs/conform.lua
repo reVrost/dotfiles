@@ -24,6 +24,7 @@ local options = {
     terraform = { "terraform_fmt" },
     proto = { "buf" },
     sh = { "shfmt" },
+    templ = { "templ" },
   },
   format_on_save = {
     timeout_ms = 300,

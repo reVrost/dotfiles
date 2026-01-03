@@ -70,6 +70,15 @@ vim.lsp.config["gopls"] = {
 }
 vim.lsp.enable "gopls"
 
+-- Templ LSP
+vim.lsp.config["templ"] = {
+  on_attach = attach,
+  capabilities = capabilities,
+  cmd = { "templ", "lsp" },
+  filetypes = { "templ" },
+}
+vim.lsp.enable "templ"
+
 -- TypeScript LSP (disable formatting)
 vim.lsp.config["ts_ls"] = {
   on_attach = function(client)

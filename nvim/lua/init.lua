@@ -49,6 +49,13 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     vim.api.nvim_win_set_cursor(0, curpos)
   end,
 })
+
+-- templ filetype detection
+vim.filetype.add {
+  extension = {
+    templ = "templ",
+  },
+}
 -- -- General Diff Highlights
 -- vim.api.nvim_set_hl(0, "DiffAdd", { fg = "none", bg = "#103235" })
 -- vim.api.nvim_set_hl(0, "DiffChange", { fg = "#ffffff", bg = "#ffffff" })
