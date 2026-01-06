@@ -40,6 +40,15 @@ local plugins = {
     },
   },
   {
+    "tpope/vim-fugitive",
+    lazy = true, -- optional: load only when needed
+    cmd = { "Git", "Gdiffsplit", "Gstatus", "Glog" }, -- load on these commands
+    keys = {
+      { "<leader>gs", ":Git<CR>", desc = "Git status" },
+      { "<leader>gd", ":Gdiffsplit<CR>", desc = "Git diff" },
+    },
+  },
+  {
     "echasnovski/mini.ai",
     version = false,
     config = function()
@@ -245,10 +254,10 @@ local plugins = {
       }
     end,
   },
-  -- {
-  --   "sindrets/diffview.nvim",
-  --   lazy = true,
-  -- },
+  {
+    "sindrets/diffview.nvim",
+    lazy = true,
+  },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
