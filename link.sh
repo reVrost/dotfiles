@@ -17,3 +17,6 @@ ln -s $(pwd)/.zshrc ~/.zshrc
 cp -r custom/plugins/* ~/.zsh/custom/plugins
 source ~/.zshrc
 ln -s $(pwd)/themes/ghostly.lua ~/.local/share/nvim/lazy/base46/lua/base46/themes/ghostly.lua
+
+chmod +x ~/.link-ai.sh
+./link-ai.sh
