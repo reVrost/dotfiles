@@ -7,17 +7,37 @@ description: Write technical tickets with structured acceptance criteria and sta
 
 Create well-structured technical tickets with clear acceptance criteria, state transitions, and implementation guidance.
 
+## Before Writing
+
+Ask clarifying questions when requirements are unclear. Do not assume or invent details.
+
+**Always clarify:**
+- Ticket type if ambiguous (Feature vs Bug vs Spike vs Chore)
+- State lifecycle if any workflow is involved
+- Error handling expectations (retry? fail fast? DLQ?)
+- Event contracts if integrating with other services
+- Dependencies and their current state (ready? mocked?)
+
+**Example questions:**
+- "What happens on a 5XX from the broker - retry or fail immediately?"
+- "Is there a state machine here? What are the valid transitions?"
+- "Does this emit events? What's the proto/schema?"
+- "Is the banking service ready or should we mock it?"
+- "What's explicitly out of scope to prevent creep?"
+
 ## Title Convention
 
-Format: `[service-identifier] Task Description`
+Format: `[service-identifier] [TYPE] Task Description`
 
 - **service-identifier**: Lowercase, hyphenated service/component name
+- **TYPE**: FEATURE, BUG, SPIKE, CHORE, REFACTOR, DOCS
 - **Task Description**: Clear, action-oriented description
 
 Examples:
-- `[fn-execute-order-cmd-sub] Implement Submit Order Command`
-- `[svc-user-auth] Add JWT Token Refresh`
-- `[api-payments-webhook] Handle Stripe Payment Events`
+- `[fn-execute-order-cmd-sub] [FEATURE] Implement Submit Order Command`
+- `[svc-user-auth] [BUG] JWT Token Refresh Fails on Expired Sessions`
+- `[api-payments-webhook] [SPIKE] Evaluate Stripe vs Adyen Integration`
+- `[db-migrations] [CHORE] Clean Up Orphaned Records`
 
 ## Ticket Types
 
@@ -136,6 +156,74 @@ Maintenance work requiring justification.
 
 ---
 
+## Multi-Component Splitting
+
+When work spans multiple components (API, UI, SDK, DB), create separate linked tickets instead of one large ticket.
+
+### Why Split?
+
+- Different developers can work in parallel
+- Smaller PRs, easier to review
+- Clear dependency tracking (API before UI)
+- Better progress visibility
+
+### Structure
+
+Create separate tickets and link them with "blocks/blocked by" relationships:
+
+```
+[fn-provider-api] [FEATURE] Add aws_region field (API)
+    └── blocks → [ui-aws-connection] [FEATURE] Add region dropdown (UI)
+
+[ui-aws-connection] [FEATURE] Add region dropdown (UI)
+    └── blocked by → [fn-provider-api] [FEATURE] Add aws_region field (API)
+```
+
+### Linked Ticket Template
+
+Each ticket is standalone but references related work:
+
+```markdown
+## Description
+
+{What this component needs to do}
+
+## Acceptance Criteria
+
+- [ ] {Technical requirement}
+
+## Related Tickets
+
+- Blocks: `[ui-aws-connection] [FEATURE] Add region dropdown (UI)`
+- Blocked by: (none, this is the API ticket)
+
+## State Transitions
+...
+```
+
+### Link Types
+
+| Relationship | Use When |
+|--------------|----------|
+| **Blocks / Blocked by** | API must finish before UI can start |
+| **Relates to** | Related work, no hard dependency |
+
+### Component Suffixes
+
+Add component suffix when multi-component:
+
+| Component | Suffix |
+|-----------|--------|
+| Backend/API | `(API)` |
+| Frontend | `(UI)` |
+| SDK/Library | `(SDK)` |
+| Database | `(DB)` |
+| Infrastructure | `(Infra)` |
+
+Example: `[fn-orders] [FEATURE] Add order cancellation (API)`
+
+---
+
 ## Full Feature Template
 
 ```markdown
@@ -144,12 +232,6 @@ Maintenance work requiring justification.
 {1-2 sentences explaining what needs to be built and why}
 
 ## Acceptance Criteria
-
-### Behavior (Gherkin for complex flows)
-
-Given {precondition}
-When {action}
-Then {expected result}
 
 ### Technical Requirements
 
@@ -183,13 +265,23 @@ Then {expected result}
 |-------|---------|---------|
 | Order.Submitted | v2 | On successful submission |
 
-**Schema**: `schemas/events/order-submitted-v2.json`
+**Proto Definition**: `proto/events/order/v2/order_events.proto`
+
+```proto
+message OrderSubmitted {
+  string order_id = 1;           // required
+  google.protobuf.Timestamp submitted_at = 2;  // required
+  optional string broker_order_id = 3;
+}
+```
+
+**Example Payload** (JSON for readability):
 
 ```json
 {
-  "order_id": "string (required)",
-  "submitted_at": "ISO8601 (required)",
-  "broker_order_id": "string (optional)"
+  "order_id": "ord_123",
+  "submitted_at": "2024-01-15T10:30:00Z",
+  "broker_order_id": "alp_456"
 }
 ```
 
@@ -232,15 +324,27 @@ What this ticket explicitly does NOT cover (prevents scope creep):
 
 ## Writing Acceptance Criteria
 
+### Use Tables for State Transitions
+
+Tables are clearer for state machines - scannable, compact, easy to verify completeness:
+
+| Response | From State | To State | Action |
+|----------|------------|----------|--------|
+| Success | PENDING_SUBMISSION | SUBMITTED | Emit Order.Submitted |
+| 4XX | PENDING_SUBMISSION | REJECTED | Emit Order.Rejected(reason) |
+
+**Do NOT use Gherkin for state transitions** - it adds verbosity without clarity.
+
 ### When to Use Gherkin
 
-Use for user-facing behavior and complex flows:
+Reserve for complex multi-step user flows with preconditions that don't fit a state table:
 
 ```gherkin
-Given a user has insufficient funds
-When they submit a buy order
-Then the order is rejected with reason "insufficient_funds"
-And an Order.InternallyRejected event is emitted
+Given a user has 2FA enabled
+And they are on a new device
+When they attempt to login
+Then they receive an SMS verification code
+And login is blocked until code is entered
 ```
 
 ### When to Use Checkboxes
@@ -292,12 +396,20 @@ Always specify:
 |-------|-------------|
 | Event name | `Order.Submitted` |
 | Version | `v2` |
-| Required fields | `order_id`, `submitted_at` |
-| Optional fields | `broker_order_id`, `metadata` |
+| Proto location | `proto/events/order/v2/order_events.proto` |
 | Compatibility | Backward compatible (new consumers handle old events) |
-| Schema location | `schemas/events/order-submitted-v2.json` |
 
-Include minimal example payload:
+Include proto definition:
+
+```proto
+message OrderSubmitted {
+  string order_id = 1;                          // required
+  google.protobuf.Timestamp submitted_at = 2;  // required
+  optional string broker_order_id = 3;
+}
+```
+
+Include JSON example for readability:
 
 ```json
 {
@@ -319,14 +431,177 @@ Include minimal example payload:
 
 ---
 
+## MCP Integration (Jira)
+
+When creating tickets via MCP, use the Atlassian MCP tools.
+
+### Create Issue
+
+```
+mcp__mcp-atlassian__jira_create_issue
+```
+
+Parameters:
+```json
+{
+  "project_key": "YOUR_PROJECT",
+  "summary": "[service-name] [TYPE] Task description",
+  "issue_type": "Task",
+  "description": "Full ticket content in Jira Wiki markup"
+}
+```
+
+### Jira Wiki Markup
+
+Jira uses Wiki markup, not Markdown:
+
+| Markdown | Jira Wiki |
+|----------|-----------|
+| `## Heading` | `h2. Heading` |
+| `**bold**` | `*bold*` |
+| `- item` | `* item` |
+| `  - nested` | `** nested` |
+| `` `code` `` | `{{code}}` |
+| `[text](url)` | `[text\|url]` |
+
+### Example: Create with Description
+
+```json
+{
+  "project_key": "ORDERS",
+  "summary": "[fn-execute-order] [FEATURE] Implement Submit Order",
+  "issue_type": "Task",
+  "description": "h2. Description\n\nImplement order submission flow.\n\nh2. Acceptance Criteria\n\n* Idempotent via order_id\n* NACK on 5XX\n* Outbox events for all transitions"
+}
+```
+
+### Transition Issue
+
+```
+mcp__mcp-atlassian__jira_transition_issue
+```
+
+Common transitions:
+- Backlog → To Do
+- To Do → In Progress
+- In Progress → Done
+- Any → Blocked
+
+### Add Blocker Link
+
+```
+mcp__mcp-atlassian__jira_create_issue_link
+```
+
+```json
+{
+  "type": "Blocks",
+  "inward_issue": "ORDERS-124",
+  "outward_issue": "ORDERS-125"
+}
+```
+
+---
+
+## Epic Assignment
+
+After tickets are finalized and user approves, prompt for epic assignment.
+
+### Workflow
+
+1. **Ask user**: "Which epic should these tickets be assigned to?"
+2. **Search existing epics** via MCP based on user's input (fuzzy match)
+3. **Present options**: Show matching epics or offer to create new
+4. **Assign tickets**: Link all tickets to chosen epic(s)
+
+### Prompting Examples
+
+**Single epic (common case):**
+```
+User: "assign to the orders epic"
+→ Search for epics matching "orders"
+→ Present matches: "Found: ORDERS-100 'Order Processing Platform'. Assign all tickets here?"
+```
+
+**Multiple epics:**
+```
+User: "API tickets to backend-infra epic, UI tickets to frontend-redesign"
+→ Search for both epics
+→ Assign accordingly
+```
+
+**No match:**
+```
+User: "assign to payments epic"
+→ Search returns no results
+→ "No epic found matching 'payments'. Create new epic 'Payments' or search again?"
+```
+
+### MCP Commands
+
+**Search for epics:**
+
+```
+mcp__mcp-atlassian__jira_search
+```
+
+```json
+{
+  "jql": "project = YOUR_PROJECT AND issuetype = Epic AND summary ~ 'orders' ORDER BY updated DESC",
+  "limit": 5
+}
+```
+
+**Assign ticket to epic:**
+
+```
+mcp__mcp-atlassian__jira_update_issue
+```
+
+```json
+{
+  "issue_key": "ORDERS-124",
+  "additional_fields": {
+    "parent": "ORDERS-100"
+  }
+}
+```
+
+Note: Epic linking uses the `parent` field in next-gen projects, or `customfield_10014` (Epic Link) in classic projects. Check your Jira configuration.
+
+**Create new epic (if needed):**
+
+```
+mcp__mcp-atlassian__jira_create_issue
+```
+
+```json
+{
+  "project_key": "YOUR_PROJECT",
+  "summary": "Payments Integration",
+  "issue_type": "Epic",
+  "description": "Epic for payments-related work"
+}
+```
+
+### After Ticket Creation
+
+Always end with:
+1. "Tickets created. Which epic should I assign them to?"
+2. Wait for user input
+3. Fuzzy search epics
+4. Confirm and assign
+
+---
+
 ## Checklist
 
 Before finalizing a ticket:
 
-1. Title follows `[service-name] Description` format
-2. Correct ticket type selected (Feature/Bug/Spike/Chore)
+1. Title follows `[service-name] [TYPE] Description` format
+2. Correct ticket type selected (FEATURE/BUG/SPIKE/CHORE)
 3. Description explains the "what" and "why"
-4. Acceptance criteria: Gherkin for behavior, checkboxes for technical
+4. Acceptance criteria: checkboxes for technical, Gherkin only for complex multi-step flows
 5. State transitions table included (or "stateless" stated explicitly)
 6. API/Contract section for any events or endpoints
 7. Dependencies identified with abstraction strategy
@@ -334,3 +609,6 @@ Before finalizing a ticket:
 9. For Bugs: repro steps + expected vs actual
 10. For Spikes: time box + expected outputs
 11. For Chores: "why now" + risk + validation
+12. Multi-component? Split into linked tickets with blocks/blocked by
+13. Component suffix added if multi-component: (API), (UI), (SDK), etc.
+14. After creation: prompt for epic assignment (search existing or create new)
