@@ -19,6 +19,7 @@ local options = {
     jsonc = { "prettierd" },
     -- markdown = { "prettierd" },
     graphql = { "prettierd" },
+    svelte = { "prettierd" },
     handlebars = { "prettierd" },
     lua = { "stylua" },
     terraform = { "terraform_fmt" },

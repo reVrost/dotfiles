@@ -280,6 +280,7 @@ local plugins = {
         "markdown",
         "markdown_inline",
         "templ",
+        "svelte",
       },
       incremental_selection = {
         enable = true,
@@ -387,6 +388,7 @@ local plugins = {
           "css-lsp",
           "html-lsp",
           "typescript-language-server",
+          "svelte-language-server",
           "deno",
           "prettier",
           "prettierd",

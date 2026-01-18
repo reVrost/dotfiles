@@ -317,6 +317,19 @@ if [ -f ~/.zshrc.local ]; then
     . ~/.zshrc.local
 fi
 
+# Log colorizer - pipe logs through this
+# Usage: tail -f app.log | logc
+logc() {
+  sed -E \
+    -e "s/(INFO)/${fg[blue]}\1${reset_color}/gi" \
+    -e "s/(DEBUG)/${fg[white]}\1${reset_color}/gi" \
+    -e "s/(WARN(ING)?)/${fg[yellow]}\1${reset_color}/gi" \
+    -e "s/(ERROR)/${fg[red]}\1${reset_color}/gi"
+}
+
 # opencode
 export PATH=/Users/kenley/.opencode/bin:$PATH
 eval "$(mise activate zsh)"
+
+# Added by Antigravity
+export PATH="/Users/revrost/.antigravity/antigravity/bin:$PATH"
