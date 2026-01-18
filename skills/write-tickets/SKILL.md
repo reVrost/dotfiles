@@ -48,7 +48,7 @@ Choose the appropriate type based on the work:
 New functionality or significant changes. Uses complete template with all sections.
 
 ```markdown
-## Description
+## Overview
 ## Acceptance Criteria
 ## State Transitions
 ## API / Contract
@@ -62,7 +62,7 @@ New functionality or significant changes. Uses complete template with all sectio
 Lighter template focused on reproduction and fix verification.
 
 ```markdown
-## Description
+## Overview
 
 {What is broken}
 
@@ -96,7 +96,7 @@ Lighter template focused on reproduction and fix verification.
 Time-boxed research with defined outputs.
 
 ```markdown
-## Description
+## Overview
 
 {What we need to learn/decide}
 
@@ -126,7 +126,7 @@ Time-boxed research with defined outputs.
 Maintenance work requiring justification.
 
 ```markdown
-## Description
+## Overview
 
 {What needs to be cleaned up/improved}
 
@@ -184,7 +184,7 @@ Create separate tickets and link them with "blocks/blocked by" relationships:
 Each ticket is standalone but references related work:
 
 ```markdown
-## Description
+## Overview
 
 {What this component needs to do}
 
@@ -227,7 +227,7 @@ Example: `[fn-orders] [FEATURE] Add order cancellation (API)`
 ## Full Feature Template
 
 ```markdown
-## Description
+## Overview
 
 {1-2 sentences explaining what needs to be built and why}
 
@@ -433,52 +433,41 @@ Include JSON example for readability:
 
 ## MCP Integration (Jira)
 
-When creating tickets via MCP, use the Atlassian MCP tools.
+When creating tickets via MCP, use the Atlassian MCP tools. Always use Markdown format for descriptions.
 
 ### Create Issue
 
 ```
-mcp__mcp-atlassian__jira_create_issue
+mcp__atlassian__createJiraIssue
 ```
 
 Parameters:
 ```json
 {
-  "project_key": "YOUR_PROJECT",
+  "cloudId": "YOUR_CLOUD_ID",
+  "projectKey": "YOUR_PROJECT",
+  "issueTypeName": "Task",
   "summary": "[service-name] [TYPE] Task description",
-  "issue_type": "Task",
-  "description": "Full ticket content in Jira Wiki markup"
+  "description": "Full ticket content in Markdown format"
 }
 ```
 
-### Jira Wiki Markup
-
-Jira uses Wiki markup, not Markdown:
-
-| Markdown | Jira Wiki |
-|----------|-----------|
-| `## Heading` | `h2. Heading` |
-| `**bold**` | `*bold*` |
-| `- item` | `* item` |
-| `  - nested` | `** nested` |
-| `` `code` `` | `{{code}}` |
-| `[text](url)` | `[text\|url]` |
-
-### Example: Create with Description
+### Example: Create with Overview
 
 ```json
 {
-  "project_key": "ORDERS",
+  "cloudId": "YOUR_CLOUD_ID",
+  "projectKey": "ORDERS",
+  "issueTypeName": "Task",
   "summary": "[fn-execute-order] [FEATURE] Implement Submit Order",
-  "issue_type": "Task",
-  "description": "h2. Description\n\nImplement order submission flow.\n\nh2. Acceptance Criteria\n\n* Idempotent via order_id\n* NACK on 5XX\n* Outbox events for all transitions"
+  "description": "## Overview\n\nImplement order submission flow.\n\n## Acceptance Criteria\n\n- [ ] Idempotent via order_id\n- [ ] NACK on 5XX\n- [ ] Outbox events for all transitions"
 }
 ```
 
 ### Transition Issue
 
 ```
-mcp__mcp-atlassian__jira_transition_issue
+mcp__atlassian__transitionJiraIssue
 ```
 
 Common transitions:
@@ -486,20 +475,6 @@ Common transitions:
 - To Do → In Progress
 - In Progress → Done
 - Any → Blocked
-
-### Add Blocker Link
-
-```
-mcp__mcp-atlassian__jira_create_issue_link
-```
-
-```json
-{
-  "type": "Blocks",
-  "inward_issue": "ORDERS-124",
-  "outward_issue": "ORDERS-125"
-}
-```
 
 ---
 
@@ -542,27 +517,29 @@ User: "assign to payments epic"
 **Search for epics:**
 
 ```
-mcp__mcp-atlassian__jira_search
+mcp__atlassian__searchJiraIssuesUsingJql
 ```
 
 ```json
 {
+  "cloudId": "YOUR_CLOUD_ID",
   "jql": "project = YOUR_PROJECT AND issuetype = Epic AND summary ~ 'orders' ORDER BY updated DESC",
-  "limit": 5
+  "maxResults": 5
 }
 ```
 
 **Assign ticket to epic:**
 
 ```
-mcp__mcp-atlassian__jira_update_issue
+mcp__atlassian__editJiraIssue
 ```
 
 ```json
 {
-  "issue_key": "ORDERS-124",
-  "additional_fields": {
-    "parent": "ORDERS-100"
+  "cloudId": "YOUR_CLOUD_ID",
+  "issueIdOrKey": "ORDERS-124",
+  "fields": {
+    "parent": { "key": "ORDERS-100" }
   }
 }
 ```
@@ -572,14 +549,15 @@ Note: Epic linking uses the `parent` field in next-gen projects, or `customfield
 **Create new epic (if needed):**
 
 ```
-mcp__mcp-atlassian__jira_create_issue
+mcp__atlassian__createJiraIssue
 ```
 
 ```json
 {
-  "project_key": "YOUR_PROJECT",
+  "cloudId": "YOUR_CLOUD_ID",
+  "projectKey": "YOUR_PROJECT",
+  "issueTypeName": "Epic",
   "summary": "Payments Integration",
-  "issue_type": "Epic",
   "description": "Epic for payments-related work"
 }
 ```
@@ -600,7 +578,7 @@ Before finalizing a ticket:
 
 1. Title follows `[service-name] [TYPE] Description` format
 2. Correct ticket type selected (FEATURE/BUG/SPIKE/CHORE)
-3. Description explains the "what" and "why"
+3. Overview explains the "what" and "why"
 4. Acceptance criteria: checkboxes for technical, Gherkin only for complex multi-step flows
 5. State transitions table included (or "stateless" stated explicitly)
 6. API/Contract section for any events or endpoints
