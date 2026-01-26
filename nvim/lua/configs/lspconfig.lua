@@ -91,6 +91,18 @@ vim.lsp.config["ts_ls"] = {
 }
 vim.lsp.enable "ts_ls"
 
+-- Svelte LSP (disable formatting - using conform.nvim)
+vim.lsp.config["svelte"] = {
+  on_attach = function(client)
+    -- client.server_capabilities.documentFormattingProvider = false
+    -- client.server_capabilities.documentRangeFormattingProvider = false
+    attach(client) -- Ensure default on_attach is called
+  end,
+  capabilities = capabilities,
+  filetypes = { "svelte" },
+}
+vim.lsp.enable "svelte"
+
 -- Lua LSP
 vim.lsp.config["lua_ls"] = {
   on_attach = attach,

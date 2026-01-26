@@ -147,6 +147,11 @@ defaults write -g NSWindowShouldDragOnGesture YES
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 gwi() {
+  if ! command -v fzf &> /dev/null; then
+    echo "Error: 'fzf' is not installed."
+    return 1
+  fi
+
   local choice
   choice=$(printf "List existing\nAdd new" | fzf --prompt="Worktree action: ")
 
@@ -154,12 +159,35 @@ gwi() {
     local dir
     dir=$(git worktree list --porcelain | awk '/worktree /{print $2}' | fzf --prompt="Select worktree: ")
     [ -n "$dir" ] && cd "$dir"
+
   elif [[ $choice == "Add new" ]]; then
-    local branch newdir
-    branch=$(git branch --sort=-committerdate | sed 's/..//' | fzf --prompt="Select branch for new worktree: ")
-    [ -z "$branch" ] && return
-    newdir="../${branch//\//-}"
-    git worktree add "$newdir" "$branch" && cd "$newdir"
+    local base branch newdir
+
+    base=$(git branch --sort=-committerdate | sed 's/^[* ]*//' | fzf --prompt="Base branch: ")
+    [ -z "$base" ] && echo "No base branch selected. Exiting." && return
+
+    # Zsh compatible read syntax
+    printf "New branch name: "
+    read branch
+    [ -z "$branch" ] && echo "No branch name entered. Exiting." && return
+
+    # Get the parent directory of the current git repo
+    local repo_parent
+    repo_parent=$(dirname "$(git rev-parse --show-toplevel)")
+    newdir="$repo_parent/${branch//\//-}"
+
+    if [[ -d "$newdir" ]]; then
+      echo "Error: Directory '$newdir' already exists."
+      return 1
+    fi
+
+    if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+      echo "Error: Branch '$branch' already exists."
+      return 1
+    fi
+
+    echo "Creating worktree in $newdir..."
+    git worktree add -b "$branch" "$newdir" "$base" && cd "$newdir"
   fi
 }
 
