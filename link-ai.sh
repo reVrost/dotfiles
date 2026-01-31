@@ -11,4 +11,4 @@ ln -sfn $(pwd)/commands "$HOME/.config/crush/commands"
 ln -sfn $(pwd)/skills "$HOME/.config/crush/skills"
 
 mkdir -p "$HOME/.codex"
-ln -sfn $(pwd)/codex "$HOME/.codex"
+ln -sfn $(pwd)/codex/config.toml "$HOME/.codex/config.toml"
