@@ -3,10 +3,12 @@
 # This script is used to link the AI related things
 
 mkdir -p "$HOME/.claude"
-ln -s $(pwd)/commands "$HOME/.claude/commands"
-ln -s $(pwd)/skills "$HOME/.claude/skills"
+ln -sfn $(pwd)/commands "$HOME/.claude/commands"
+ln -sfn $(pwd)/skills "$HOME/.claude/skills"
 
 mkdir -p "$HOME/.config/crush"
-ln -s $(pwd)/commands "$HOME/.config/crush/commands"
-ln -s $(pwd)/skills "$HOME/.config/crush/skills"
+ln -sfn $(pwd)/commands "$HOME/.config/crush/commands"
+ln -sfn $(pwd)/skills "$HOME/.config/crush/skills"
 
+mkdir -p "$HOME/.codex"
+ln -sfn $(pwd)/codex "$HOME/.codex"
