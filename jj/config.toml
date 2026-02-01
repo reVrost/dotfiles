@@ -9,5 +9,5 @@ name = "reVrost"
 email = "revrost@gmail.com"
 
 [aliases]
-tug = ["bookmark", "move", "main", "--to", "@"]
+tug = ["bookmark", "set", "main", "--to", "@"]
 pm = ["bookmark", "set", "main", "-r", "@", "&&", "git", "push"]

@@ -14,4 +14,4 @@ mkdir -p "$HOME/.codex"
 ln -sfn $(pwd)/codex/config.toml "$HOME/.codex/config.toml"
 
 mkdir -p "$HOME/.jj"
-ln -sfn $(pwd)/jj/config.toml "$HOME/.jj/config.toml"
+ln -sfn $(pwd)/jj/config.toml "$HOME/.config/jj/config.toml"
