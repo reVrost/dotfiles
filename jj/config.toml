@@ -1,0 +1,13 @@
+[ui]
+diff-formatter = "delta"
+
+[merge-tools]
+delta.diff-expected-exit-codes = [0, 1]
+
+[user]
+name = "reVrost"
+email = "revrost@gmail.com"
+
+[aliases]
+tug = ["bookmark", "move", "main", "--to", "@"]
+pm = ["bookmark", "set", "main", "-r", "@", "&&", "git", "push"]

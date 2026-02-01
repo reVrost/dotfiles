@@ -3,6 +3,7 @@ model_reasoning_effort = "high"
 suppress_unstable_features_warning = true
 tool_output_token_limit = 25000  # Leave room for native compaction near the 272–273k context window.
 model_auto_compact_token_limit = 233000
+web_search = "cached"
 
 [projects."/Users/revrost/Code/counterspell"]
 trust_level = "trusted"
@@ -19,7 +20,6 @@ unified_exec = true
 shell_snapshot = true
 collab = true
 steer = true
-web_search_request = true
 collaboration_modes = true
 
 [mcp_servers.context7]
