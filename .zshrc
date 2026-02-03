@@ -361,3 +361,9 @@ eval "$(mise activate zsh)"
 
 # Added by Antigravity
 export PATH="/Users/revrost/.antigravity/antigravity/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; then . '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
