@@ -272,6 +272,21 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 
+# @ fuzzy file search — type @ to search files inline (like agentic coding tools)
+_at_file_search() {
+  local selected
+  selected=$( (fd --type f --hidden --exclude .git 2>/dev/null || find . -type f -not -path '*/.git/*' | sed 's|^\./||') | fzf --height=40% --reverse --border --prompt="@ " )
+
+  if [[ -n "$selected" ]]; then
+    LBUFFER+="$selected"
+  else
+    LBUFFER+="@"
+  fi
+  zle reset-prompt
+}
+zle -N _at_file_search
+bindkey '@' _at_file_search
+
 # Work specific
 kdev() {
     echo "might need: aws sso login"
