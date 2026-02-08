@@ -1,5 +1,5 @@
-model = "gpt-5.2-codex"
-model_reasoning_effort = "xhigh"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "high"
 suppress_unstable_features_warning = true
 tool_output_token_limit = 25000  # Leave room for native compaction near the 272–273k context window.
 model_auto_compact_token_limit = 233000
@@ -16,6 +16,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/revrost/Code/cs-platform"]
+trust_level = "trusted"
+
+[projects."/Users/revrost/Code/pi-mono"]
+trust_level = "trusted"
+
+[projects."/Users/revrost/Code/jjws-cs-platform-task-routing"]
 trust_level = "trusted"
 
 [sandbox]
