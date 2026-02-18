@@ -97,6 +97,7 @@ bindkey -M viins "^ " magic-space
 bindkey -M isearch " " magic-space
 
 # Aliases
+alias codex="codex --yolo"
 alias ssh="kitty +kitten ssh"
 alias bg='screen -d -m "$@"'
 alias ch="curl cht.sh/$1"
@@ -108,6 +109,7 @@ alias vic="cd ~/.config/nvim/lua;nvim"
 alias vik="nvim ~/.config/kitty/kitty.conf"
 alias vim="nvim"
 alias vz="nvim ~/.zshrc"
+alias jtug='jj tug && jj git push'
 
 # git checkout interactive
 alias gci='git checkout $(git branch --sort=-committerdate | head -n 5 | fzf)'
