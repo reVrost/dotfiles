@@ -382,3 +382,4 @@ if [ -f '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/path.zsh.inc' ]; the
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/completion.zsh.inc' ]; then . '/Users/kenley.bastari/Downloads/google-cloud-sdk 2/completion.zsh.inc'; fi
+source <(kubectl completion zsh)
