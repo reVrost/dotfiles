@@ -98,7 +98,7 @@ bindkey -M isearch " " magic-space
 
 # Aliases
 alias codex="codex --yolo"
-alias codex="claude ---dangerously-skip-permissions"
+alias claude="claude ---dangerously-skip-permissions"
 alias ssh="kitty +kitten ssh"
 alias bg='screen -d -m "$@"'
 alias ch="curl cht.sh/$1"
